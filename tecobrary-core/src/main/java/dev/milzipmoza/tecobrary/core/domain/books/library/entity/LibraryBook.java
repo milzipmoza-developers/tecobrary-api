@@ -1,12 +1,15 @@
 package dev.milzipmoza.tecobrary.core.domain.books.library.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
+import dev.milzipmoza.tecobrary.core.domain.book.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.books.BookInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,7 +26,11 @@ public class LibraryBook extends BaseTimeEntity {
     })
     private BookInfo bookInfo;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "libraryBook")
+    private List<Book> books = new ArrayList<>();
+
     public LibraryBook(BookInfo bookInfo) {
         this.bookInfo = bookInfo;
     }
 }
+

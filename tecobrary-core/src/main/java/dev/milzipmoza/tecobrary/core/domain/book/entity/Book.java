@@ -1,0 +1,33 @@
+package dev.milzipmoza.tecobrary.core.domain.book.entity;
+
+
+import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
+import dev.milzipmoza.tecobrary.core.domain.books.library.entity.LibraryBook;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Book extends BaseTimeEntity {
+
+    @Column(nullable = false)
+    private String bookSerial;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BookStatus bookStatus;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "library_book_id")
+    private LibraryBook libraryBook;
+
+    public Book(String bookSerial, LibraryBook libraryBook) {
+        this.bookSerial = bookSerial;
+        this.bookStatus = BookStatus.IN_LIBRARY;
+        this.libraryBook = libraryBook;
+    }
+}
