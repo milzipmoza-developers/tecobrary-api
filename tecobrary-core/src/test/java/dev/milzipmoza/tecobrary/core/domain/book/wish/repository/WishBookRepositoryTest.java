@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.book.wish.repository;
 
-import dev.milzipmoza.tecobrary.core.domain.book.Book;
+import dev.milzipmoza.tecobrary.core.domain.book.BookInfo;
 import dev.milzipmoza.tecobrary.core.domain.book.wish.entity.WishBook;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthProvider;
@@ -25,7 +25,7 @@ class WishBookRepositoryTest {
     @Test
     void wishBookSave() {
         WishBook wishBook = WishBook.builder()
-                .book(Book.builder()
+                .bookInfo(BookInfo.builder()
                         .title("제목")
                         .author("작가")
                         .publisher("출판사")

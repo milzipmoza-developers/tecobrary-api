@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.core.domain.book.library.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
-import dev.milzipmoza.tecobrary.core.domain.book.Book;
+import dev.milzipmoza.tecobrary.core.domain.book.BookInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,9 +21,9 @@ public class LibraryBook extends BaseTimeEntity {
             @AttributeOverride(name = "publisher", column = @Column(name = "publisher", nullable = false)),
             @AttributeOverride(name = "description", column = @Column(name = "description", nullable = false))
     })
-    private Book book;
+    private BookInfo bookInfo;
 
-    public LibraryBook(Book book) {
-        this.book = book;
+    public LibraryBook(BookInfo bookInfo) {
+        this.bookInfo = bookInfo;
     }
 }

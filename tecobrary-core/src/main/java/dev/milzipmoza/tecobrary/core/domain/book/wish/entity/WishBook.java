@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.core.domain.book.wish.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
-import dev.milzipmoza.tecobrary.core.domain.book.Book;
+import dev.milzipmoza.tecobrary.core.domain.book.BookInfo;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,15 +23,15 @@ public class WishBook extends BaseTimeEntity {
             @AttributeOverride(name = "publisher", column = @Column(name = "publisher", nullable = false)),
             @AttributeOverride(name = "description", column = @Column(name = "description", nullable = false))
     })
-    private Book book;
+    private BookInfo bookInfo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "wish_member_id")
     private Member wishMember;
 
     @Builder
-    public WishBook(Book book, Member wishMember) {
-        this.book = book;
+    public WishBook(BookInfo bookInfo, Member wishMember) {
+        this.bookInfo = bookInfo;
         this.wishMember = wishMember;
     }
 }

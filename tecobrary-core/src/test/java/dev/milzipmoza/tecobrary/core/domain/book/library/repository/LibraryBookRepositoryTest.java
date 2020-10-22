@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.book.library.repository;
 
-import dev.milzipmoza.tecobrary.core.domain.book.Book;
+import dev.milzipmoza.tecobrary.core.domain.book.BookInfo;
 import dev.milzipmoza.tecobrary.core.domain.book.library.entity.LibraryBook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ class LibraryBookRepositoryTest {
 
     @Test
     void saveTest() {
-        LibraryBook libraryBook = new LibraryBook(Book.builder()
+        LibraryBook libraryBook = new LibraryBook(BookInfo.builder()
                 .title("제목")
                 .author("작가")
                 .publisher("출판사")
