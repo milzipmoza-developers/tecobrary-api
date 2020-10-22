@@ -1,6 +1,6 @@
 ---
 spring:
-  profilesy: local
+  profiles: local
   datasource:
     url: jdbc:mysql://localhost:3306/new_tecobrary?serverTimezone=UTC&useSSL=false
     username: root
