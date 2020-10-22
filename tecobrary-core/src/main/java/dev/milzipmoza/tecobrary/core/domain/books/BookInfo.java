@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.core.domain.book;
+package dev.milzipmoza.tecobrary.core.domain.books;
 
 import lombok.*;
 

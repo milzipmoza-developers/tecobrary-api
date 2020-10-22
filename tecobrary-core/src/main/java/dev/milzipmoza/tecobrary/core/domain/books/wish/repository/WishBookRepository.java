@@ -1,6 +1,6 @@
-package dev.milzipmoza.tecobrary.core.domain.book.wish.repository;
+package dev.milzipmoza.tecobrary.core.domain.books.wish.repository;
 
-import dev.milzipmoza.tecobrary.core.domain.book.wish.entity.WishBook;
+import dev.milzipmoza.tecobrary.core.domain.books.wish.entity.WishBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

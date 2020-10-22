@@ -1,7 +1,7 @@
-package dev.milzipmoza.tecobrary.core.domain.book.wish.repository;
+package dev.milzipmoza.tecobrary.core.domain.books.wish.repository;
 
-import dev.milzipmoza.tecobrary.core.domain.book.BookInfo;
-import dev.milzipmoza.tecobrary.core.domain.book.wish.entity.WishBook;
+import dev.milzipmoza.tecobrary.core.domain.books.BookInfo;
+import dev.milzipmoza.tecobrary.core.domain.books.wish.entity.WishBook;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthProvider;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthService;

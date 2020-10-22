@@ -1,6 +1,6 @@
-package dev.milzipmoza.tecobrary.core.domain.book.library.repository;
+package dev.milzipmoza.tecobrary.core.domain.books.library.repository;
 
-import dev.milzipmoza.tecobrary.core.domain.book.library.entity.LibraryBook;
+import dev.milzipmoza.tecobrary.core.domain.books.library.entity.LibraryBook;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

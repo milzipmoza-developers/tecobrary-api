@@ -1,17 +1,19 @@
-package dev.milzipmoza.tecobrary.core.domain.book.library.entity;
+package dev.milzipmoza.tecobrary.core.domain.books.wish.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
-import dev.milzipmoza.tecobrary.core.domain.book.BookInfo;
+import dev.milzipmoza.tecobrary.core.domain.books.BookInfo;
+import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LibraryBook extends BaseTimeEntity {
+@Getter
+@Entity
+public class WishBook extends BaseTimeEntity {
 
     @Embedded
     @AttributeOverrides({
@@ -23,7 +25,13 @@ public class LibraryBook extends BaseTimeEntity {
     })
     private BookInfo bookInfo;
 
-    public LibraryBook(BookInfo bookInfo) {
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "wish_member_id")
+    private Member wishMember;
+
+    @Builder
+    public WishBook(BookInfo bookInfo, Member wishMember) {
         this.bookInfo = bookInfo;
+        this.wishMember = wishMember;
     }
 }
