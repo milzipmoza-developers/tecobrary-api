@@ -1,0 +1,31 @@
+plugins {
+    id "org.asciidoctor.convert" version "1.5.8"
+    id "org.springframework.boot"
+}
+
+bootJar {
+    enabled = true
+}
+
+apply plugin: "org.asciidoctor.convert"
+
+dependencies {
+    implementation project(":tecobrary-core")
+
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc"
+}
+
+ext {
+    set("snippetsDir", file("build/generated-snippets"))
+}
+
+test {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
