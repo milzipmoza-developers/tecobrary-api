@@ -18,7 +18,7 @@ public class LibraryBook extends BaseTimeEntity {
             @AttributeOverride(name = "title", column = @Column(name = "title", nullable = false)),
             @AttributeOverride(name = "isbn", column = @Column(name = "isbn", nullable = false, unique = true)),
             @AttributeOverride(name = "author", column = @Column(name = "author", nullable = false)),
-            @AttributeOverride(name = "publisher", column = @Column(name = "publisher", nullable = false)),
+            @AttributeOverride(name = "publication", column = @Column(name = "publication", nullable = false)),
             @AttributeOverride(name = "description", column = @Column(name = "description", nullable = false))
     })
     private BookInfo bookInfo;
