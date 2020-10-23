@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.AttributeOverride;
-import javax.persistence.AttributeOverrides;
-import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -17,10 +14,14 @@ import javax.persistence.Entity;
 public class Member extends BaseTimeEntity {
 
     @Column
-    private String memberNumber;
+    private String number;
 
     @Column
     private String nickName;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MemberAuthority authority;
 
     @AttributeOverrides({
             @AttributeOverride(name = "key", column = @Column(name = "auth_service_key", nullable = false)),
@@ -28,14 +29,15 @@ public class Member extends BaseTimeEntity {
     })
     private MemberAuthService authService;
 
-    @Column
-    private boolean authenticated;
-
     @Builder
-    public Member(String memberNumber, String nickName, MemberAuthService authService, boolean authenticated) {
-        this.memberNumber = memberNumber;
+    private Member(String number, String nickName, MemberAuthService authService) {
+        this.number = number;
         this.nickName = nickName;
+        this.authority = MemberAuthority.UNAUTHORIZED;
         this.authService = authService;
-        this.authenticated = authenticated;
+    }
+
+    public void updateAuthority(MemberAuthority authority) {
+        this.authority = authority;
     }
 }

@@ -24,10 +24,9 @@ class MemberRepositoryTest {
     void save() {
 
         Member member = Member.builder()
-                .memberNumber("memberNumber")
+                .number("memberNumber")
                 .nickName("luffy")
                 .authService(new MemberAuthService("12346578", MemberAuthProvider.GITHUB))
-                .authenticated(false)
                 .build();
 
         Member savedMember = memberRepository.saveAndFlush(member);
