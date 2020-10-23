@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,9 +27,19 @@ public class Book extends BaseTimeEntity {
     @JoinColumn(name = "library_book_id")
     private LibraryBook libraryBook;
 
+    @OneToMany(mappedBy = "book", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<BookStatusHistory> bookStatusHistories = new ArrayList<>();
+
     public Book(String bookSerial, LibraryBook libraryBook) {
         this.bookSerial = bookSerial;
         this.bookStatus = BookStatus.IN_LIBRARY;
         this.libraryBook = libraryBook;
+
+        saveHistory();
+    }
+
+    private void saveHistory() {
+        BookStatusHistory bookStatusHistory = new BookStatusHistory(this.bookStatus, this);
+        this.bookStatusHistories.add(bookStatusHistory);
     }
 }
