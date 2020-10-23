@@ -1,6 +1,9 @@
 package dev.milzipmoza.tecobrary.core.domain.books;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
@@ -21,6 +24,18 @@ public class BookInfo {
         this.isbn = isbn;
         this.author = author;
         this.publication = publication;
+        this.description = description;
+    }
+
+    public void updateAuthor(String author) {
+        this.author = author;
+    }
+
+    public void updatePublication(String publication) {
+        this.publication = publication;
+    }
+
+    public void updateDescription(String description) {
         this.description = description;
     }
 }
