@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "${naver-api.name}", url = "${naver-api.url}", configuration = NaverApiConfiguration.class)
-public interface NaverApiController {
+public interface NaverApiClient {
 
     @GetMapping("/v1/search/book.json")
     NaverApiSearchBookResponse findBooks(@RequestParam("query") String query,
