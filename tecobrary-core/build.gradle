@@ -5,12 +5,23 @@ jar {
     enabled = true
 }
 
+ext {
+    set('springCloudVersion', "2020.0.0-SNAPSHOT")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-jpa"
     implementation "com.github.kingbbode:spring-boot-custom-yaml-importer:0.1.0"
     implementation "mysql:mysql-connector-java"
     implementation "com.querydsl:querydsl-core:4.4.0"
     implementation "com.querydsl:querydsl-jpa:4.4.0"
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
 
     testImplementation "com.h2database:h2"
 
