@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollRequest;
 import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollResponse;
 import dev.milzipmoza.tecobrary.api.admin.librarybook.facade.LibraryBookFacade;
+import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookAlreadyEnrolledException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.ENROLL_LIBRARY_BOOK_FAILED;
 import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.ENROLL_LIBRARY_BOOK_SUCCESS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -88,6 +90,38 @@ class LibraryBookControllerTest {
                                 fieldWithPath("data.image").description("등록된 책의 이미지"),
                                 fieldWithPath("data.description").description("등록된 책의 요약"),
                                 fieldWithPath("data.isbn").description("등록된 책의 ISBN")
+                        ))
+                );
+    }
+
+    @Test
+    void enrollFailed() throws Exception {
+        String content = objectMapper.writeValueAsString(LibraryBookEnrollRequest.builder()
+                .title("자바 ORM 표준 JPA 프로그래밍")
+                .author("김영한")
+                .publisher("에이콘")
+                .description("JPA 기본서")
+                .isbn("1Q2W3E4R 5T6Y7U8I")
+                .image("https://book.image/path.jpg")
+                .build());
+
+        given(libraryBookFacade.enroll(any()))
+                .willThrow(new LibraryBookAlreadyEnrolledException());
+
+        this.mockMvc.perform(put("/admin/library-books")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value("FAIL"))
+                .andExpect(jsonPath("$.message").value(ENROLL_LIBRARY_BOOK_FAILED))
+                .andExpect(jsonPath("$.serverDateTime").isNotEmpty())
+                .andExpect(jsonPath("$.data").isEmpty())
+                .andDo(document("library-book/enroll-failed",
+                        responseFields(
+                                fieldWithPath("status").description("응답 상태"),
+                                fieldWithPath("message").description("응답 메시지"),
+                                fieldWithPath("serverDateTime").description("응답 서버 시간"),
+                                fieldWithPath("data").description("응답 데이터")
                         ))
                 );
     }
