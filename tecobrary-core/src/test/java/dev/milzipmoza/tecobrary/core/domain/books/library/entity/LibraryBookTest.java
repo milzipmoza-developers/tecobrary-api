@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LibraryBookTest {
 
     private static final String UPDATE_AUTHOR = "요리왕 상디";
-    private static final String UPDATE_PUBLICATION = "발라티에 출판사";
+    private static final String UPDATE_PUBLISHER = "발라티에 출판사";
     private static final String UPDATE_DESCRIPTION = "내 요리는 레이디들을 위한 요리~";
 
     @Test
@@ -19,16 +19,16 @@ class LibraryBookTest {
                 .title("제목")
                 .isbn("isbn")
                 .author("개발왕루피")
-                .publication("밀짚모자출판사")
+                .publisher("밀짚모자출판사")
                 .description("이것은 책의 간단한 설명을 담는 곳이여")
                 .build());
 
-        libraryBook.updateBookInfo(UPDATE_AUTHOR, UPDATE_PUBLICATION, UPDATE_DESCRIPTION);
+        libraryBook.updateBookInfo(UPDATE_AUTHOR, UPDATE_PUBLISHER, UPDATE_DESCRIPTION);
 
         BookInfo bookInfo = libraryBook.getBookInfo();
 
         assertThat(bookInfo.getAuthor()).isEqualTo(UPDATE_AUTHOR);
-        assertThat(bookInfo.getPublication()).isEqualTo(UPDATE_PUBLICATION);
+        assertThat(bookInfo.getPublisher()).isEqualTo(UPDATE_PUBLISHER);
         assertThat(bookInfo.getDescription()).isEqualTo(UPDATE_DESCRIPTION);
     }
 }

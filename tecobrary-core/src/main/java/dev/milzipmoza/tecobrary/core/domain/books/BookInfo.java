@@ -15,15 +15,17 @@ public class BookInfo {
     private String title;
     private String isbn;
     private String author;
-    private String publication;
+    private String imageUrl;
+    private String publisher;
     private String description;
 
     @Builder
-    private BookInfo(String title, String isbn, String author, String publication, String description) {
+    public BookInfo(String title, String isbn, String author, String imageUrl, String publisher, String description) {
         this.title = title;
         this.isbn = isbn;
         this.author = author;
-        this.publication = publication;
+        this.imageUrl = imageUrl;
+        this.publisher = publisher;
         this.description = description;
     }
 
@@ -31,8 +33,8 @@ public class BookInfo {
         this.author = author;
     }
 
-    public void updatePublication(String publication) {
-        this.publication = publication;
+    public void updatePublisher(String publisher) {
+        this.publisher = publisher;
     }
 
     public void updateDescription(String description) {

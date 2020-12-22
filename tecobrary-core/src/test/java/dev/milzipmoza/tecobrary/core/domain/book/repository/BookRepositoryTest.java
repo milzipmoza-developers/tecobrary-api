@@ -26,7 +26,7 @@ class BookRepositoryTest {
                 .title("제목")
                 .isbn("1234")
                 .author("루피")
-                .publication("밀짚모자 출판사")
+                .publisher("밀짚모자 출판사")
                 .description("이것은 책이다.")
                 .build()));
 
