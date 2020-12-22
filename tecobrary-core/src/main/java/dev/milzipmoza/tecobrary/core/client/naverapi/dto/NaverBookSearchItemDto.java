@@ -1,8 +1,11 @@
 package dev.milzipmoza.tecobrary.core.client.naverapi.dto;
 
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class NaverBookSearchItemDto {
 
     private String title;
@@ -12,9 +15,7 @@ public class NaverBookSearchItemDto {
     private String isbn;
     private String description;
 
-    public NaverBookSearchItemDto() {
-    }
-
+    @Builder
     public NaverBookSearchItemDto(String title, String image, String author, String publisher, String isbn, String description) {
         this.title = title;
         this.image = image;
