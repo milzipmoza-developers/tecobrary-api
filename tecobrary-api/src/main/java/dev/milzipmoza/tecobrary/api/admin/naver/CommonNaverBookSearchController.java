@@ -13,11 +13,11 @@ import java.util.List;
 import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.NAVER_API_BOOK_SEARCH_SUCCESS;
 
 @RestController
-public class NaverBookSearchController {
+public class CommonNaverBookSearchController {
 
     private final NaverBookSearchFacade naverBookSearchFacade;
 
-    public NaverBookSearchController(NaverBookSearchFacade naverBookSearchFacade) {
+    public CommonNaverBookSearchController(NaverBookSearchFacade naverBookSearchFacade) {
         this.naverBookSearchFacade = naverBookSearchFacade;
     }
 

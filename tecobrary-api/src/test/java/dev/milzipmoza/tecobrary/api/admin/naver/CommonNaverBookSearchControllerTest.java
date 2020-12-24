@@ -25,9 +25,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@WebMvcTest(NaverBookSearchController.class)
+@WebMvcTest(CommonNaverBookSearchController.class)
 @AutoConfigureRestDocs
-class NaverBookSearchControllerTest {
+class CommonNaverBookSearchControllerTest {
 
     @MockBean
     private NaverBookSearchFacade naverBookSearchFacade;

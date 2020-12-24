@@ -18,7 +18,7 @@ import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class LibraryBookController {
+public class AdminLibraryBookController {
 
     private final LibraryBookFacade libraryBookFacade;
 

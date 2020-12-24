@@ -28,9 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@WebMvcTest(LibraryBookController.class)
+@WebMvcTest(AdminLibraryBookController.class)
 @AutoConfigureRestDocs
-class LibraryBookControllerTest {
+class AdminLibraryBookControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
