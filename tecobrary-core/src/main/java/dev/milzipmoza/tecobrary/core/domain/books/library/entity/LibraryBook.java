@@ -34,8 +34,10 @@ public class LibraryBook extends BaseTimeEntity {
         this.bookInfo = bookInfo;
     }
 
-    public void updateBookInfo(String author, String publisher, String description) {
+    public void updateBookInfo(String title, String author, String imageUrl, String publisher, String description) {
+        this.bookInfo.updateTitle(title);
         this.bookInfo.updateAuthor(author);
+        this.bookInfo.updateImageUrl(imageUrl);
         this.bookInfo.updatePublisher(publisher);
         this.bookInfo.updateDescription(description);
     }

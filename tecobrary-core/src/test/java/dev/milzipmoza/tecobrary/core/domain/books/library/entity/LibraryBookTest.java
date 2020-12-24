@@ -8,7 +8,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class LibraryBookTest {
 
+    private static final String UPDATE_TITLE = "제목";
     private static final String UPDATE_AUTHOR = "요리왕 상디";
+    private static final String UPDATE_IMAGE_URL = "imageUrl";
     private static final String UPDATE_PUBLISHER = "발라티에 출판사";
     private static final String UPDATE_DESCRIPTION = "내 요리는 레이디들을 위한 요리~";
 
@@ -23,11 +25,13 @@ class LibraryBookTest {
                 .description("이것은 책의 간단한 설명을 담는 곳이여")
                 .build());
 
-        libraryBook.updateBookInfo(UPDATE_AUTHOR, UPDATE_PUBLISHER, UPDATE_DESCRIPTION);
+        libraryBook.updateBookInfo(UPDATE_TITLE, UPDATE_AUTHOR, UPDATE_IMAGE_URL, UPDATE_PUBLISHER, UPDATE_DESCRIPTION);
 
         BookInfo bookInfo = libraryBook.getBookInfo();
 
+        assertThat(bookInfo.getTitle()).isEqualTo(UPDATE_TITLE);
         assertThat(bookInfo.getAuthor()).isEqualTo(UPDATE_AUTHOR);
+        assertThat(bookInfo.getImageUrl()).isEqualTo(UPDATE_IMAGE_URL);
         assertThat(bookInfo.getPublisher()).isEqualTo(UPDATE_PUBLISHER);
         assertThat(bookInfo.getDescription()).isEqualTo(UPDATE_DESCRIPTION);
     }

@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.Embeddable;
 
@@ -29,15 +30,33 @@ public class BookInfo {
         this.description = description;
     }
 
+    public void updateTitle(String title) {
+        if (StringUtils.hasLength(title)) {
+            this.title = title;
+        }
+    }
+
     public void updateAuthor(String author) {
-        this.author = author;
+        if (StringUtils.hasLength(author)) {
+            this.author = author;
+        }
     }
 
     public void updatePublisher(String publisher) {
-        this.publisher = publisher;
+        if (StringUtils.hasLength(publisher)) {
+            this.publisher = publisher;
+        }
     }
 
     public void updateDescription(String description) {
-        this.description = description;
+        if (StringUtils.hasLength(description)) {
+            this.description = description;
+        }
+    }
+
+    public void updateImageUrl(String imageUrl) {
+        if (StringUtils.hasLength(imageUrl)) {
+            this.imageUrl = imageUrl;
+        }
     }
 }

@@ -2,8 +2,11 @@ package dev.milzipmoza.tecobrary.api.admin.librarybook.facade;
 
 import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollRequest;
 import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookUpdateRequest;
+import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookUpdateResponse;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookEnrollDto;
+import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookUpdateDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.service.LibraryBookCommandService;
 import dev.milzipmoza.tecobrary.core.domain.books.library.service.LibraryBookQueryService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,19 @@ public class LibraryBookFacade {
                 .build();
         LibraryBookDto enrolledBook = libraryBookCommandService.enroll(enrollDto);
         return LibraryBookEnrollResponse.of(enrolledBook);
+    }
+
+    public LibraryBookUpdateResponse update(LibraryBookUpdateRequest body) {
+        LibraryBookUpdateDto updateDto = LibraryBookUpdateDto.builder()
+                .id(body.getId())
+                .title(body.getTitle())
+                .imageUrl(body.getImage())
+                .author(body.getAuthor())
+                .publisher(body.getPublisher())
+                .description(body.getDescription())
+                .build();
+        LibraryBookDto updatedBook = libraryBookCommandService.update(updateDto);
+        return LibraryBookUpdateResponse.of(updatedBook);
     }
 
     public void delete(Long id) {
