@@ -5,14 +5,18 @@ import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollRespo
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookEnrollDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.service.LibraryBookCommandService;
+import dev.milzipmoza.tecobrary.core.domain.books.library.service.LibraryBookQueryService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class LibraryBookFacade {
 
     private final LibraryBookCommandService libraryBookCommandService;
+    private final LibraryBookQueryService libraryBookQueryService;
 
     public LibraryBookEnrollResponse enroll(LibraryBookEnrollRequest request) {
         LibraryBookEnrollDto enrollDto = LibraryBookEnrollDto.builder()
@@ -25,5 +29,13 @@ public class LibraryBookFacade {
                 .build();
         LibraryBookDto enrolledBook = libraryBookCommandService.enroll(enrollDto);
         return LibraryBookEnrollResponse.of(enrolledBook);
+    }
+
+    public void delete(Long id) {
+        log.info("[LibraryBookFacade][delete][{}] 도서 존재 유무 확인", id);
+        libraryBookQueryService.existsById(id);
+        log.info("[LibraryBookFacade][delete][{}] 도서 제거", id);
+        libraryBookCommandService.deleteById(id);
+        log.info("[LibraryBookFacade][delete][{}] 도서 성공", id);
     }
 }
