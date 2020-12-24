@@ -17,6 +17,11 @@ plugins {
     id "java"
 }
 
+ext {
+    set('springCloudVersion', "2020.0.0-SNAPSHOT")
+    set('lombokVersion', "1.18.16")
+}
+
 allprojects {
     repositories {
         mavenCentral()
@@ -35,14 +40,21 @@ subprojects {
     sourceCompatibility = "11"
     version = "0.0.1-SNAPSHOT"
 
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        }
+    }
+
     dependencies {
         implementation "org.springframework.boot:spring-boot-starter-web"
         implementation "org.springframework.boot:spring-boot-starter-logging"
+        implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
 
         testImplementation "org.springframework.boot:spring-boot-starter-test"
 
-        annotationProcessor "org.projectlombok:lombok:1.18.16"
-        compileOnly "org.projectlombok:lombok:1.18.16"
+        annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+        compileOnly "org.projectlombok:lombok:${lombokVersion}"
     }
 
     task initSourceFolders {
