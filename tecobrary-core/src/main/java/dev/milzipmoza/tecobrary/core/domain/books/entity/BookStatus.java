@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.core.domain.book.entity;
+package dev.milzipmoza.tecobrary.core.domain.books.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

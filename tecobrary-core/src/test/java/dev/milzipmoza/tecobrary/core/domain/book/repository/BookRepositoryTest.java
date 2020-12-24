@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.core.domain.book.repository;
 
-import dev.milzipmoza.tecobrary.core.domain.book.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.books.BookInfo;
+import dev.milzipmoza.tecobrary.core.domain.books.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.books.library.entity.LibraryBook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
