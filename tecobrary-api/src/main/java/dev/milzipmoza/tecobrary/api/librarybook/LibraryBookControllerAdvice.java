@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.api.librarybook;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookNotFoundException;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;

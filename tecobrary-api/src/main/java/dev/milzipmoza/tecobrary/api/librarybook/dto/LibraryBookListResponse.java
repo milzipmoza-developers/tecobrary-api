@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.api.librarybook.dto;
 
-import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

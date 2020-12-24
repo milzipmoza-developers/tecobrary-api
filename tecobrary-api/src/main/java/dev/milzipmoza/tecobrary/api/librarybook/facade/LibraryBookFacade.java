@@ -1,12 +1,12 @@
 package dev.milzipmoza.tecobrary.api.librarybook.facade;
 
 import dev.milzipmoza.tecobrary.api.librarybook.dto.*;
-import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDetailDto;
-import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
-import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookEnrollDto;
-import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookUpdateDto;
-import dev.milzipmoza.tecobrary.core.domain.books.library.service.LibraryBookCommandService;
-import dev.milzipmoza.tecobrary.core.domain.books.library.service.LibraryBookQueryService;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDetailDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookEnrollDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookUpdateDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookCommandService;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookQueryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

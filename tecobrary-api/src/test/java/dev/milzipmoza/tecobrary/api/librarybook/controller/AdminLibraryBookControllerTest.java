@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollRequest;
 import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
-import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookAlreadyEnrolledException;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookAlreadyEnrolledException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.core.domain.rent.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
-import dev.milzipmoza.tecobrary.core.domain.books.entity.Book;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
