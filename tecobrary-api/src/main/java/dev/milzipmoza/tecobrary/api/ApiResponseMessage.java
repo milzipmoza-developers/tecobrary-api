@@ -6,6 +6,8 @@ public class ApiResponseMessage {
 
     public static final String GET_LIBRARY_BOOKS_SUCCESS = "도서 목록 조회에 성공하였습니다.";
 
+    public static final String GET_LIBRARY_BOOK_DETAIL_SUCCESS = "도서 상세 조회에 성공하였습니다.";
+
     public static final String ENROLL_LIBRARY_BOOK_SUCCESS = "도서 등록에 성공하였습니다.";
     public static final String ENROLL_LIBRARY_BOOK_FAILED = "도서 등록에 실패하였습니다. 사유 : 이미 등록된 ISBN";
 

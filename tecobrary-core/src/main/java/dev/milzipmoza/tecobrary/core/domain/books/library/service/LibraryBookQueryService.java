@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.books.library.service;
 
+import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.entity.LibraryBook;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookNotFoundException;
@@ -24,6 +25,12 @@ public class LibraryBookQueryService {
         return books.stream()
                 .map(LibraryBookDto::of)
                 .collect(Collectors.toList());
+    }
+
+    public LibraryBookDetailDto getBook(Long id) {
+        LibraryBook libraryBook = libraryBookRepository.findById(id)
+                .orElseThrow(() -> new LibraryBookNotFoundException(id));
+        return LibraryBookDetailDto.of(libraryBook);
     }
 
     public void existsById(Long id) {

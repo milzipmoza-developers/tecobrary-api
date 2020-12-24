@@ -28,6 +28,11 @@ public class LibraryBookController {
         return ApiResponse.ok(GET_LIBRARY_BOOKS_SUCCESS, response);
     }
 
+    @GetMapping("/admin/library-books/{id}")
+    public ApiResponse<LibraryBookDetailResponse> getLibraryBooks(@PathVariable Long id) {
+        return ApiResponse.ok(GET_LIBRARY_BOOK_DETAIL_SUCCESS, libraryBookFacade.getBookDetail(id));
+    }
+
     @PutMapping("/admin/library-books")
     public ApiResponse<LibraryBookEnrollResponse> enroll(@RequestBody LibraryBookEnrollRequest body) {
         return ApiResponse.ok(ENROLL_LIBRARY_BOOK_SUCCESS, libraryBookFacade.enroll(body));

@@ -1,6 +1,7 @@
 package dev.milzipmoza.tecobrary.api.admin.librarybook.facade;
 
 import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.*;
+import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookEnrollDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookUpdateDto;
@@ -23,6 +24,11 @@ public class LibraryBookFacade {
     public LibraryBookListResponse getBooks(LibraryBookListRequest request) {
         List<LibraryBookDto> books = libraryBookQueryService.getPageBooks(request.getPage(), request.getSize());
         return new LibraryBookListResponse(books);
+    }
+
+    public LibraryBookDetailResponse getBookDetail(Long id) {
+        LibraryBookDetailDto book = libraryBookQueryService.getBook(id);
+        return LibraryBookDetailResponse.of(book);
     }
 
     public LibraryBookEnrollResponse enroll(LibraryBookEnrollRequest request) {
