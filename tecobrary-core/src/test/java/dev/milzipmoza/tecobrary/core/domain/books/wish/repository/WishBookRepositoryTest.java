@@ -28,6 +28,7 @@ class WishBookRepositoryTest {
                 .bookInfo(BookInfo.builder()
                         .title("제목")
                         .author("작가")
+                        .imageUrl("이미지")
                         .publisher("출판사")
                         .isbn("isbn")
                         .description("요약")
