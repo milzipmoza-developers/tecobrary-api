@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.librarybook;
+package dev.milzipmoza.tecobrary.api.librarybook.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollRequest;

@@ -1,11 +1,13 @@
-package dev.milzipmoza.tecobrary.api.librarybook;
+package dev.milzipmoza.tecobrary.api.librarybook.controller;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.*;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookUpdateRequest;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookUpdateResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookDeletedFailedException;
-import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookNotFoundException;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookUpdateFailedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,17 +23,6 @@ import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.*;
 public class AdminLibraryBookController {
 
     private final LibraryBookFacade libraryBookFacade;
-
-    @GetMapping("/admin/library-books")
-    public ApiResponse<LibraryBookListResponse> getLibraryBooks(LibraryBookListRequest request) {
-        LibraryBookListResponse response = libraryBookFacade.getBooks(request);
-        return ApiResponse.ok(GET_LIBRARY_BOOKS_SUCCESS, response);
-    }
-
-    @GetMapping("/admin/library-books/{id}")
-    public ApiResponse<LibraryBookDetailResponse> getLibraryBooks(@PathVariable Long id) {
-        return ApiResponse.ok(GET_LIBRARY_BOOK_DETAIL_SUCCESS, libraryBookFacade.getBookDetail(id));
-    }
 
     @PutMapping("/admin/library-books")
     public ApiResponse<LibraryBookEnrollResponse> enroll(@RequestBody LibraryBookEnrollRequest body) {
@@ -61,13 +52,6 @@ public class AdminLibraryBookController {
     public ApiResponse<?> handleUpdateException(LibraryBookUpdateFailedException e, WebRequest request) {
         log.error("[LibraryBookController] 도서 업데이트 실패 request={}, e={}", request, e);
         return ApiResponse.fail(UPDATE_LIBRARY_BOOK_FAILED);
-    }
-
-    @ExceptionHandler(LibraryBookNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiResponse<?> handleNotFoundException(LibraryBookNotFoundException e, WebRequest request) {
-        log.error("[LibraryBookController] 도서 검색 실패 request={}, e={}", request, e);
-        return ApiResponse.fail(LIBRARY_BOOK_NOT_FOUND);
     }
 
     @ExceptionHandler(LibraryBookDeletedFailedException.class)
