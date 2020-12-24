@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.admin.naver.facade;
+package dev.milzipmoza.tecobrary.api.naver.facade;
 
 import dev.milzipmoza.tecobrary.core.client.naverapi.NaverApiClient;
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverApiSearchBookResponse;

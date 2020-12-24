@@ -1,6 +1,6 @@
-package dev.milzipmoza.tecobrary.api.admin.librarybook.facade;
+package dev.milzipmoza.tecobrary.api.librarybook.facade;
 
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.*;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.*;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookEnrollDto;

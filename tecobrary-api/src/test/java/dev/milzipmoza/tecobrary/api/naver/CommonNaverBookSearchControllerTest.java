@@ -1,6 +1,6 @@
-package dev.milzipmoza.tecobrary.api.admin.naver;
+package dev.milzipmoza.tecobrary.api.naver;
 
-import dev.milzipmoza.tecobrary.api.admin.naver.facade.NaverBookSearchFacade;
+import dev.milzipmoza.tecobrary.api.naver.facade.NaverBookSearchFacade;
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverBookSearchItemDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

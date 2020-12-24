@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.admin.naver.dto;
+package dev.milzipmoza.tecobrary.api.naver.dto;
 
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverBookSearchItemDto;
 import lombok.Getter;

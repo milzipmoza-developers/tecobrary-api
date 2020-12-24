@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.admin.librarybook.dto;
+package dev.milzipmoza.tecobrary.api.librarybook.dto;
 
 import lombok.Getter;
 

@@ -1,8 +1,8 @@
-package dev.milzipmoza.tecobrary.api.admin.librarybook;
+package dev.milzipmoza.tecobrary.api.librarybook;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.*;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.facade.LibraryBookFacade;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.*;
+import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookDeletedFailedException;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookNotFoundException;

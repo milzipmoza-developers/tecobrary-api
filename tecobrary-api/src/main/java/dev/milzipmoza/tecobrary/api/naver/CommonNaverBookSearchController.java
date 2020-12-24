@@ -1,9 +1,9 @@
-package dev.milzipmoza.tecobrary.api.admin.naver;
+package dev.milzipmoza.tecobrary.api.naver;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.admin.naver.dto.NaverBookSearchRequest;
-import dev.milzipmoza.tecobrary.api.admin.naver.dto.NaverBookSearchResponse;
-import dev.milzipmoza.tecobrary.api.admin.naver.facade.NaverBookSearchFacade;
+import dev.milzipmoza.tecobrary.api.naver.dto.NaverBookSearchRequest;
+import dev.milzipmoza.tecobrary.api.naver.dto.NaverBookSearchResponse;
+import dev.milzipmoza.tecobrary.api.naver.facade.NaverBookSearchFacade;
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverBookSearchItemDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
