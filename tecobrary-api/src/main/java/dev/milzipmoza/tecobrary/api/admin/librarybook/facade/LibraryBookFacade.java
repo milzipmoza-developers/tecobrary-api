@@ -1,9 +1,6 @@
 package dev.milzipmoza.tecobrary.api.admin.librarybook.facade;
 
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollResponse;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookUpdateRequest;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookUpdateResponse;
+import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.*;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookEnrollDto;
 import dev.milzipmoza.tecobrary.core.domain.books.library.dto.LibraryBookUpdateDto;
@@ -13,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -20,6 +19,11 @@ public class LibraryBookFacade {
 
     private final LibraryBookCommandService libraryBookCommandService;
     private final LibraryBookQueryService libraryBookQueryService;
+
+    public LibraryBookListResponse getBooks(LibraryBookListRequest request) {
+        List<LibraryBookDto> books = libraryBookQueryService.getPageBooks(request.getPage(), request.getSize());
+        return new LibraryBookListResponse(books);
+    }
 
     public LibraryBookEnrollResponse enroll(LibraryBookEnrollRequest request) {
         LibraryBookEnrollDto enrollDto = LibraryBookEnrollDto.builder()

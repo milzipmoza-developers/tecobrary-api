@@ -1,0 +1,2 @@
+GET http://localhost:9090/admin/library-books?page=1&size=10
+

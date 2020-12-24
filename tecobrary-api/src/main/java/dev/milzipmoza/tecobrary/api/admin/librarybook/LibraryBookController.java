@@ -1,10 +1,7 @@
 package dev.milzipmoza.tecobrary.api.admin.librarybook;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookEnrollResponse;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookUpdateRequest;
-import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.LibraryBookUpdateResponse;
+import dev.milzipmoza.tecobrary.api.admin.librarybook.dto.*;
 import dev.milzipmoza.tecobrary.api.admin.librarybook.facade.LibraryBookFacade;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.books.library.exception.LibraryBookDeletedFailedException;
@@ -24,6 +21,12 @@ import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.*;
 public class LibraryBookController {
 
     private final LibraryBookFacade libraryBookFacade;
+
+    @GetMapping("/admin/library-books")
+    public ApiResponse<LibraryBookListResponse> getLibraryBooks(LibraryBookListRequest request) {
+        LibraryBookListResponse response = libraryBookFacade.getBooks(request);
+        return ApiResponse.ok(GET_LIBRARY_BOOKS_SUCCESS, response);
+    }
 
     @PutMapping("/admin/library-books")
     public ApiResponse<LibraryBookEnrollResponse> enroll(@RequestBody LibraryBookEnrollRequest body) {
