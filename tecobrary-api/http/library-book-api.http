@@ -1,2 +1,24 @@
+### 도서 내역 조회
 GET http://localhost:9090/admin/library-books?page=1&size=10
 
+### 도서 등록
+PUT http://localhost:9090/admin/library-books
+Content-Type: application/json
+
+{
+  "title": "제목",
+  "image": "이미지",
+  "author": "작가",
+  "publisher": "출판사",
+  "isbn": "1234567890",
+  "description": "임시 책 생성"
+}
+
+### 장서 등록
+PUT http://localhost:9090/admin/books
+Content-Type: application/json
+
+{
+  "libraryBookId": 1,
+  "bookSerial": "4"
+}

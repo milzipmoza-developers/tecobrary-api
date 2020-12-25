@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book extends BaseTimeEntity {
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String bookSerial;
 
     @Column(nullable = false)
