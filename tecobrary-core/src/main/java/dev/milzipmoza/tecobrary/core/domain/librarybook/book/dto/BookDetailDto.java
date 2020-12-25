@@ -9,19 +9,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-public class BookEnrollDto {
+public class BookDetailDto {
 
     private LibraryBookSummaryDto libraryBook;
     private List<BookDto> books;
 
     @Builder
-    public BookEnrollDto(LibraryBookSummaryDto libraryBook, List<BookDto> books) {
+    public BookDetailDto(LibraryBookSummaryDto libraryBook, List<BookDto> books) {
         this.libraryBook = libraryBook;
         this.books = books;
     }
 
-    public static BookEnrollDto of(LibraryBook libraryBook) {
-        return BookEnrollDto.builder()
+    public static BookDetailDto of(LibraryBook libraryBook) {
+        return BookDetailDto.builder()
                 .libraryBook(LibraryBookSummaryDto.builder()
                         .id(libraryBook.getId())
                         .isbn(libraryBook.getBookInfo().getIsbn())

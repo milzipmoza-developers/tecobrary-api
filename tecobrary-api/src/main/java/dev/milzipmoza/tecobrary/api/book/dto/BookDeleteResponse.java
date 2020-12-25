@@ -10,17 +10,17 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class BookEnrollResponse {
+public class BookDeleteResponse {
 
     private LibraryBookSummaryDto libraryBook;
     private List<BookDto> books;
 
-    public BookEnrollResponse(LibraryBookSummaryDto libraryBook, List<BookDto> books) {
+    public BookDeleteResponse(LibraryBookSummaryDto libraryBook, List<BookDto> books) {
         this.libraryBook = libraryBook;
         this.books = books;
     }
 
-    public static BookEnrollResponse of(BookDetailDto enrollDto) {
-        return new BookEnrollResponse(enrollDto.getLibraryBook(), enrollDto.getBooks());
+    public static BookDeleteResponse of(BookDetailDto enrollDto) {
+        return new BookDeleteResponse(enrollDto.getLibraryBook(), enrollDto.getBooks());
     }
 }

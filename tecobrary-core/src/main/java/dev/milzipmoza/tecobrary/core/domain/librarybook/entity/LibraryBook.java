@@ -3,6 +3,7 @@ package dev.milzipmoza.tecobrary.core.domain.librarybook.entity;
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity.Book;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialNotFoundException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,14 @@ public class LibraryBook extends BaseTimeEntity {
 
     public void addBook(String bookSerial) {
         this.books.add(new Book(bookSerial, this));
+    }
+
+    public void deleteBook(String bookSerial) {
+        Book deleteBook = this.books.stream()
+                .filter(book -> book.getBookSerial().equals(bookSerial))
+                .findFirst()
+                .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
+        books.remove(deleteBook);
     }
 }
 

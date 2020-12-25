@@ -35,4 +35,23 @@ class LibraryBookTest {
         assertThat(bookInfo.getPublisher()).isEqualTo(UPDATE_PUBLISHER);
         assertThat(bookInfo.getDescription()).isEqualTo(UPDATE_DESCRIPTION);
     }
+
+    @Test
+    @DisplayName("장서를 제거할 수 있다.")
+    void removeBook() {
+        LibraryBook libraryBook = new LibraryBook(BookInfo.builder()
+                .title("제목")
+                .isbn("isbn")
+                .author("개발왕루피")
+                .publisher("밀짚모자출판사")
+                .description("이것은 책의 간단한 설명을 담는 곳이여")
+                .build());
+
+        libraryBook.addBook("1");
+        libraryBook.addBook("2");
+
+        libraryBook.deleteBook("2");
+
+        assertThat(libraryBook.getBooks().size()).isEqualTo(1);
+    }
 }

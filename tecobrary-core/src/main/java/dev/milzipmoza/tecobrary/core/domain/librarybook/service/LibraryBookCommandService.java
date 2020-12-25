@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.service;
 
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookEnrollDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookEnrollFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
@@ -51,17 +51,24 @@ public class LibraryBookCommandService {
         }
     }
 
-    public BookEnrollDto addBook(Long libraryBookId, String bookSerial) {
+    public BookDetailDto addBook(Long libraryBookId, String bookSerial) {
         try {
             LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBook(libraryBookId)
                     .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
             savedLibraryBook.addBook(bookSerial);
             LibraryBook libraryBookAfterAddBook = libraryBookRepository.save(savedLibraryBook);
-            return BookEnrollDto.of(libraryBookAfterAddBook);
+            return BookDetailDto.of(libraryBookAfterAddBook);
         } catch (ConstraintViolationException e) {
             throw new BookSerialAlreadyEnrolledException("이미 등록된 장서 번호입니다.");
         } catch (Exception e) {
             throw new BookEnrollFailedException("장서 등록에 실패하였습니다.");
         }
+    }
+
+    public BookDetailDto deleteBook(Long libraryBookId, String bookSerial) {
+        LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBook(libraryBookId)
+                .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
+        savedLibraryBook.deleteBook(bookSerial);
+        return BookDetailDto.of(libraryBookRepository.save(savedLibraryBook));
     }
 }
