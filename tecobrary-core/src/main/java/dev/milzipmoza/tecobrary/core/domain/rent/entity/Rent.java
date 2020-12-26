@@ -7,19 +7,19 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@Where(clause = "isReturned = 'true'")
 public class Rent extends BaseTimeEntity {
 
     @Column(nullable = false)
-    private boolean returned;
+    private boolean isReturned;
 
     @Column(nullable = false)
     private LocalDateTime rentDateTime;
@@ -35,29 +35,11 @@ public class Rent extends BaseTimeEntity {
     @JoinColumn(name = "rent_member_id")
     private Member rentMember;
 
-    @OneToMany(mappedBy = "rent", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<RentHistory> rentHistories = new ArrayList<>();
-
     @Builder
     private Rent(LocalDateTime rentDateTime, Book rentBook, Member rentMember) {
-        this.returned = false;
+        this.isReturned = false;
         this.rentDateTime = rentDateTime;
         this.rentBook = rentBook;
         this.rentMember = rentMember;
-
-        saveHistory();
-    }
-
-    private void saveHistory() {
-        RentHistory rentHistory = RentHistory.builder()
-                .returned(this.returned)
-                .rentDateTime(this.rentDateTime)
-                .rentBookId(this.rentBook.getId())
-                .rentMemberId(this.rentMember.getId())
-                .txDateTime(LocalDateTime.now())
-                .rent(this)
-                .build();
-
-        this.rentHistories.add(rentHistory);
     }
 }
