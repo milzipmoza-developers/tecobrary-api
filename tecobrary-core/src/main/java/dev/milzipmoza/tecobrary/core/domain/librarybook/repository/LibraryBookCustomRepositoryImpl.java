@@ -19,11 +19,12 @@ public class LibraryBookCustomRepositoryImpl extends QuerydslRepositorySupport i
     }
 
     @Override
-    public Optional<LibraryBook> findByIdWithBook(Long libraryBookId) {
+    public Optional<LibraryBook> findByIdWithBookOrderAsc(Long libraryBookId) {
         return Optional.ofNullable(
                 from(libraryBook)
                         .leftJoin(libraryBook.books, book)
                         .fetchJoin()
+                        .orderBy(book.bookSerial.asc())
                         .where(libraryBook.id.eq(libraryBookId))
                         .fetchOne()
         );

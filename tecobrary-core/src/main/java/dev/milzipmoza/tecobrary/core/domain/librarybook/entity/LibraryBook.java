@@ -50,7 +50,7 @@ public class LibraryBook extends BaseTimeEntity {
     public void deleteBook(String bookSerial) {
         Book deleteBook = this.books.stream()
                 .filter(book -> book.getBookSerial().equals(bookSerial))
-                .findFirst()
+                .findAny()
                 .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
         books.remove(deleteBook);
     }

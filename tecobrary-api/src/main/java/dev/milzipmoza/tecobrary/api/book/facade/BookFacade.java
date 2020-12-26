@@ -4,6 +4,7 @@ import dev.milzipmoza.tecobrary.api.book.dto.BookDeleteResponse;
 import dev.milzipmoza.tecobrary.api.book.dto.BookEnrollResponse;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookCommandService;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,15 +12,18 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BookFacade {
 
+    private final LibraryBookQueryService libraryBookQueryService;
     private final LibraryBookCommandService libraryBookCommandService;
 
     public BookEnrollResponse enroll(Long libraryBookId, String bookSerial) {
-        BookDetailDto bookDetailDto = libraryBookCommandService.addBook(libraryBookId, bookSerial);
+        libraryBookCommandService.addBook(libraryBookId, bookSerial);
+        BookDetailDto bookDetailDto = libraryBookQueryService.getBookDetail(libraryBookId);
         return BookEnrollResponse.of(bookDetailDto);
     }
 
     public BookDeleteResponse delete(Long libraryBookId, String bookSerial) {
-        BookDetailDto bookDetailDto = libraryBookCommandService.deleteBook(libraryBookId, bookSerial);
+        libraryBookCommandService.deleteBook(libraryBookId, bookSerial);
+        BookDetailDto bookDetailDto = libraryBookQueryService.getBookDetail(libraryBookId);
         return BookDeleteResponse.of(bookDetailDto);
     }
 }

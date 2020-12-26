@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.service;
 
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
@@ -38,5 +39,11 @@ public class LibraryBookQueryService {
         if (!exists) {
             throw new LibraryBookNotFoundException(id);
         }
+    }
+
+    public BookDetailDto getBookDetail(Long libraryBookId) {
+        LibraryBook libraryBook = libraryBookRepository.findByIdWithBookOrderAsc(libraryBookId)
+                .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
+        return BookDetailDto.of(libraryBook);
     }
 }

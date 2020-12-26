@@ -1,6 +1,5 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.service;
 
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookEnrollFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
@@ -15,6 +14,8 @@ import dev.milzipmoza.tecobrary.core.domain.librarybook.repository.LibraryBookRe
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -51,13 +52,12 @@ public class LibraryBookCommandService {
         }
     }
 
-    public BookDetailDto addBook(Long libraryBookId, String bookSerial) {
+    @Transactional
+    public void addBook(Long libraryBookId, String bookSerial) {
         try {
-            LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBook(libraryBookId)
+            LibraryBook savedLibraryBook = libraryBookRepository.findById(libraryBookId)
                     .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
             savedLibraryBook.addBook(bookSerial);
-            LibraryBook libraryBookAfterAddBook = libraryBookRepository.save(savedLibraryBook);
-            return BookDetailDto.of(libraryBookAfterAddBook);
         } catch (ConstraintViolationException e) {
             throw new BookSerialAlreadyEnrolledException("이미 등록된 장서 번호입니다.");
         } catch (Exception e) {
@@ -65,10 +65,10 @@ public class LibraryBookCommandService {
         }
     }
 
-    public BookDetailDto deleteBook(Long libraryBookId, String bookSerial) {
-        LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBook(libraryBookId)
+    @Transactional
+    public void deleteBook(Long libraryBookId, String bookSerial) {
+        LibraryBook savedLibraryBook = libraryBookRepository.findById(libraryBookId)
                 .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
         savedLibraryBook.deleteBook(bookSerial);
-        return BookDetailDto.of(libraryBookRepository.save(savedLibraryBook));
     }
 }
