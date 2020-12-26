@@ -22,12 +22,12 @@ public class LibraryBookFacade {
     private final LibraryBookQueryService libraryBookQueryService;
 
     public LibraryBookListResponse getBooks(LibraryBookListRequest request) {
-        List<LibraryBookDto> books = libraryBookQueryService.getPageBooks(request.getPage(), request.getSize());
+        List<LibraryBookDto> books = libraryBookQueryService.getPageLibraryBooks(request.getPage(), request.getSize());
         return new LibraryBookListResponse(books);
     }
 
     public LibraryBookDetailResponse getBookDetail(Long id) {
-        LibraryBookDetailDto book = libraryBookQueryService.getBook(id);
+        LibraryBookDetailDto book = libraryBookQueryService.getLibraryBook(id);
         return LibraryBookDetailResponse.of(book);
     }
 

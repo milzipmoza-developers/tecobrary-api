@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -23,7 +22,7 @@ public class LibraryBookDetailResponse {
     private List<BookDto> books;
 
     @Builder
-    public LibraryBookDetailResponse(Long id, String title, String image, String author, String publisher, String isbn, String description) {
+    public LibraryBookDetailResponse(Long id, String title, String image, String author, String publisher, String isbn, String description, List<BookDto> books) {
         this.id = id;
         this.title = title;
         this.image = image;
@@ -31,18 +30,19 @@ public class LibraryBookDetailResponse {
         this.publisher = publisher;
         this.isbn = isbn;
         this.description = description;
-        this.books = Collections.emptyList();
+        this.books = books;
     }
 
-    public static LibraryBookDetailResponse of(LibraryBookDetailDto book) {
+    public static LibraryBookDetailResponse of(LibraryBookDetailDto libraryBooks) {
         return LibraryBookDetailResponse.builder()
-                .id(book.getId())
-                .title(book.getTitle())
-                .image(book.getImageUrl())
-                .author(book.getAuthor())
-                .publisher(book.getPublisher())
-                .isbn(book.getIsbn())
-                .description(book.getDescription())
+                .id(libraryBooks.getId())
+                .title(libraryBooks.getTitle())
+                .image(libraryBooks.getImageUrl())
+                .author(libraryBooks.getAuthor())
+                .publisher(libraryBooks.getPublisher())
+                .isbn(libraryBooks.getIsbn())
+                .description(libraryBooks.getDescription())
+                .books(libraryBooks.getBooks())
                 .build();
     }
 }

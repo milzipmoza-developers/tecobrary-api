@@ -20,7 +20,7 @@ public class LibraryBookQueryService {
 
     private final LibraryBookRepository libraryBookRepository;
 
-    public List<LibraryBookDto> getPageBooks(int page, int size) {
+    public List<LibraryBookDto> getPageLibraryBooks(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Page<LibraryBook> books = libraryBookRepository.findAll(pageRequest);
         return books.stream()
@@ -28,8 +28,8 @@ public class LibraryBookQueryService {
                 .collect(Collectors.toList());
     }
 
-    public LibraryBookDetailDto getBook(Long id) {
-        LibraryBook libraryBook = libraryBookRepository.findById(id)
+    public LibraryBookDetailDto getLibraryBook(Long id) {
+        LibraryBook libraryBook = libraryBookRepository.findByIdWithBookOrderAsc(id)
                 .orElseThrow(() -> new LibraryBookNotFoundException(id));
         return LibraryBookDetailDto.of(libraryBook);
     }
