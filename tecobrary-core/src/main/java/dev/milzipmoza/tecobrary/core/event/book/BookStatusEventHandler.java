@@ -16,6 +16,8 @@ public class BookStatusEventHandler {
     @TransactionalEventListener
     public void handleEvent(BookStatusEvent event) {
         log.info("handle event={}", event);
-        rentHistoryCommandService.rent(event.getBookSerial(), event.getMemberNumber());
+        if (event.isRentEvent()) {
+            rentHistoryCommandService.rent(event.getBookSerial(), event.getMemberNumber());
+        }
     }
 }

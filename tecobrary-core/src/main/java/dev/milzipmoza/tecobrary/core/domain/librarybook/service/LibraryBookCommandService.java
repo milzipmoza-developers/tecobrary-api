@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.service;
 
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.*;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookEnrollDto;
@@ -83,8 +84,8 @@ public class LibraryBookCommandService {
         LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBookOrderAsc(libraryBookId)
                 .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
         try {
-            savedLibraryBook.rentBook(bookSerial);
-            applicationEventPublisher.publishEvent(new BookStatusEvent(memberNumber, bookSerial));
+            Book book = savedLibraryBook.rentBook(bookSerial);
+            applicationEventPublisher.publishEvent(new BookStatusEvent(memberNumber, book.getBookSerial(), book.getBookStatus()));
         } catch (BookAlreadyRentException e) {
             throw e;
         } catch (Exception e) {
