@@ -1,11 +1,11 @@
 package dev.milzipmoza.tecobrary.api.librarybook.controller;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookUpdateRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookUpdateResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
+import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookUpdateRequest;
+import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookUpdateResponse;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookDeletedFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookUpdateFailedException;

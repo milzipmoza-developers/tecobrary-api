@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.api.librarybook.facade;
 
-import dev.milzipmoza.tecobrary.api.librarybook.dto.BookDeleteResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.BookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.response.BookDeleteResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.response.BookEnrollResponse;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookCommandService;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookQueryService;

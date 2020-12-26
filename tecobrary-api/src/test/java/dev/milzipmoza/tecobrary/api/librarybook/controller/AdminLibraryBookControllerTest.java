@@ -1,9 +1,9 @@
 package dev.milzipmoza.tecobrary.api.librarybook.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookEnrollResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
+import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookAlreadyEnrolledException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

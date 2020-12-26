@@ -1,10 +1,10 @@
 package dev.milzipmoza.tecobrary.api.librarybook.controller;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookDetailResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookListRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.dto.LibraryBookListResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
+import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookListRequest;
+import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookDetailResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
