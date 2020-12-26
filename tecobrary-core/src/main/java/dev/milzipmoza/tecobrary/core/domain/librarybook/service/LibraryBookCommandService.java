@@ -33,9 +33,9 @@ public class LibraryBookCommandService {
     }
 
     public LibraryBookDto update(LibraryBookUpdateDto updateDto) {
+        LibraryBook savedBook = libraryBookRepository.findById(updateDto.getId())
+                .orElseThrow(() -> new LibraryBookNotFoundException(updateDto.getId()));
         try {
-            LibraryBook savedBook = libraryBookRepository.findById(updateDto.getId())
-                    .orElseThrow(() -> new LibraryBookNotFoundException(updateDto.getId()));
             savedBook.updateBookInfo(updateDto.getTitle(), updateDto.getAuthor(), updateDto.getImageUrl(), updateDto.getPublisher(), updateDto.getDescription());
             LibraryBook updatedBook = libraryBookRepository.save(savedBook);
             return LibraryBookDto.of(updatedBook);
@@ -54,9 +54,9 @@ public class LibraryBookCommandService {
 
     @Transactional
     public void addBook(Long libraryBookId, String bookSerial) {
+        LibraryBook savedLibraryBook = libraryBookRepository.findById(libraryBookId)
+                .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
         try {
-            LibraryBook savedLibraryBook = libraryBookRepository.findById(libraryBookId)
-                    .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
             savedLibraryBook.addBook(bookSerial);
         } catch (ConstraintViolationException e) {
             throw new BookSerialAlreadyEnrolledException("이미 등록된 장서 번호입니다.");
