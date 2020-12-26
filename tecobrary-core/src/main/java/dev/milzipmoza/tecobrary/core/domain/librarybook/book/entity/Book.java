@@ -30,4 +30,8 @@ public class Book extends BaseTimeEntity {
         this.bookStatus = BookStatus.IN_LIBRARY;
         this.libraryBook = libraryBook;
     }
+
+    public void delete() {
+        this.libraryBook = null;
+    }
 }
