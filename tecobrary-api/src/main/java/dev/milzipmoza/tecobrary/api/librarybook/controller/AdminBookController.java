@@ -5,6 +5,7 @@ import dev.milzipmoza.tecobrary.api.librarybook.dto.BookDeleteResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.dto.BookEnrollRequest;
 import dev.milzipmoza.tecobrary.api.librarybook.dto.BookEnrollResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.BookFacade;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookDeleteFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookEnrollFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialNotFoundException;
@@ -49,10 +50,13 @@ public class AdminBookController {
         return ApiResponse.fail(e.getMessage());
     }
 
-    @ExceptionHandler(BookEnrollFailedException.class)
+    @ExceptionHandler({
+            BookEnrollFailedException.class,
+            BookDeleteFailedException.class
+    })
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ApiResponse<?> handleEnrollException(BookEnrollFailedException e, WebRequest request) {
-        log.error("[AdminBookController] 장서 등록 실패 request={}, e={}", request, e);
+    public ApiResponse<?> handleEnrollException(Exception e, WebRequest request) {
+        log.error("[AdminBookController] 장서 command 실패 request={}, e={}", request, e);
         return ApiResponse.fail(e.getMessage());
     }
 }

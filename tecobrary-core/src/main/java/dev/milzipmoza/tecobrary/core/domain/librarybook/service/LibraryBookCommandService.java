@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.service;
 
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookDeleteFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookEnrollFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
@@ -69,6 +70,10 @@ public class LibraryBookCommandService {
     public void deleteBook(Long libraryBookId, String bookSerial) {
         LibraryBook savedLibraryBook = libraryBookRepository.findById(libraryBookId)
                 .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
-        savedLibraryBook.deleteBook(bookSerial);
+        try {
+            savedLibraryBook.deleteBook(bookSerial);
+        } catch (Exception e) {
+            throw new BookDeleteFailedException("장서 삭제에 실패하였습니다.");
+        }
     }
 }
