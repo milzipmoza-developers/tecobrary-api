@@ -1,8 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.service;
 
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookDeleteFailedException;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookEnrollFailedException;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialAlreadyEnrolledException;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.*;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookEnrollDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookUpdateDto;
@@ -12,8 +10,10 @@ import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookDel
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookNotFoundException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookUpdateFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.repository.LibraryBookRepository;
+import dev.milzipmoza.tecobrary.core.event.book.BookStatusEvent;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -23,6 +23,7 @@ import javax.transaction.Transactional;
 public class LibraryBookCommandService {
 
     private final LibraryBookRepository libraryBookRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     public LibraryBookDto enroll(LibraryBookEnrollDto enrollBook) {
         try {
@@ -74,6 +75,20 @@ public class LibraryBookCommandService {
             savedLibraryBook.deleteBook(bookSerial);
         } catch (Exception e) {
             throw new BookDeleteFailedException("장서 삭제에 실패하였습니다.");
+        }
+    }
+
+    @Transactional
+    public void rentBook(String memberNumber, Long libraryBookId, String bookSerial) {
+        LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBookOrderAsc(libraryBookId)
+                .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
+        try {
+            savedLibraryBook.rentBook(bookSerial);
+            applicationEventPublisher.publishEvent(new BookStatusEvent(memberNumber, bookSerial));
+        } catch (BookAlreadyRentException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BookRentFailedException("장서 대여에 실패하였습니다.");
         }
     }
 }

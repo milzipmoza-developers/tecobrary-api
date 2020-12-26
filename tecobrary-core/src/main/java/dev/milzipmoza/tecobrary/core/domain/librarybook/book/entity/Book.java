@@ -2,6 +2,7 @@ package dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity;
 
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookAlreadyRentException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,5 +34,12 @@ public class Book extends BaseTimeEntity {
 
     public void delete() {
         this.libraryBook = null;
+    }
+
+    public void rent() {
+        if (this.bookStatus.equals(BookStatus.RENT)) {
+            throw new BookAlreadyRentException("이미 대여중인 장서입니다.");
+        }
+        this.bookStatus = BookStatus.RENT;
     }
 }

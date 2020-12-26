@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -48,12 +49,24 @@ public class LibraryBook extends BaseTimeEntity {
     }
 
     public void deleteBook(String bookSerial) {
-        Book deleteBook = this.books.stream()
-                .filter(book -> book.getBookSerial().equals(bookSerial))
-                .findAny()
+        Book deleteBook = findBookBySerial(bookSerial)
                 .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
+        ;
         books.remove(deleteBook);
         deleteBook.delete();
+    }
+
+    public void rentBook(String bookSerial) {
+        Book rentBook = findBookBySerial(bookSerial)
+                .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
+        ;
+        rentBook.rent();
+    }
+
+    public Optional<Book> findBookBySerial(String bookSerial) {
+        return this.books.stream()
+                .filter(book -> book.getBookSerial().equals(bookSerial))
+                .findAny();
     }
 }
 
