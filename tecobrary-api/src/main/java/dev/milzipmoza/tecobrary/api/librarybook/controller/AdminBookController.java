@@ -1,10 +1,10 @@
-package dev.milzipmoza.tecobrary.api.book.controller;
+package dev.milzipmoza.tecobrary.api.librarybook.controller;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.book.dto.BookDeleteResponse;
-import dev.milzipmoza.tecobrary.api.book.dto.BookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.book.dto.BookEnrollResponse;
-import dev.milzipmoza.tecobrary.api.book.facade.BookFacade;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.BookDeleteResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.BookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.librarybook.dto.BookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.facade.BookFacade;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookEnrollFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialNotFoundException;

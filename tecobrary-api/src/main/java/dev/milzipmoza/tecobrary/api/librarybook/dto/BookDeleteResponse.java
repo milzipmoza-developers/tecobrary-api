@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.book.dto;
+package dev.milzipmoza.tecobrary.api.librarybook.dto;
 
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDto;
