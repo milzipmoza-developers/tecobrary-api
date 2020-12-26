@@ -15,10 +15,13 @@ Content-Type: application/json
 }
 
 ### 장서 등록
-PUT http://localhost:9090/admin/books
+PUT http://localhost:9090/admin/library-books/1/books
 Content-Type: application/json
 
 {
-  "libraryBookId": 1,
-  "bookSerial": "4"
+  "bookSerial": "7"
 }
+
+### 장서 삭제
+DELETE http://localhost:9090/admin/library-books/1/books/7
+Content-Type: application/json
