@@ -2,9 +2,9 @@
 spring:
   profiles: local
   datasource:
-    url: jdbc:mysql://localhost:3306/new_tecobrary?serverTimezone=UTC&useSSL=false
-    username: luffy
-    password: 159456
+    url: jdbc:mysql://localhost:6033/tecobrary_db?serverTimezone=UTC&useSSL=false
+    username: tecobrary
+    password: tecobrary
   jpa:
     database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
     show-sql: true
