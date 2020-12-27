@@ -19,4 +19,8 @@ public class BookStatusEvent {
     public boolean isRentEvent() {
         return this.bookStatus == BookStatus.RENT;
     }
+
+    public boolean isReturnEvent() {
+        return this.bookStatus == BookStatus.IN_LIBRARY;
+    }
 }

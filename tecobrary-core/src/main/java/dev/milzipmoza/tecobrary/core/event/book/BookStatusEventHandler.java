@@ -17,7 +17,9 @@ public class BookStatusEventHandler {
     public void handleEvent(BookStatusEvent event) {
         log.info("handle event={}", event);
         if (event.isRentEvent()) {
-            rentHistoryCommandService.rent(event.getBookSerial(), event.getMemberNumber());
+            rentHistoryCommandService.doRent(event.getBookSerial(), event.getMemberNumber());
+        } else if (event.isReturnEvent()) {
+            rentHistoryCommandService.doReturn(event.getBookSerial(), event.getMemberNumber());
         }
     }
 }

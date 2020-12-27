@@ -29,9 +29,22 @@ public class RentHistory extends BaseTimeEntity {
     @Column(nullable = false)
     private String rentBookSerial;
 
-    public RentHistory(String rentMemberNumber, String rentBookSerial) {
+    private RentHistory(String rentMemberNumber, String rentBookSerial) {
         this.rentBookSerial = rentBookSerial;
         this.rentMemberNumber = rentMemberNumber;
+        doRent();
+    }
+
+    public static RentHistory doRent(String rentMemberNumber, String rentBookSerial) {
+        return new RentHistory(rentMemberNumber, rentBookSerial);
+    }
+
+    public void doReturn() {
+        this.isReturned = true;
+        this.returnDateTime = LocalDateTime.now();
+    }
+
+    private void doRent() {
         this.isReturned = false;
         this.rentDateTime = LocalDateTime.now();
     }

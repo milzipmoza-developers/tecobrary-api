@@ -11,8 +11,13 @@ public class RentHistoryCommandService {
 
     private final RentHistoryRepository rentHistoryRepository;
 
-    public void rent(String bookSerial, String memberNumber) {
-        RentHistory rentHistory = new RentHistory(memberNumber, bookSerial);
+    public void doRent(String bookSerial, String memberNumber) {
+        RentHistory rentHistory = RentHistory.doRent(memberNumber, bookSerial);
         rentHistoryRepository.save(rentHistory);
+    }
+
+    public void doReturn(String bookSerial, String memberNumber) {
+        rentHistoryRepository.findByRentBookSerialAndRentMemberNumber(bookSerial, memberNumber)
+                .ifPresent(RentHistory::doReturn);
     }
 }
