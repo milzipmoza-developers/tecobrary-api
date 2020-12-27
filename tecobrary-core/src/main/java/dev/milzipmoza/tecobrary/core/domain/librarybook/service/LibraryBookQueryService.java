@@ -55,7 +55,6 @@ public class LibraryBookQueryService {
                 .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
         Book book = libraryBook.findBookBySerial(bookSerial)
                 .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
-        ;
         return BookDto.of(book);
     }
 }
