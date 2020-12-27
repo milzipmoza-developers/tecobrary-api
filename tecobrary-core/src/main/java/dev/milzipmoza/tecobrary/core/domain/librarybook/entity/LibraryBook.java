@@ -55,11 +55,18 @@ public class LibraryBook extends BaseTimeEntity {
         deleteBook.delete();
     }
 
-    public Book rentBook(String bookSerial) {
+    public Book rentBook(String bookSerial, String memberNumber) {
         Book rentBook = findBookBySerial(bookSerial)
                 .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
-        rentBook.rent();
+        rentBook.rent(memberNumber);
         return rentBook;
+    }
+
+    public Book returnBook(String bookSerial, String rentMemberNumber) {
+        Book returnBook = findBookBySerial(bookSerial)
+                .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
+        returnBook.doReturn(rentMemberNumber);
+        return returnBook;
     }
 
     public Optional<Book> findBookBySerial(String bookSerial) {

@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception;
 
-class BookException extends RuntimeException {
+public class BookException extends RuntimeException {
     protected BookException() {
         super();
     }

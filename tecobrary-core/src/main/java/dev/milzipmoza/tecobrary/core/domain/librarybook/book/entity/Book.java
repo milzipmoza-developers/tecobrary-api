@@ -3,6 +3,7 @@ package dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookAlreadyRentException;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookRentMemberIdentifyFailedException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,6 +23,9 @@ public class Book extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private BookStatus bookStatus;
 
+    @Column
+    private String rentMemberNumber;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "library_book_id")
     private LibraryBook libraryBook;
@@ -36,10 +40,22 @@ public class Book extends BaseTimeEntity {
         this.libraryBook = null;
     }
 
-    public void rent() {
+    public void rent(String rentMemberNumber) {
         if (this.bookStatus.equals(BookStatus.RENT)) {
             throw new BookAlreadyRentException("이미 대여중인 장서입니다.");
         }
         this.bookStatus = BookStatus.RENT;
+        this.rentMemberNumber = rentMemberNumber;
+    }
+
+    public void doReturn(String rentMemberNumber) {
+        if (this.bookStatus.equals(BookStatus.IN_LIBRARY)) {
+            throw new BookAlreadyRentException("이미 비치중인 장서입니다.");
+        }
+        if (!this.rentMemberNumber.equals(rentMemberNumber)) {
+            throw new BookRentMemberIdentifyFailedException("대여 내역을 확인해주세요.");
+        }
+        this.bookStatus = BookStatus.IN_LIBRARY;
+        this.rentMemberNumber = null;
     }
 }

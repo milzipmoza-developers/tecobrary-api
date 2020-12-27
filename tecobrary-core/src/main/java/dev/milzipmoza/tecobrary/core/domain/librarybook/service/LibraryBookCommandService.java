@@ -80,16 +80,30 @@ public class LibraryBookCommandService {
     }
 
     @Transactional
-    public void rentBook(String memberNumber, Long libraryBookId, String bookSerial) {
+    public void rentBook(String rentMemberNumber, Long libraryBookId, String bookSerial) {
         LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBookOrderAsc(libraryBookId)
                 .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
         try {
-            Book book = savedLibraryBook.rentBook(bookSerial);
-            applicationEventPublisher.publishEvent(new BookStatusEvent(memberNumber, book.getBookSerial(), book.getBookStatus()));
-        } catch (BookAlreadyRentException e) {
+            Book book = savedLibraryBook.rentBook(bookSerial, rentMemberNumber);
+            applicationEventPublisher.publishEvent(new BookStatusEvent(rentMemberNumber, book.getBookSerial(), book.getBookStatus()));
+        } catch (BookException e) {
             throw e;
         } catch (Exception e) {
             throw new BookRentFailedException("장서 대여에 실패하였습니다.");
+        }
+    }
+
+    @Transactional
+    public void returnBook(String rentMemberNumber, Long libraryBookId, String bookSerial) {
+        LibraryBook rentLibraryBook = libraryBookRepository.findById(libraryBookId)
+                .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
+        try {
+            Book book = rentLibraryBook.returnBook(bookSerial, rentMemberNumber);
+            applicationEventPublisher.publishEvent(new BookStatusEvent(rentMemberNumber, book.getBookSerial(), book.getBookStatus()));
+        } catch (BookException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BookReturnFailedException("장서 반납에 실패하였습니다.");
         }
     }
 }
