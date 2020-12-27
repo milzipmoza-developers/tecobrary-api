@@ -81,11 +81,18 @@ public class LibraryBookCommandService {
 
     @Transactional
     public void rentBook(String rentMemberNumber, Long libraryBookId, String bookSerial) {
-        LibraryBook savedLibraryBook = libraryBookRepository.findByIdWithBookOrderAsc(libraryBookId)
+        LibraryBook rentLibraryBook = libraryBookRepository.findByIdWithBookOrderAsc(libraryBookId)
                 .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
         try {
-            Book book = savedLibraryBook.rentBook(bookSerial, rentMemberNumber);
-            applicationEventPublisher.publishEvent(new BookStatusEvent(rentMemberNumber, book.getBookSerial(), book.getBookStatus()));
+            Book book = rentLibraryBook.rentBook(bookSerial, rentMemberNumber);
+            applicationEventPublisher.publishEvent(BookStatusEvent.builder()
+                    .libraryBookId(rentLibraryBook.getId())
+                    .libraryBookTitle(rentLibraryBook.getBookInfo().getTitle())
+                    .libraryBookPublisher(rentLibraryBook.getBookInfo().getPublisher())
+                    .bookSerial(book.getBookSerial())
+                    .bookStatus(book.getBookStatus())
+                    .memberNumber(rentMemberNumber)
+                    .build());
         } catch (BookException e) {
             throw e;
         } catch (Exception e) {
@@ -95,11 +102,18 @@ public class LibraryBookCommandService {
 
     @Transactional
     public void returnBook(String rentMemberNumber, Long libraryBookId, String bookSerial) {
-        LibraryBook rentLibraryBook = libraryBookRepository.findById(libraryBookId)
+        LibraryBook returnLibraryBook = libraryBookRepository.findById(libraryBookId)
                 .orElseThrow(() -> new LibraryBookNotFoundException(libraryBookId));
         try {
-            Book book = rentLibraryBook.returnBook(bookSerial, rentMemberNumber);
-            applicationEventPublisher.publishEvent(new BookStatusEvent(rentMemberNumber, book.getBookSerial(), book.getBookStatus()));
+            Book book = returnLibraryBook.returnBook(bookSerial, rentMemberNumber);
+            applicationEventPublisher.publishEvent(BookStatusEvent.builder()
+                    .libraryBookId(returnLibraryBook.getId())
+                    .libraryBookTitle(returnLibraryBook.getBookInfo().getTitle())
+                    .libraryBookPublisher(returnLibraryBook.getBookInfo().getPublisher())
+                    .bookSerial(book.getBookSerial())
+                    .bookStatus(book.getBookStatus())
+                    .memberNumber(rentMemberNumber)
+                    .build());
         } catch (BookException e) {
             throw e;
         } catch (Exception e) {
