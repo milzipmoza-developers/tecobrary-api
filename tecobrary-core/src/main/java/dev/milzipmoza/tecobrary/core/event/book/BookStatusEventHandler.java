@@ -19,7 +19,7 @@ public class BookStatusEventHandler {
         if (event.isRentEvent()) {
             rentCommandService.doRent(event.getLibraryBookId(), event.getLibraryBookTitle(), event.getLibraryBookPublisher(), event.getBookSerial(), event.getMemberNumber());
         } else if (event.isReturnEvent()) {
-            rentCommandService.doReturn(event.getBookSerial(), event.getMemberNumber());
+            rentCommandService.doReturn(event.getLibraryBookId(), event.getBookSerial(), event.getMemberNumber());
         }
     }
 }

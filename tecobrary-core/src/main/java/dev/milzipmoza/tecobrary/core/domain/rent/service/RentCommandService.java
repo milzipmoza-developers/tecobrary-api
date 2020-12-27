@@ -18,8 +18,8 @@ public class RentCommandService {
         rentRepository.save(rent);
     }
 
-    public void doReturn(String bookSerial, String memberNumber) {
-        Rent rent = rentRepository.findByRentBookSerialAndRentMemberNumber(bookSerial, memberNumber)
+    public void doReturn(Long libraryBookId, String bookSerial, String memberNumber) {
+        Rent rent = rentRepository.findNotReturnedByRentMemberNumberAndLibraryBookIdAndBookSerial(memberNumber, libraryBookId, bookSerial)
                 .orElse(null);
         if (rent == null) {
             log.warn("[RentHistoryCommandService][doReturn] 존재하지 않는 대여 내역 bookSerial={}, memberNumber={}", bookSerial, memberNumber);
