@@ -1,6 +1,9 @@
 package dev.milzipmoza.tecobrary.core.domain.rent.repository;
 
+import com.querydsl.core.QueryResults;
 import dev.milzipmoza.tecobrary.core.domain.rent.entity.Rent;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.Optional;
@@ -23,5 +26,17 @@ public class RentCustomRepositoryImpl extends QuerydslRepositorySupport implemen
                         .where(rent.rentBookSerial.eq(bookSerial))
                         .fetchOne()
         );
+    }
+
+    @Override
+    public PageImpl<Rent> findAllMemberRents(String memberNumber, PageRequest pageable) {
+        QueryResults<Rent> results = from(rent)
+                .where(rent.rentMemberNumber.eq(memberNumber))
+                .orderBy(rent.isReturned.desc())
+                .orderBy(rent.rentDateTime.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 }
