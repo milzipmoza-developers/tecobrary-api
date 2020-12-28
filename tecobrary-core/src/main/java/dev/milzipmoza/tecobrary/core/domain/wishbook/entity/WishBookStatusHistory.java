@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 public class WishBookStatusHistory extends BaseTimeEntity {
 
+    @Column
+    private String reason;
+
     @Column(nullable = false)
     private LocalDateTime changeDateTime;
 
@@ -25,7 +28,8 @@ public class WishBookStatusHistory extends BaseTimeEntity {
     private WishBook wishBook;
 
     @Builder
-    public WishBookStatusHistory(LocalDateTime changeDateTime, WishBookStatus wishBookStatus, WishBook wishBook) {
+    public WishBookStatusHistory(String reason, LocalDateTime changeDateTime, WishBookStatus wishBookStatus, WishBook wishBook) {
+        this.reason = reason;
         this.changeDateTime = changeDateTime;
         this.wishBookStatus = wishBookStatus;
         this.wishBook = wishBook;

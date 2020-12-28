@@ -55,10 +55,21 @@ public class WishBookFacade {
 
     public WishBookDetailResponse getWishBookDetail(Long id) {
         WishBookDto wishBook = wishBookQueryService.getWishBook(id);
-        return WishBookDetailResponse.builder()
-                .id(wishBook.getId())
-                .bookInfo(wishBook.getBookInfo())
-                .wishBookStatus(wishBook.getWishBookStatus())
-                .build();
+        return WishBookDetailResponse.of(wishBook);
+    }
+
+    public WishBookDetailResponse confirmWishBook(Long id, String reason) {
+        WishBookDto wishBook = wishBookCommandService.confirmWishBook(id, reason);
+        return WishBookDetailResponse.of(wishBook);
+    }
+
+    public WishBookDetailResponse completeWishBook(Long id, String reason) {
+        WishBookDto wishBook = wishBookCommandService.completeWishBook(id, reason);
+        return WishBookDetailResponse.of(wishBook);
+    }
+
+    public WishBookDetailResponse holdWishBook(Long id, String reason) {
+        WishBookDto wishBook = wishBookCommandService.holdWishBook(id, reason);
+        return WishBookDetailResponse.of(wishBook);
     }
 }
