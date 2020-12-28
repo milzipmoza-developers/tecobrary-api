@@ -30,13 +30,17 @@ public class WishBook extends BaseTimeEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "wishBook")
     private final List<WishBookStatusHistory> wishBookStatusHistories = new ArrayList<>();
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private WishBookStatus wishBookStatus;
+
     @Column(nullable = false)
     private String wishMemberNumber;
+
     @Column(nullable = false)
     private LocalDateTime requestDateTime;
+
     @Column
     private LocalDateTime completedDateTime;
 

@@ -2,10 +2,13 @@ package dev.milzipmoza.tecobrary.api.wishbook.facade;
 
 import dev.milzipmoza.tecobrary.api.wishbook.request.WishBookEnrollRequest;
 import dev.milzipmoza.tecobrary.api.wishbook.response.WishBookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.wishbook.response.WishBookPageResponse;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookQueryService;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.dto.WishBookDto;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.dto.WishBookEnrollDto;
+import dev.milzipmoza.tecobrary.core.domain.wishbook.dto.WishBookPageDto;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.service.WishBookCommandService;
+import dev.milzipmoza.tecobrary.core.domain.wishbook.service.WishBookQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Component;
 public class WishBookFacade {
 
     private final LibraryBookQueryService libraryBookQueryService;
+    private final WishBookQueryService wishBookQueryService;
     private final WishBookCommandService wishBookCommandService;
 
     public WishBookEnrollResponse enroll(String memberNumber, WishBookEnrollRequest body) {
@@ -35,5 +39,10 @@ public class WishBookFacade {
                 .bookInfo(wishBookDto.getBookInfo())
                 .wishBookStatus(wishBookDto.getWishBookStatus())
                 .build();
+    }
+
+    public WishBookPageResponse getWishBooks(String memberNumber, int page, int size) {
+        WishBookPageDto wishBooks = wishBookQueryService.getMemberPageWishBooks(memberNumber, page, size);
+        return WishBookPageResponse.of(wishBooks);
     }
 }
