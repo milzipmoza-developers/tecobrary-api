@@ -1,0 +1,23 @@
+package dev.milzipmoza.tecobrary.api.wishbook.response;
+
+import dev.milzipmoza.tecobrary.core.domain.common.dto.BookInfoDto;
+import dev.milzipmoza.tecobrary.core.domain.wishbook.entity.WishBookStatus;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+public class WishBookEnrollResponse {
+
+    private Long id;
+    private BookInfoDto bookInfo;
+    private WishBookStatus wishBookStatus;
+
+    @Builder
+    public WishBookEnrollResponse(Long id, BookInfoDto bookInfo, WishBookStatus wishBookStatus) {
+        this.id = id;
+        this.bookInfo = bookInfo;
+        this.wishBookStatus = wishBookStatus;
+    }
+}

@@ -1,9 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.wishbook.repository;
 
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
-import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
-import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthProvider;
-import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthService;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.entity.WishBook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +30,7 @@ class WishBookRepositoryTest {
                         .isbn("isbn")
                         .description("요약")
                         .build())
-                .wishMember(Member.builder()
-                        .authService(new MemberAuthService("auth-key", MemberAuthProvider.GITHUB))
-                        .build())
+                .wishMemberNumber("member_number")
                 .build();
 
         WishBook savedWishBook = wishBookRepository.saveAndFlush(wishBook);

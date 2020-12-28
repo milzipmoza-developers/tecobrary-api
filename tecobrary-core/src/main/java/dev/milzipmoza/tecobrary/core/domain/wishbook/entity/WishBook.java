@@ -2,13 +2,15 @@ package dev.milzipmoza.tecobrary.core.domain.wishbook.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
-import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -26,13 +28,35 @@ public class WishBook extends BaseTimeEntity {
     })
     private BookInfo bookInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "wish_member_id")
-    private Member wishMember;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "wishBook")
+    private final List<WishBookStatusHistory> wishBookStatusHistories = new ArrayList<>();
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private WishBookStatus wishBookStatus;
+    @Column(nullable = false)
+    private String wishMemberNumber;
+    @Column(nullable = false)
+    private LocalDateTime requestDateTime;
+    @Column
+    private LocalDateTime completedDateTime;
 
     @Builder
-    public WishBook(BookInfo bookInfo, Member wishMember) {
+    public WishBook(BookInfo bookInfo, String wishMemberNumber) {
         this.bookInfo = bookInfo;
-        this.wishMember = wishMember;
+        this.wishBookStatus = WishBookStatus.REQUESTED;
+        this.wishMemberNumber = wishMemberNumber;
+
+        LocalDateTime now = LocalDateTime.now();
+        this.requestDateTime = now;
+
+        saveHistory(now);
+    }
+
+    private void saveHistory(LocalDateTime dateTime) {
+        this.wishBookStatusHistories.add(WishBookStatusHistory.builder()
+                .changeDateTime(dateTime)
+                .wishBookStatus(this.wishBookStatus)
+                .wishBook(this)
+                .build());
     }
 }

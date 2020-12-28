@@ -57,4 +57,9 @@ public class LibraryBookQueryService {
                 .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
         return BookDto.of(book);
     }
+
+    public boolean isExistLibraryBook(String isbn) {
+        return libraryBookRepository.findByBookInfoIsbn(isbn)
+                .isPresent();
+    }
 }

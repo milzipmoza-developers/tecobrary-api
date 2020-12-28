@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.common.vo;
 
+import dev.milzipmoza.tecobrary.core.domain.wishbook.dto.WishBookEnrollDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +29,17 @@ public class BookInfo {
         this.imageUrl = imageUrl;
         this.publisher = publisher;
         this.description = description;
+    }
+
+    public static BookInfo of(WishBookEnrollDto enrollDto) {
+        return BookInfo.builder()
+                .title(enrollDto.getTitle())
+                .isbn(enrollDto.getIsbn())
+                .author(enrollDto.getAuthor())
+                .imageUrl(enrollDto.getImage())
+                .publisher(enrollDto.getPublisher())
+                .description(enrollDto.getDescription())
+                .build();
     }
 
     public void updateTitle(String title) {
