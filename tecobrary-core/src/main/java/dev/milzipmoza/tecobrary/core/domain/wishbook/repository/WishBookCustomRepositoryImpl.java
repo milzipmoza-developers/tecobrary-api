@@ -3,6 +3,7 @@ package dev.milzipmoza.tecobrary.core.domain.wishbook.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.JPQLQueryFactory;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.entity.WishBook;
+import dev.milzipmoza.tecobrary.core.domain.wishbook.repository.clause.WishBookClause;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -22,6 +23,18 @@ public class WishBookCustomRepositoryImpl extends QuerydslRepositorySupport impl
     public PageImpl<WishBook> findAllByMemberNumber(String memberNumber, PageRequest pageRequest) {
         QueryResults<WishBook> results = from(wishBook)
                 .where(wishBook.wishMemberNumber.eq(memberNumber))
+                .orderBy(wishBook.requestDateTime.desc())
+                .offset(pageRequest.getOffset())
+                .limit(pageRequest.getPageSize())
+                .fetchResults();
+        return new PageImpl<>(results.getResults(), pageRequest, results.getTotal());
+    }
+
+    @Override
+    public PageImpl<WishBook> findAll(WishBookClause wishBookClause, PageRequest pageRequest) {
+        QueryResults<WishBook> results = from(wishBook)
+                .where(wishBookClause.getPredicates())
+                .orderBy(wishBook.requestDateTime.desc())
                 .offset(pageRequest.getOffset())
                 .limit(pageRequest.getPageSize())
                 .fetchResults();

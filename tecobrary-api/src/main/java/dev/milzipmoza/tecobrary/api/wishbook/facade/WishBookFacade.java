@@ -7,6 +7,7 @@ import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookQuery
 import dev.milzipmoza.tecobrary.core.domain.wishbook.dto.WishBookDto;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.dto.WishBookEnrollDto;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.dto.WishBookPageDto;
+import dev.milzipmoza.tecobrary.core.domain.wishbook.entity.WishBookStatus;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.service.WishBookCommandService;
 import dev.milzipmoza.tecobrary.core.domain.wishbook.service.WishBookQueryService;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,11 @@ public class WishBookFacade {
 
     public WishBookPageResponse getWishBooks(String memberNumber, int page, int size) {
         WishBookPageDto wishBooks = wishBookQueryService.getMemberPageWishBooks(memberNumber, page, size);
+        return WishBookPageResponse.of(wishBooks);
+    }
+
+    public WishBookPageResponse getWishBooksByCondition(WishBookStatus status, int page, int size) {
+        WishBookPageDto wishBooks = wishBookQueryService.getConditionalPageWishBooks(status, page, size);
         return WishBookPageResponse.of(wishBooks);
     }
 }
