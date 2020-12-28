@@ -1,6 +1,7 @@
 package dev.milzipmoza.tecobrary.api.wishbook.facade;
 
 import dev.milzipmoza.tecobrary.api.wishbook.request.WishBookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.wishbook.response.WishBookDetailResponse;
 import dev.milzipmoza.tecobrary.api.wishbook.response.WishBookEnrollResponse;
 import dev.milzipmoza.tecobrary.api.wishbook.response.WishBookPageResponse;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookQueryService;
@@ -50,5 +51,14 @@ public class WishBookFacade {
     public WishBookPageResponse getWishBooksByCondition(WishBookStatus status, int page, int size) {
         WishBookPageDto wishBooks = wishBookQueryService.getConditionalPageWishBooks(status, page, size);
         return WishBookPageResponse.of(wishBooks);
+    }
+
+    public WishBookDetailResponse getWishBookDetail(Long id) {
+        WishBookDto wishBook = wishBookQueryService.getWishBook(id);
+        return WishBookDetailResponse.builder()
+                .id(wishBook.getId())
+                .bookInfo(wishBook.getBookInfo())
+                .wishBookStatus(wishBook.getWishBookStatus())
+                .build();
     }
 }
