@@ -36,9 +36,7 @@ subprojects {
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
 
-    group = "dev.milzipmoza.tecobrary"
     sourceCompatibility = "11"
-    version = "0.0.1-SNAPSHOT"
 
     dependencyManagement {
         imports {
