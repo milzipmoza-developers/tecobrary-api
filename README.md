@@ -14,3 +14,7 @@
 ```shell script
 ./stop.sh
 ```
+
+## 기획서
+
+* QR 코드를 이용한 도서관리시스템 기획서 - [노션 링크](https://www.notion.so/QR-8353caa369c2420abcf0d6fed651994a)
