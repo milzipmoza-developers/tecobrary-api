@@ -7,12 +7,12 @@
 
 1. 실행
 ```shell script
-./run.sh
+./setup/run.sh
 ```
 
 2. 종료
 ```shell script
-./stop.sh
+./setup/stop.sh
 ```
 
 ## 기획서

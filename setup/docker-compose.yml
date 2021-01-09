@@ -10,3 +10,5 @@ services:
       - MYSQL_PASSWORD=tecobrary
     ports:
       - "6033:3306"
+    volumes:
+      - "./mysql/init/batch-meta.sql:/docker-entrypoint-initdb.d/1.sql"

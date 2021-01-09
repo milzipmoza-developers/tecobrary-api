@@ -17,4 +17,5 @@ rootProject.name = 'tecobrary'
 include 'tecobrary-core'
 include 'tecobrary-api'
 include 'tecobrary-event-processor'
+include 'tecobrary-batch'
 
