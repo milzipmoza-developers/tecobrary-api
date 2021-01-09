@@ -1,0 +1,11 @@
+plugins {
+    id "org.springframework.boot"
+}
+
+bootJar {
+    enabled = true
+}
+
+dependencies {
+    implementation project(":tecobrary-core")
+}
