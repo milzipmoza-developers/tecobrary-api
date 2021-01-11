@@ -1,0 +1,4 @@
+[submodule "tecobrary-properties"]
+	path = tecobrary-properties
+	url = https://github.com/milzipmoza-developers/tecobrary-properties.git
+	branch = master

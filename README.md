@@ -5,6 +5,10 @@
 * Java 11
 * MySql 5.7
 
+0. 로컬 application.yml 세팅
+
+* gradle(tecobrary, root project) > tasks > build setup > setupProperties 실행
+
 1. 실행
 ```shell script
 ./setup/run.sh

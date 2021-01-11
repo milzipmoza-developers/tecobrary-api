@@ -6,8 +6,9 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.0-SNAPSHOT")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:2.4.0-SNAPSHOT"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.10.RELEASE"
+        classpath "org.ajoberstar:gradle-git:1.6.0"
     }
 }
 
@@ -35,6 +36,7 @@ subprojects {
     apply plugin: "java"
     apply plugin: "org.springframework.boot"
     apply plugin: "io.spring.dependency-management"
+    apply plugin: "org.ajoberstar.grgit"
 
     sourceCompatibility = "11"
 
@@ -68,4 +70,61 @@ subprojects {
             }
         }
     }
+}
+
+task submodulesUpdate(type: Exec) {
+    group 'Build Setup'
+    description 'Updates (and inits) git submodules'
+    println '>>> Get application.yml from git submodule'
+    commandLine 'git', 'submodule', 'update', '--init', '--recursive'
+}
+
+task copyApiProperies(type: Copy) {
+    group 'Build Setup'
+    description 'Copy tecobrary-api module application.yml files to each modules'
+    println '>>> Copy tecobrary-api module application.yml files to each modules'
+    from "$rootDir/tecobrary-properties/tecobrary/api"
+    include "*.yml"
+    into "$rootDir/tecobrary-api/src/main/resources"
+    dependsOn submodulesUpdate
+}
+
+task copyEventProcessorProperies(type: Copy) {
+    group 'Build Setup'
+    description 'Copy tecobrary-event-processor module application.yml files to each modules'
+    println '>>> Copy tecobrary-event-processor module application.yml files to each modules'
+    from "$rootDir/tecobrary-properties/tecobrary/eventprocessor"
+    include "*.yml"
+    into "$rootDir/tecobrary-event-processor/src/main/resources"
+    dependsOn submodulesUpdate
+}
+
+task copyBatchProperies(type: Copy) {
+    group 'Build Setup'
+    description 'Copy tecobrary-batch module application.yml files to each modules'
+    println '>>> Copy tecobrary-batch module application.yml files to each modules'
+    from "$rootDir/tecobrary-properties/tecobrary/batch"
+    include "*.yml"
+    into "$rootDir/tecobrary-batch/src/main/resources"
+    dependsOn submodulesUpdate
+}
+
+task copyCoreProperies(type: Copy) {
+    group 'Build Setup'
+    description 'Copy tecobrary-core module application.yml files to each modules'
+    println '>>> Copy tecobrary-core module application.yml files to each modules'
+    from "$rootDir/tecobrary-properties/tecobrary/core"
+    include "*.yml"
+    into "$rootDir/tecobrary-core/src/main/resources/config"
+    dependsOn submodulesUpdate
+}
+
+task setupProperties {
+    group 'Build Setup'
+    description 'Setup application.yml files'
+    dependsOn submodulesUpdate
+    dependsOn copyApiProperies
+    dependsOn copyBatchProperies
+    dependsOn copyEventProcessorProperies
+    dependsOn copyCoreProperies
 }

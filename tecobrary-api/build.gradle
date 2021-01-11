@@ -29,3 +29,8 @@ asciidoctor {
     inputs.dir snippetsDir
     dependsOn test
 }
+
+//copyProperties {
+//
+//    dependsOn build
+//}
