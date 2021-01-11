@@ -20,6 +20,7 @@ plugins {
 ext {
     set('springCloudVersion', "2020.0.0-SNAPSHOT")
     set('lombokVersion', "1.18.16")
+    set('logbackVersion', "6.6")
 }
 
 allprojects {
@@ -48,6 +49,7 @@ subprojects {
         implementation "org.springframework.boot:spring-boot-starter-web"
         implementation "org.springframework.boot:spring-boot-starter-logging"
         implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+        implementation "net.logstash.logback:logstash-logback-encoder:${logbackVersion}"
 
         testImplementation "org.springframework.boot:spring-boot-starter-test"
 
