@@ -36,3 +36,14 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### logs
+/logs
+
+### application.yml
+**/src/main/resources/application-beta.yml
+**/src/main/resources/application-prod.yml
+**/src/main/resources/config/custom-client-beta.yml
+**/src/main/resources/config/custom-client-prod.yml
+**/src/main/resources/config/custom-core-beta.yml
+**/src/main/resources/config/custom-core-prod.yml
