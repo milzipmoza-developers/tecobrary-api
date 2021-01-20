@@ -1,0 +1,3 @@
+github-api:
+  name: github
+  url: https://api.github.com
