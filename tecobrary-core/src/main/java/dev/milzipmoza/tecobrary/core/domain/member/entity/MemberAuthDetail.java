@@ -9,12 +9,12 @@ import javax.persistence.Embeddable;
 @Getter
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberAuthService {
+public class MemberAuthDetail {
 
     private String key;
     private MemberAuthProvider provider;
 
-    public MemberAuthService(String key, MemberAuthProvider provider) {
+    public MemberAuthDetail(String key, MemberAuthProvider provider) {
         this.key = key;
         this.provider = provider;
     }

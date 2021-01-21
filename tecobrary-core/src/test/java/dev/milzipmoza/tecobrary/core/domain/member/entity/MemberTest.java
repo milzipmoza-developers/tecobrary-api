@@ -11,7 +11,7 @@ class MemberTest {
     @DisplayName("회원의 권한 정보를 수정한다.")
     void updateMemberAuthority() {
         Member member = Member.builder()
-                .authService(new MemberAuthService("auth-key", MemberAuthProvider.GITHUB))
+                .authDetail(new MemberAuthDetail("auth-key", MemberAuthProvider.GITHUB))
                 .build();
 
         member.updateAuthority(MemberAuthority.AUTHORIZED);

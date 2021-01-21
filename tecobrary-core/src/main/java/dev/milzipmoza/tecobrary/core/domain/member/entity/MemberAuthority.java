@@ -6,11 +6,12 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum MemberAuthority {
-    BANNED("금지회원"),
-    UNAUTHORIZED("권한없음"),
-    AUTHORIZED("인증됨"),
-    MANAGER("관리자"),
-    KING("왕");
+    BANNED("금지회원", "ROLE_BANNED"),
+    UNAUTHORIZED("권한없음", "ROLE_UNAUTHORIZED"),
+    AUTHORIZED("인증됨", "ROLE_AUTHORIZED"),
+    MANAGER("관리자", "ROLE_MANAGER"),
+    KING("왕", "ROLE_KING");
 
     private final String displayName;
+    private final String securityRoleName;
 }

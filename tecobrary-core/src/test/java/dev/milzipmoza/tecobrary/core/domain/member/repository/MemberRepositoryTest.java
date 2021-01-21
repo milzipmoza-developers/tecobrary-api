@@ -1,8 +1,8 @@
 package dev.milzipmoza.tecobrary.core.domain.member.repository;
 
 import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
+import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthDetail;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthProvider;
-import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +26,8 @@ class MemberRepositoryTest {
     void save() {
         Member member = Member.builder()
                 .number("memberNumber")
-                .nickName("luffy")
-                .authService(new MemberAuthService("12346578", MemberAuthProvider.GITHUB))
+                .name("luffy")
+                .authDetail(new MemberAuthDetail("12346578", MemberAuthProvider.GITHUB))
                 .build();
 
         Member savedMember = memberRepository.saveAndFlush(member);
@@ -48,14 +48,14 @@ class MemberRepositoryTest {
     void findAllByName() {
         memberRepository.save(Member.builder()
                 .number("memberNumber1")
-                .nickName("luffy")
-                .authService(new MemberAuthService("12346578", MemberAuthProvider.GITHUB))
+                .name("luffy")
+                .authDetail(new MemberAuthDetail("12346578", MemberAuthProvider.GITHUB))
                 .build());
 
         memberRepository.save(Member.builder()
                 .number("memberNumber2")
-                .nickName("luffy")
-                .authService(new MemberAuthService("1234", MemberAuthProvider.GITHUB))
+                .name("luffy")
+                .authDetail(new MemberAuthDetail("1234", MemberAuthProvider.GITHUB))
                 .build());
 
         List<Member> members = memberRepository.findAllByName("luffy");

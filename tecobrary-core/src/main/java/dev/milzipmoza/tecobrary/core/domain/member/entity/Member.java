@@ -17,7 +17,10 @@ public class Member extends BaseTimeEntity {
     private String number;
 
     @Column
-    private String nickName;
+    private String name;
+
+    @Column
+    private String profileImageUrl;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -27,14 +30,15 @@ public class Member extends BaseTimeEntity {
             @AttributeOverride(name = "key", column = @Column(name = "auth_service_key", nullable = false)),
             @AttributeOverride(name = "provider", column = @Column(name = "auth_service_provider", nullable = false))
     })
-    private MemberAuthService authService;
+    private MemberAuthDetail authDetail;
 
     @Builder
-    private Member(String number, String nickName, MemberAuthService authService) {
+    private Member(String number, String name, String profileImageUrl, MemberAuthDetail authDetail) {
         this.number = number;
-        this.nickName = nickName;
+        this.name = name;
+        this.profileImageUrl = profileImageUrl;
         this.authority = MemberAuthority.UNAUTHORIZED;
-        this.authService = authService;
+        this.authDetail = authDetail;
     }
 
     public void updateAuthority(MemberAuthority authority) {
