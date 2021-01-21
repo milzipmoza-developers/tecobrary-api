@@ -4,3 +4,13 @@ server:
 logging:
   level:
     root: DEBUG
+
+cors:
+  allowed:
+    origins:
+      - "http://localhost:3000"
+    headers:
+      - "*"
+    methods:
+      - "*"
+  register-url-pattern: "/**"

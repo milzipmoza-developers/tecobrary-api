@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.config;
+package dev.milzipmoza.tecobrary.config.filter;
 
 import dev.milzipmoza.tecobrary.config.properties.CorsProperties;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +12,7 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @RequiredArgsConstructor
-public class CorsConfig {
+public class CorsFilterConfig {
 
     private final CorsProperties corsProperties;
 
