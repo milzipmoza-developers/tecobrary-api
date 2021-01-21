@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import java.util.List;
 
 @FeignClient(name = "github-api", url = "${github-api.url}")
-public interface GithubApiClientDelegate {
+interface GithubApiClientDelegate {
 
     @GetMapping("/user/emails")
     List<GithubEmailDto> getEmails(@RequestHeader("Authorization") String accessToken);
