@@ -14,3 +14,16 @@ cors:
     methods:
       - "*"
   register-url-pattern: "/**"
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: * # add
+            clientSecret: * # add
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - read:user
+              - user:email
