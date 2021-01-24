@@ -47,6 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.oauth2Login()
                 .authorizationEndpoint().baseUri("/oauth2/authorize").authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository())
                 .and()
+                .redirectionEndpoint().baseUri("/oauth2/callback/*")
+                .and()
                 .userInfoEndpoint().userService(githubOAuth2UserDetailService());
     }
 
