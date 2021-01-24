@@ -15,6 +15,14 @@ cors:
       - "*"
   register-url-pattern: "/**"
 
+app:
+  oauth2:
+    authorized-redirect-uri:
+      - "http://localhost:3000/login/github"
+
+jwt:
+  secret-key: test
+
 spring:
   security:
     oauth2:

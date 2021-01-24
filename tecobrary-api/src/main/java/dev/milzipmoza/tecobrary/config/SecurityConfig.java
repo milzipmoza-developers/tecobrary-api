@@ -1,6 +1,8 @@
 package dev.milzipmoza.tecobrary.config;
 
 import dev.milzipmoza.tecobrary.config.filter.CorsFilterConfig;
+import dev.milzipmoza.tecobrary.security.handler.GithubOAuth2UserAuthenticationSuccessHandler;
+import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
 import dev.milzipmoza.tecobrary.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import dev.milzipmoza.tecobrary.security.service.GithubOAuth2UserDetailService;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .redirectionEndpoint().baseUri("/oauth2/callback/*")
                 .and()
-                .userInfoEndpoint().userService(githubOAuth2UserDetailService());
+                .userInfoEndpoint().userService(githubOAuth2UserDetailService())
+                .and()
+                .successHandler(githubOAuth2UserAuthenticationSuccessHandler())
+        ;
     }
 
     @Bean
@@ -60,5 +65,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     GithubOAuth2UserDetailService githubOAuth2UserDetailService() {
         return new GithubOAuth2UserDetailService();
+    }
+
+    @Bean
+    GithubOAuth2UserAuthenticationSuccessHandler githubOAuth2UserAuthenticationSuccessHandler() {
+        return new GithubOAuth2UserAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    JwtAuthenticator jwtAuthenticator() {
+        return new JwtAuthenticator();
     }
 }

@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.security.service;
 
 import dev.milzipmoza.tecobrary.core.client.github.GithubApiClient;
-import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
+import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberInfoDto;
 import dev.milzipmoza.tecobrary.core.domain.member.service.MemberCommandService;
 import dev.milzipmoza.tecobrary.security.dto.OAuth2AttributeDto;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +44,7 @@ public class GithubOAuth2UserDetailService implements OAuth2UserService<OAuth2Us
 
         OAuth2AttributeDto oAuth2Attribute = OAuth2AttributeDto.of(clientRegistration, attributes, email);
 
-        MemberDto member = memberCommandService.upsert(oAuth2Attribute.toMemberDto());
+        MemberInfoDto member = memberCommandService.upsert(oAuth2Attribute.toMemberDto());
 
         return GithubOAuth2User.builder()
                 .memberAuthority(member.getAuthority())

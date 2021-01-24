@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long>, MemberCustomRepository {
 
     Optional<Member> findByAuthDetailProviderAndAuthDetailKey(MemberAuthProvider provider, String key);
+
+    Optional<Member> findByAuthDetailKey(String key);
 }

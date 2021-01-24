@@ -6,24 +6,22 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class MemberDto {
+public class MemberInfoDto {
 
-    private final String number;
     private final String name;
     private final String profileImageUrl;
     private final MemberAuthority authority;
 
     @Builder
-    public MemberDto(String number, String name, String profileImageUrl, MemberAuthority authority) {
-        this.number = number;
+    public MemberInfoDto(String name, String profileImageUrl, MemberAuthority authority) {
         this.name = name;
         this.profileImageUrl = profileImageUrl;
         this.authority = authority;
     }
 
-    public static MemberDto of(Member member) {
-        return MemberDto.builder()
-                .number(member.getNumber())
+
+    public static MemberInfoDto of(Member member) {
+        return MemberInfoDto.builder()
                 .name(member.getName())
                 .profileImageUrl(member.getProfileImageUrl())
                 .authority(member.getAuthority())
