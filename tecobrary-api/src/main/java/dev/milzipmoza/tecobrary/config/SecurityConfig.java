@@ -1,6 +1,7 @@
 package dev.milzipmoza.tecobrary.config;
 
 import dev.milzipmoza.tecobrary.config.filter.CorsFilterConfig;
+import dev.milzipmoza.tecobrary.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import dev.milzipmoza.tecobrary.security.service.GithubOAuth2UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +45,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // oauth2 로그인 설정
         http.oauth2Login()
+                .authorizationEndpoint().baseUri("/oauth2/authorize").authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository())
+                .and()
                 .userInfoEndpoint().userService(githubOAuth2UserDetailService());
+    }
+
+    @Bean
+    HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository() {
+        return new HttpCookieOAuth2AuthorizationRequestRepository();
     }
 
     @Bean
