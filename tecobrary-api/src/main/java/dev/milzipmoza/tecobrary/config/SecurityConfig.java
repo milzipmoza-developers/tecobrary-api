@@ -1,6 +1,8 @@
 package dev.milzipmoza.tecobrary.config;
 
 import dev.milzipmoza.tecobrary.config.filter.CorsFilterConfig;
+import dev.milzipmoza.tecobrary.security.service.GithubOAuth2UserDetailService;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -41,6 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().disable();
 
         // oauth2 로그인 설정
-        http.oauth2Login();
+        http.oauth2Login()
+                .userInfoEndpoint().userService(githubOAuth2UserDetailService());
+    }
+
+    @Bean
+    GithubOAuth2UserDetailService githubOAuth2UserDetailService() {
+        return new GithubOAuth2UserDetailService();
     }
 }

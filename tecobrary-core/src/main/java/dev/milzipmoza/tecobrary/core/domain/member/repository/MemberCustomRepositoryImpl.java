@@ -20,7 +20,7 @@ public class MemberCustomRepositoryImpl extends QuerydslRepositorySupport implem
     @Override
     public List<Member> findAllByName(String nickName) {
         return from(member)
-                .where(member.nickName.contains(nickName))
+                .where(member.name.contains(nickName))
                 .fetchAll()
                 .fetch();
     }
