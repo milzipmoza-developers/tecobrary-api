@@ -20,6 +20,9 @@ public class Member extends BaseTimeEntity {
     private String name;
 
     @Column
+    private String email;
+
+    @Column
     private String profileImageUrl;
 
     @Column(nullable = false)
@@ -33,9 +36,10 @@ public class Member extends BaseTimeEntity {
     private MemberAuthDetail authDetail;
 
     @Builder
-    private Member(String number, String name, String profileImageUrl, MemberAuthDetail authDetail) {
+    private Member(String number, String name, String email, String profileImageUrl, MemberAuthDetail authDetail) {
         this.number = number;
         this.name = name;
+        this.email = email;
         this.profileImageUrl = profileImageUrl;
         this.authority = MemberAuthority.UNAUTHORIZED;
         this.authDetail = authDetail;

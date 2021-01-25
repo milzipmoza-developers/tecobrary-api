@@ -10,13 +10,15 @@ public class MemberDto {
 
     private final String number;
     private final String name;
+    private final String email;
     private final String profileImageUrl;
     private final MemberAuthority authority;
 
     @Builder
-    public MemberDto(String number, String name, String profileImageUrl, MemberAuthority authority) {
+    public MemberDto(String number, String name, String email, String profileImageUrl, MemberAuthority authority) {
         this.number = number;
         this.name = name;
+        this.email = email;
         this.profileImageUrl = profileImageUrl;
         this.authority = authority;
     }
@@ -25,6 +27,7 @@ public class MemberDto {
         return MemberDto.builder()
                 .number(member.getNumber())
                 .name(member.getName())
+                .email(member.getEmail())
                 .profileImageUrl(member.getProfileImageUrl())
                 .authority(member.getAuthority())
                 .build();

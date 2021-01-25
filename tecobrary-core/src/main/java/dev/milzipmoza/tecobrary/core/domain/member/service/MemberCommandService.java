@@ -20,6 +20,7 @@ public class MemberCommandService {
         Member member = memberRepository.findByAuthDetailProviderAndAuthDetailKey(provider, memberDto.getProviderKey())
                 .orElse(Member.builder()
                         .name(memberDto.getName())
+                        .email(memberDto.getEmail())
                         .profileImageUrl(memberDto.getProfileImageUrl())
                         .authDetail(new MemberAuthDetail(memberDto.getProviderKey(), provider))
                         .number("NONE")

@@ -51,6 +51,7 @@ public class OAuth2AttributeDto {
     public MemberUpsertDto toMemberDto() {
         return MemberUpsertDto.builder()
                 .name(this.name)
+                .email(this.email)
                 .profileImageUrl(this.profileImageUrl)
                 .provider(this.provider)
                 .providerKey(this.providerKey)
