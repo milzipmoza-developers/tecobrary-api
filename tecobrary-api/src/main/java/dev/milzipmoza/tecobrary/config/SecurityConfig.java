@@ -1,6 +1,7 @@
 package dev.milzipmoza.tecobrary.config;
 
 import dev.milzipmoza.tecobrary.config.filter.CorsFilterConfig;
+import dev.milzipmoza.tecobrary.security.handler.GithubOAuth2UserAuthenticationFailureHandler;
 import dev.milzipmoza.tecobrary.security.handler.GithubOAuth2UserAuthenticationSuccessHandler;
 import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
 import dev.milzipmoza.tecobrary.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
@@ -54,6 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint().userService(githubOAuth2UserDetailService())
                 .and()
                 .successHandler(githubOAuth2UserAuthenticationSuccessHandler())
+                .failureHandler(githubOAuth2UserAuthenticationFailureHandler())
         ;
     }
 
@@ -70,6 +72,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     GithubOAuth2UserAuthenticationSuccessHandler githubOAuth2UserAuthenticationSuccessHandler() {
         return new GithubOAuth2UserAuthenticationSuccessHandler();
+    }
+
+    @Bean
+    GithubOAuth2UserAuthenticationFailureHandler githubOAuth2UserAuthenticationFailureHandler() {
+        return new GithubOAuth2UserAuthenticationFailureHandler();
     }
 
     @Bean

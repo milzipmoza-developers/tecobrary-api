@@ -3,7 +3,7 @@ package dev.milzipmoza.tecobrary.security.handler;
 import dev.milzipmoza.tecobrary.config.properties.OAuth2Properties;
 import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
 import dev.milzipmoza.tecobrary.core.domain.member.service.MemberQueryService;
-import dev.milzipmoza.tecobrary.security.exception.IllegalOAuth2Exception;
+import dev.milzipmoza.tecobrary.security.exception.GithubOAuth2Exception;
 import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
 import dev.milzipmoza.tecobrary.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import dev.milzipmoza.tecobrary.security.utils.CookieUtils;
@@ -49,17 +49,17 @@ public class GithubOAuth2UserAuthenticationSuccessHandler extends SimpleUrlAuthe
     private String getTargetUrl(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String redirectUri = Optional.ofNullable(CookieUtils.get(request, REDIRECT_URI_PARAM_COOKIE_NAME))
                 .map(Cookie::getValue)
-                .orElseThrow(() -> new IllegalOAuth2Exception("허용되지 않은 리다이렉트 입니다."));
+                .orElseThrow(() -> new GithubOAuth2Exception("not allowed redirect"));
 
         if (!isAuthorizedUri(redirectUri)) {
             log.warn("[GithubOAuth2UserAuthenticationSuccessHandler] 허용되지 않은 리다이렉트 uri={}", redirectUri);
-            throw new IllegalOAuth2Exception("허용되지 않은 리다이렉트 입니다.");
+            throw new GithubOAuth2Exception("not allowed redirect");
         }
 
         DefaultOAuth2User oAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
 
         Integer id = Optional.ofNullable((Integer) oAuth2User.getAttribute("id"))
-                .orElseThrow(() -> new IllegalOAuth2Exception("비정상적인 접근입니다."));
+                .orElseThrow(() -> new GithubOAuth2Exception("this is abnormal approach"));
 
         MemberDto member = memberQueryService.findByProviderKey(id.toString());
 

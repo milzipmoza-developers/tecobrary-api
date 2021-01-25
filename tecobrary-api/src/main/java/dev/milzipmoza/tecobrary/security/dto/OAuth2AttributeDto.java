@@ -1,6 +1,7 @@
 package dev.milzipmoza.tecobrary.security.dto;
 
 import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberUpsertDto;
+import dev.milzipmoza.tecobrary.security.exception.GithubOAuth2Exception;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,11 +32,11 @@ public class OAuth2AttributeDto {
 
     public static OAuth2AttributeDto of(ClientRegistration clientRegistration, Map<String, Object> attributes, String email) {
         String profileImageUrl = Optional.ofNullable((String) attributes.get("avatar_url"))
-                .orElse("");
+                .orElseThrow(() -> new GithubOAuth2Exception("your github account something went wrong"));
         String name = Optional.ofNullable((String) attributes.get("name"))
-                .orElse("");
+                .orElseThrow(() -> new GithubOAuth2Exception("your github account something went wrong"));
         String providerKey = Optional.ofNullable((String) attributes.get("id"))
-                .orElseThrow(() -> new IllegalArgumentException("회원가입 불가능한 계정입니다."));
+                .orElseThrow(() -> new GithubOAuth2Exception("your github account something went wrong"));
         String provider = clientRegistration.getRegistrationId();
         return OAuth2AttributeDto.builder()
                 .attributes(attributes)
