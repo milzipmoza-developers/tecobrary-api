@@ -35,7 +35,8 @@ public class OAuth2AttributeDto {
                 .orElseThrow(() -> new GithubOAuth2Exception("your github account something went wrong"));
         String name = Optional.ofNullable((String) attributes.get("name"))
                 .orElseThrow(() -> new GithubOAuth2Exception("your github account something went wrong"));
-        String providerKey = Optional.ofNullable((String) attributes.get("id"))
+        String providerKey = Optional.ofNullable((Integer) attributes.get("id"))
+                .map(String::valueOf)
                 .orElseThrow(() -> new GithubOAuth2Exception("your github account something went wrong"));
         String provider = clientRegistration.getRegistrationId();
         return OAuth2AttributeDto.builder()

@@ -6,20 +6,21 @@ import dev.milzipmoza.tecobrary.core.domain.member.service.MemberCommandService;
 import dev.milzipmoza.tecobrary.security.dto.OAuth2AttributeDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * github oauth2 login user info endpoint service
- *
- * @see GithubOAuth2User
  */
 @Slf4j
 public class GithubOAuth2UserDetailService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
@@ -46,9 +47,10 @@ public class GithubOAuth2UserDetailService implements OAuth2UserService<OAuth2Us
 
         MemberInfoDto member = memberCommandService.upsert(oAuth2Attribute.toMemberDto());
 
-        return GithubOAuth2User.builder()
-                .memberAuthority(member.getAuthority())
-                .attributes(oAuth2Attribute.getAttributes())
-                .build();
+        return new DefaultOAuth2User(
+                Set.of(new SimpleGrantedAuthority(member.getAuthority().getSecurityRoleName())),
+                attributes,
+                clientRegistration.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName()
+        );
     }
 }

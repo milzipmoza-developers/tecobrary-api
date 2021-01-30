@@ -47,10 +47,13 @@ public class JwtAuthenticator {
     }
 
     private Map<String, Object> createClaims(MemberDto member) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, 30);
         return Map.of(
-                CLAIMS_EMAIL, "", // todo: add member email
+                CLAIMS_EMAIL, member.getEmail(),
                 CLAIMS_NAME, member.getName(),
-                CLAIMS_ROLE, member.getAuthority().getSecurityRoleName()
+                CLAIMS_ROLE, member.getAuthority().getSecurityRoleName(),
+                "exp", calendar.getTime()
         );
     }
 
