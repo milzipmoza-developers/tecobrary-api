@@ -1,6 +1,5 @@
 package dev.milzipmoza.tecobrary.config;
 
-import dev.milzipmoza.tecobrary.config.filter.CorsFilterConfig;
 import dev.milzipmoza.tecobrary.security.handler.GithubOAuth2UserAuthenticationFailureHandler;
 import dev.milzipmoza.tecobrary.security.handler.GithubOAuth2UserAuthenticationSuccessHandler;
 import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
@@ -20,7 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * spring security configuration
      *
-     * @see CorsFilterConfig
+     * @see CorsConfig
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
