@@ -9,28 +9,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
-import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 public class JwtAuthenticator {
 
     private static final SignatureAlgorithm ALGORITHM_HS_256 = SignatureAlgorithm.HS256;
+    private static final String JWT_ISSUER = "TECOBRARY-API";
     private static final String HEADER_TYPE_KEY = "typ";
+    private static final String HEADER_TYPE_VALUE = "JWT";
     private static final String HEADER_ALGORITHM_KEY = "alg";
     private static final String HEADER_ALGORITHM_REG_DATE_KEY = "regDate";
     private static final String CLAIMS_EMAIL = "email";
     private static final String CLAIMS_NAME = "name";
     private static final String CLAIMS_ROLE = "role";
+    private static final int ONE_WEEK = 7 * 24 * 60 * 60;
 
     @Autowired
     private JwtProperties jwtProperties;
 
     public String generateToken(MemberDto member) {
         return Jwts.builder()
-                .setSubject("") // todo: set subject
+                .setIssuer(JWT_ISSUER)
+                .setSubject(member.getNumber())
                 .setHeader(createHeader())
                 .setClaims(createClaims(member))
                 .setExpiration(createExpireDate())
@@ -39,22 +40,19 @@ public class JwtAuthenticator {
     }
 
     private Map<String, Object> createHeader() {
-        return Map.of(
-                HEADER_TYPE_KEY, "JWT",
-                HEADER_ALGORITHM_KEY, ALGORITHM_HS_256.getValue(),
-                HEADER_ALGORITHM_REG_DATE_KEY, System.currentTimeMillis()
-        );
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(HEADER_TYPE_KEY, HEADER_TYPE_VALUE);
+        headers.put(HEADER_ALGORITHM_KEY, ALGORITHM_HS_256.getValue());
+        headers.put(HEADER_ALGORITHM_REG_DATE_KEY, System.currentTimeMillis());
+        return headers;
     }
 
     private Map<String, Object> createClaims(MemberDto member) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 30);
-        return Map.of(
-                CLAIMS_EMAIL, member.getEmail(),
-                CLAIMS_NAME, member.getName(),
-                CLAIMS_ROLE, member.getAuthority().getSecurityRoleName(),
-                "exp", calendar.getTime()
-        );
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIMS_EMAIL, member.getEmail());
+        claims.put(CLAIMS_NAME, member.getName());
+        claims.put(CLAIMS_ROLE, member.getAuthority().getSecurityRoleName());
+        return claims;
     }
 
     private Date createExpireDate() {
