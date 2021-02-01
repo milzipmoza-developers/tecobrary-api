@@ -6,11 +6,11 @@ import dev.milzipmoza.tecobrary.core.domain.member.service.MemberQueryService;
 import dev.milzipmoza.tecobrary.security.exception.GithubOAuth2Exception;
 import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
 import dev.milzipmoza.tecobrary.security.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import dev.milzipmoza.tecobrary.security.service.GithubOAuth2User;
 import dev.milzipmoza.tecobrary.security.utils.CookieUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -56,7 +56,7 @@ public class GithubOAuth2UserAuthenticationSuccessHandler extends SimpleUrlAuthe
             throw new GithubOAuth2Exception("not allowed redirect");
         }
 
-        DefaultOAuth2User oAuth2User = (DefaultOAuth2User) authentication.getPrincipal();
+        GithubOAuth2User oAuth2User = (GithubOAuth2User) authentication.getPrincipal();
 
         Integer id = Optional.ofNullable((Integer) oAuth2User.getAttribute("id"))
                 .orElseThrow(() -> new GithubOAuth2Exception("this is abnormal approach"));

@@ -2,8 +2,7 @@ package dev.milzipmoza.tecobrary.security.jwt;
 
 import dev.milzipmoza.tecobrary.config.properties.JwtProperties;
 import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,10 +19,10 @@ public class JwtAuthenticator {
     private static final String HEADER_TYPE_VALUE = "JWT";
     private static final String HEADER_ALGORITHM_KEY = "alg";
     private static final String HEADER_ALGORITHM_REG_DATE_KEY = "regDate";
+    private static final String CLAIMS_NUMBER = "number";
     private static final String CLAIMS_EMAIL = "email";
     private static final String CLAIMS_NAME = "name";
     private static final String CLAIMS_ROLE = "role";
-    private static final int ONE_WEEK = 7 * 24 * 60 * 60;
 
     @Autowired
     private JwtProperties jwtProperties;
@@ -39,6 +38,32 @@ public class JwtAuthenticator {
                 .compact();
     }
 
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parser().setSigningKey(jwtProperties.getSecretKey()).parseClaimsJws(token);
+            return true;
+        } catch (SignatureException ex) {
+            log.error("Invalid JWT signature");
+        } catch (MalformedJwtException ex) {
+            log.error("Invalid JWT token");
+        } catch (ExpiredJwtException ex) {
+            log.error("Expired JWT token");
+        } catch (UnsupportedJwtException ex) {
+            log.error("Unsupported JWT token");
+        } catch (IllegalArgumentException ex) {
+            log.error("JWT claims string is empty.");
+        }
+        return false;
+    }
+
+    public String getMemberNumber(String token) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtProperties.getSecretKey())
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.get("number", String.class);
+    }
+
     private Map<String, Object> createHeader() {
         Map<String, Object> headers = new HashMap<>();
         headers.put(HEADER_TYPE_KEY, HEADER_TYPE_VALUE);
@@ -49,6 +74,7 @@ public class JwtAuthenticator {
 
     private Map<String, Object> createClaims(MemberDto member) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put(CLAIMS_NUMBER, member.getNumber());
         claims.put(CLAIMS_EMAIL, member.getEmail());
         claims.put(CLAIMS_NAME, member.getName());
         claims.put(CLAIMS_ROLE, member.getAuthority().getSecurityRoleName());

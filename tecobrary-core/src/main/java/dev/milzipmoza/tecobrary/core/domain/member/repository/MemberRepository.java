@@ -13,4 +13,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberCus
     Optional<Member> findByAuthDetailProviderAndAuthDetailKey(MemberAuthProvider provider, String key);
 
     Optional<Member> findByAuthDetailKey(String key);
+
+    Optional<Member> findByNumber(String memberNumber);
 }

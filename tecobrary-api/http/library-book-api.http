@@ -1,5 +1,6 @@
 ### 도서 내역 조회
 GET http://localhost:9090/admin/library-books?page=1&size=10
+Authorization: Bearer eyJyZWdEYXRlIjoxNjEyMTg1NDM4OTMzLCJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJudW1iZXIiOiJOT05FIiwicm9sZSI6IlJPTEVfVU5BVVRIT1JJWkVEIiwibmFtZSI6InRoZWRldmx1ZmZ5IiwiZXhwIjoxNjE0Nzc3NDM4LCJlbWFpbCI6InRoZWRldmx1ZmZ5QGdtYWlsLmNvbSJ9.eMQk6xlKhQF0CltnekJk9RypXTz2kJxclWqNYktSd7c
 
 ### 도서 등록
 PUT http://localhost:9090/admin/library-books

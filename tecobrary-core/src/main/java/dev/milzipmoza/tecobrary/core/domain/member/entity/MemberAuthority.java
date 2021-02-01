@@ -12,6 +12,9 @@ public enum MemberAuthority {
     MANAGER("관리자", "ROLE_MANAGER"),
     KING("왕", "ROLE_KING");
 
+    public static final String[] ADMIN_AUTHORITIES = {MANAGER.getSecurityRoleName(), KING.getSecurityRoleName()};
+    public static final String[] MEMBER_AUTHORITIES = {AUTHORIZED.getSecurityRoleName(), MANAGER.getSecurityRoleName(), KING.getSecurityRoleName()};
+
     private final String displayName;
     private final String securityRoleName;
 }

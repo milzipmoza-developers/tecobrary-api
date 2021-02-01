@@ -22,4 +22,11 @@ public class MemberQueryService {
 
         return MemberDto.of(member);
     }
+
+    public MemberDto findByMemberNumber(String memberNumber) {
+        Member member = memberRepository.findByNumber(memberNumber)
+                .orElseThrow(() -> new EntityNotFoundException("회원을 찾을 수 없습니다."));
+
+        return MemberDto.of(member);
+    }
 }

@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.config;
 
+import dev.milzipmoza.tecobrary.config.filter.JwtAuthenticationFilter;
 import dev.milzipmoza.tecobrary.security.handler.GithubOAuth2UserAuthenticationFailureHandler;
 import dev.milzipmoza.tecobrary.security.handler.GithubOAuth2UserAuthenticationSuccessHandler;
 import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -56,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(githubOAuth2UserAuthenticationSuccessHandler())
                 .failureHandler(githubOAuth2UserAuthenticationFailureHandler())
         ;
+
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -81,5 +85,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     JwtAuthenticator jwtAuthenticator() {
         return new JwtAuthenticator();
+    }
+
+    @Bean
+    JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
     }
 }
