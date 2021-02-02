@@ -14,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import static dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthority.ADMIN_AUTHORITIES;
+import static dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthority.MEMBER_AUTHORITIES;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -36,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 인증 정책 대상 endpoint
         http.authorizeRequests()
                 .antMatchers("/", "/auth/**", "/oauth2/**", "/h2-console/**").permitAll()
+                .antMatchers("/admin/**").hasAnyAuthority(ADMIN_AUTHORITIES)
+                .antMatchers("/web/**").hasAnyAuthority(MEMBER_AUTHORITIES)
                 .anyRequest().authenticated();
 
         // 세션 비활성화
