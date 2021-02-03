@@ -2,15 +2,17 @@ package dev.milzipmoza.tecobrary.api.naver;
 
 import dev.milzipmoza.tecobrary.api.naver.facade.NaverBookSearchFacade;
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverBookSearchItemDto;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 
@@ -18,22 +20,31 @@ import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.NAVER_API_BOOK_SEA
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@WebMvcTest(CommonNaverBookSearchController.class)
+@ExtendWith({RestDocumentationExtension.class, MockitoExtension.class})
 @AutoConfigureRestDocs
 class CommonNaverBookSearchControllerTest {
 
-    @MockBean
+    @Mock
     private NaverBookSearchFacade naverBookSearchFacade;
 
-    @Autowired
+    @InjectMocks
+    private CommonNaverBookSearchController commonNaverBookSearchController;
+
     private MockMvc mockMvc;
+
+    @BeforeEach
+    void setUp(RestDocumentationContextProvider restDocumentation) {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(commonNaverBookSearchController)
+                .apply(documentationConfiguration(restDocumentation))
+                .build();
+    }
 
     @Test
     void searchBook() throws Exception {

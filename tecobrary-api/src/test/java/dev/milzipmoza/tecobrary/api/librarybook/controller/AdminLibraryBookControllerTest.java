@@ -5,41 +5,51 @@ import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
 import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookEnrollRequest;
 import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookAlreadyEnrolledException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.ENROLL_LIBRARY_BOOK_FAILED;
 import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.ENROLL_LIBRARY_BOOK_SUCCESS;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.put;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@WebMvcTest(AdminLibraryBookController.class)
+@ExtendWith({RestDocumentationExtension.class, MockitoExtension.class})
 @AutoConfigureRestDocs
 class AdminLibraryBookControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @MockBean
+    @Mock
     private LibraryBookFacade libraryBookFacade;
+
+    @InjectMocks
+    private AdminLibraryBookController adminLibraryBookController;
+
+    @BeforeEach
+    void setUp(RestDocumentationContextProvider restDocumentation) {
+        this.mockMvc = MockMvcBuilders.standaloneSetup(adminLibraryBookController)
+                .apply(documentationConfiguration(restDocumentation))
+                .build();
+    }
 
     @Test
     void enroll() throws Exception {
@@ -115,13 +125,11 @@ class AdminLibraryBookControllerTest {
                 .andExpect(jsonPath("$.status").value("FAIL"))
                 .andExpect(jsonPath("$.message").value(ENROLL_LIBRARY_BOOK_FAILED))
                 .andExpect(jsonPath("$.serverDateTime").isNotEmpty())
-                .andExpect(jsonPath("$.data").isEmpty())
                 .andDo(document("library-book/enroll-failed",
                         responseFields(
                                 fieldWithPath("status").description("응답 상태"),
                                 fieldWithPath("message").description("응답 메시지"),
-                                fieldWithPath("serverDateTime").description("응답 서버 시간"),
-                                fieldWithPath("data").description("응답 데이터")
+                                fieldWithPath("serverDateTime").description("응답 서버 시간")
                         ))
                 );
     }
