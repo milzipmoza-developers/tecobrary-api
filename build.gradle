@@ -38,7 +38,7 @@ subprojects {
     apply plugin: "io.spring.dependency-management"
     apply plugin: "org.ajoberstar.grgit"
 
-    sourceCompatibility = "11"
+    sourceCompatibility = "15"
 
     dependencyManagement {
         imports {
