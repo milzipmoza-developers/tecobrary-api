@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.security.service;
 
-import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
+import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberInfoDto;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthority;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,10 +30,10 @@ public class GithubOAuth2User implements OAuth2User, UserDetails {
         this.attributes = attributes;
     }
 
-    public static GithubOAuth2User of(MemberDto memberDto) {
+    public static GithubOAuth2User of(MemberInfoDto memberInfoDto) {
         return GithubOAuth2User.builder()
-                .name(memberDto.getName())
-                .memberAuthority(memberDto.getAuthority())
+                .name(memberInfoDto.getName())
+                .memberAuthority(memberInfoDto.getAuthority())
                 .build();
     }
 

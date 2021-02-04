@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.config.filter;
 
-import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
+import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberInfoDto;
 import dev.milzipmoza.tecobrary.core.domain.member.service.MemberQueryService;
 import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
 import dev.milzipmoza.tecobrary.security.service.GithubOAuth2User;
@@ -38,7 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             if (StringUtils.hasText(jwt) && jwtAuthenticator.validateToken(jwt)) {
                 String memberNumber = jwtAuthenticator.getMemberNumber(jwt);
 
-                MemberDto member = memberQueryService.findByMemberNumber(memberNumber);
+                MemberInfoDto member = memberQueryService.findByMemberNumber(memberNumber);
                 GithubOAuth2User oAuth2User = GithubOAuth2User.of(member);
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(oAuth2User, null, oAuth2User.getAuthorities());
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

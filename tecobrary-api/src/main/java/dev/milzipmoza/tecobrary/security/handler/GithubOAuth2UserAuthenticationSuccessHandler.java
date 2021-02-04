@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.security.handler;
 
 import dev.milzipmoza.tecobrary.config.properties.OAuth2Properties;
-import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
+import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberInfoDto;
 import dev.milzipmoza.tecobrary.core.domain.member.service.MemberQueryService;
 import dev.milzipmoza.tecobrary.security.exception.GithubOAuth2Exception;
 import dev.milzipmoza.tecobrary.security.jwt.JwtAuthenticator;
@@ -61,7 +61,7 @@ public class GithubOAuth2UserAuthenticationSuccessHandler extends SimpleUrlAuthe
         Integer id = Optional.ofNullable((Integer) oAuth2User.getAttribute("id"))
                 .orElseThrow(() -> new GithubOAuth2Exception("this is abnormal approach"));
 
-        MemberDto member = memberQueryService.findByProviderKey(id.toString());
+        MemberInfoDto member = memberQueryService.findByProviderKey(id.toString());
 
         String token = jwtAuthenticator.generateToken(member);
 

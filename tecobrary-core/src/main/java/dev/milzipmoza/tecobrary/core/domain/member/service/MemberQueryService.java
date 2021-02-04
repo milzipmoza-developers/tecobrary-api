@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.member.service;
 
-import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
+import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberInfoDto;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import dev.milzipmoza.tecobrary.core.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,17 +16,17 @@ public class MemberQueryService {
 
     private final MemberRepository memberRepository;
 
-    public MemberDto findByProviderKey(String providerKey) {
+    public MemberInfoDto findByProviderKey(String providerKey) {
         Member member = memberRepository.findByAuthDetailKey(providerKey)
                 .orElseThrow(() -> new EntityNotFoundException("회원을 찾을 수 없습니다."));
 
-        return MemberDto.of(member);
+        return MemberInfoDto.of(member);
     }
 
-    public MemberDto findByMemberNumber(String memberNumber) {
+    public MemberInfoDto findByMemberNumber(String memberNumber) {
         Member member = memberRepository.findByNumber(memberNumber)
                 .orElseThrow(() -> new EntityNotFoundException("회원을 찾을 수 없습니다."));
 
-        return MemberDto.of(member);
+        return MemberInfoDto.of(member);
     }
 }

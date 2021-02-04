@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.security.jwt;
 
 import dev.milzipmoza.tecobrary.config.properties.JwtProperties;
-import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDto;
+import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberInfoDto;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class JwtAuthenticator {
     @Autowired
     private JwtProperties jwtProperties;
 
-    public String generateToken(MemberDto member) {
+    public String generateToken(MemberInfoDto member) {
         return Jwts.builder()
                 .setIssuer(JWT_ISSUER)
                 .setSubject(member.getNumber())
@@ -72,7 +72,7 @@ public class JwtAuthenticator {
         return headers;
     }
 
-    private Map<String, Object> createClaims(MemberDto member) {
+    private Map<String, Object> createClaims(MemberInfoDto member) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIMS_NUMBER, member.getNumber());
         claims.put(CLAIMS_EMAIL, member.getEmail());

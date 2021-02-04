@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.core.domain.member.service;
 
-import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberInfoDto;
+import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberSimpleInfoDto;
 import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberUpsertDto;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.Member;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthDetail;
@@ -15,7 +15,7 @@ public class MemberCommandService {
 
     private final MemberRepository memberRepository;
 
-    public MemberInfoDto upsert(MemberUpsertDto memberDto) {
+    public MemberSimpleInfoDto upsert(MemberUpsertDto memberDto) {
         MemberAuthProvider provider = MemberAuthProvider.of(memberDto.getProvider());
         Member member = memberRepository.findByAuthDetailProviderAndAuthDetailKey(provider, memberDto.getProviderKey())
                 .orElse(Member.builder()
@@ -26,6 +26,6 @@ public class MemberCommandService {
                         .number("NONE")
                         .build()
                 );
-        return MemberInfoDto.of(memberRepository.save(member));
+        return MemberSimpleInfoDto.of(memberRepository.save(member));
     }
 }
