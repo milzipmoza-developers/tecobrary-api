@@ -4,6 +4,8 @@ import dev.milzipmoza.tecobrary.api.member.response.MemberDetailResponse;
 import dev.milzipmoza.tecobrary.api.member.response.MemberPageResponse;
 import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberDetailDto;
 import dev.milzipmoza.tecobrary.core.domain.member.dto.MemberPageDto;
+import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthority;
+import dev.milzipmoza.tecobrary.core.domain.member.service.MemberCommandService;
 import dev.milzipmoza.tecobrary.core.domain.member.service.MemberQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class MemberFacade {
 
     private final MemberQueryService memberQueryService;
+    private final MemberCommandService memberCommandService;
 
     public MemberPageResponse getMembers(int page, int size) {
         MemberPageDto members = memberQueryService.getMembers(page, size);
@@ -28,6 +31,11 @@ public class MemberFacade {
 
     public MemberDetailResponse getMember(Long id) {
         MemberDetailDto member = memberQueryService.getMember(id);
+        return MemberDetailResponse.of(member);
+    }
+
+    public MemberDetailResponse updateAuthority(Long id, MemberAuthority authority) {
+        MemberDetailDto member = memberCommandService.updateAuthority(id, authority);
         return MemberDetailResponse.of(member);
     }
 }
