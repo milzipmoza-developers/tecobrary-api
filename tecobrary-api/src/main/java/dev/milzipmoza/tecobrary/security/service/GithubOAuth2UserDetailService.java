@@ -49,10 +49,5 @@ public class GithubOAuth2UserDetailService implements OAuth2UserService<OAuth2Us
                 .attributes(attributes)
                 .memberAuthority(member.getAuthority())
                 .build();
-//        return new DefaultOAuth2User(
-//                Set.of(new SimpleGrantedAuthority(member.getAuthority().getSecurityRoleName())),
-//                attributes,
-//                clientRegistration.getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName()
-//        );
     }
 }
