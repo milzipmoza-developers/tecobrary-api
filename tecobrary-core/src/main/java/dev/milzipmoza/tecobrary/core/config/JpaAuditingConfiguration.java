@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -25,10 +24,5 @@ public class JpaAuditingConfiguration {
                         .map(Principal::getName)
                         .orElse(AUDITOR_SYSTEM)
         );
-    }
-
-    @Bean
-    public AuditingEntityListener createAuditingListener() {
-        return new AuditingEntityListener();
     }
 }
