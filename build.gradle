@@ -50,8 +50,10 @@ subprojects {
         implementation "org.springframework.boot:spring-boot-starter-web"
         implementation "org.springframework.boot:spring-boot-starter-logging"
         implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+        implementation "org.springframework.boot:spring-boot-starter-security"
 
         testImplementation "org.springframework.boot:spring-boot-starter-test"
+        testImplementation "org.springframework.security:spring-security-test"
 
         annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
         compileOnly "org.projectlombok:lombok:${lombokVersion}"
