@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -25,6 +26,9 @@ public class Book extends BaseTimeEntity {
 
     @Column
     private String rentMemberNumber;
+
+    @Column
+    private LocalDateTime rentDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "library_book_id")
@@ -46,6 +50,7 @@ public class Book extends BaseTimeEntity {
         }
         this.bookStatus = BookStatus.RENT;
         this.rentMemberNumber = rentMemberNumber;
+        this.rentDateTime = LocalDateTime.now();
     }
 
     public void doReturn(String rentMemberNumber) {
@@ -56,6 +61,15 @@ public class Book extends BaseTimeEntity {
             throw new BookRentMemberIdentifyFailedException("대여 내역을 확인해주세요.");
         }
         this.bookStatus = BookStatus.IN_LIBRARY;
+        initRentMemberNumber();
+        initRentDateTime();
+    }
+
+    private void initRentDateTime() {
+        this.rentDateTime = null;
+    }
+
+    private void initRentMemberNumber() {
         this.rentMemberNumber = null;
     }
 }

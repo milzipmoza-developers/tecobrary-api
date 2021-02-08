@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -13,8 +15,8 @@ public class RentCommandService {
 
     private final RentRepository rentRepository;
 
-    public void doRent(Long libraryBookId, String libraryBookTitle, String libraryBookPublisher, String bookSerial, String memberNumber) {
-        Rent rent = Rent.doRent(libraryBookId, libraryBookTitle, libraryBookPublisher, memberNumber, bookSerial);
+    public void doRent(Long libraryBookId, String libraryBookTitle, String libraryBookPublisher, String bookSerial, String memberNumber, LocalDateTime rentDateTime) {
+        Rent rent = Rent.doRent(libraryBookId, libraryBookTitle, libraryBookPublisher, memberNumber, bookSerial, rentDateTime);
         rentRepository.save(rent);
     }
 

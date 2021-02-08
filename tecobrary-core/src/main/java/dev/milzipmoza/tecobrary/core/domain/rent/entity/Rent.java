@@ -46,26 +46,27 @@ public class Rent extends BaseTimeEntity {
         this.rentLibraryBookPublisher = rentLibraryBookPublisher;
         this.rentBookSerial = rentBookSerial;
         this.rentMemberNumber = rentMemberNumber;
-        doRent();
     }
 
-    public static Rent doRent(Long rentLibraryBookId, String rentLibraryBookTitle, String rentLibraryBookPublisher, String rentMemberNumber, String rentBookSerial) {
-        return Rent.builder()
+    public static Rent doRent(Long rentLibraryBookId, String rentLibraryBookTitle, String rentLibraryBookPublisher, String rentMemberNumber, String rentBookSerial, LocalDateTime rentDateTime) {
+        Rent rent = Rent.builder()
                 .rentLibraryBookId(rentLibraryBookId)
                 .rentLibraryBookTitle(rentLibraryBookTitle)
                 .rentLibraryBookPublisher(rentLibraryBookPublisher)
                 .rentBookSerial(rentBookSerial)
                 .rentMemberNumber(rentMemberNumber)
                 .build();
+        rent.doRent(rentDateTime);
+        return rent;
+    }
+
+    private void doRent(LocalDateTime rentDateTime) {
+        this.isReturned = false;
+        this.rentDateTime = rentDateTime;
     }
 
     public void doReturn() {
         this.isReturned = true;
         this.returnDateTime = LocalDateTime.now();
-    }
-
-    private void doRent() {
-        this.isReturned = false;
-        this.rentDateTime = LocalDateTime.now();
     }
 }

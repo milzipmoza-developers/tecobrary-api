@@ -55,6 +55,7 @@ public class BookCommandService {
                     .bookSerial(book.getBookSerial())
                     .bookStatus(book.getBookStatus())
                     .memberNumber(rentMemberNumber)
+                    .rentDatetime(book.getRentDateTime())
                     .build());
         } catch (BookException e) {
             throw e;
