@@ -1,53 +1,28 @@
 import React, {useState} from "react";
-import {Button, Layout, Menu} from "antd";
-import {
-  BookOutlined,
-  CarryOutOutlined,
-  DatabaseOutlined,
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined
-} from "@ant-design/icons";
-import "./App.css";
-import {useSetRecoilState} from "recoil";
-import {alertState} from "./states/alertState";
+import {Route, Switch} from "react-router-dom";
+import {Layout} from "antd";
+import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import GlobalAlert from "./components/GlobalAlert";
+import TestFeature from "./components/TestFeature";
+import GlobalSideMenu from "./components/GlobalSideMenu";
+import {RouteItem} from "./interfaces/RouteItem";
+import {routeItems} from "./routes";
+import "./App.css";
 
 const {Header, Sider, Content} = Layout;
 
 function App() {
-  const setAlert = useSetRecoilState(alertState);
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const toggle = () => {
     setCollapsed(!collapsed);
   };
 
-  const makeAlert = () => {
-    setAlert({
-      message: "야호",
-      type: "success"
-    })
-  }
-
   return (
     <Layout className="global-layout" style={{height: "100%"}}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo"/>
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-          <Menu.Item key="1" icon={<UserOutlined/>}>
-            회원관리
-          </Menu.Item>
-          <Menu.Item key="2" icon={<BookOutlined/>}>
-            도서관리
-          </Menu.Item>
-          <Menu.Item key="3" icon={<DatabaseOutlined/>}>
-            희망도서관리
-          </Menu.Item>
-          <Menu.Item key="4" icon={<CarryOutOutlined/>}>
-            대여내역
-          </Menu.Item>
-        </Menu>
+        <div className="logo">테코브러리 로고</div>
+        <GlobalSideMenu/>
       </Sider>
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{padding: 0}}>
@@ -56,6 +31,7 @@ function App() {
             : <MenuFoldOutlined className='trigger' onClick={toggle}/>}
         </Header>
         <GlobalAlert/>
+        <TestFeature/>
         <Content
           className="site-layout-background"
           style={{
@@ -64,8 +40,11 @@ function App() {
             minHeight: 280,
           }}
         >
-          Content
-          <Button onClick={makeAlert}>얼럿</Button>
+          <Switch>
+            {routeItems.map((value: RouteItem, index: number) => (
+              <Route exact path={value.path} component={value.component} key={index}/>
+            ))}
+          </Switch>
         </Content>
       </Layout>
     </Layout>
