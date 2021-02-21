@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import {Button, Col, Divider, Input, Row, Space, Table, Tag} from "antd";
-import {LibraryBookSearch} from "../interfaces/LibraryBook";
-import {libraryBookPage} from "../api/book";
+import {LibraryBookElement, LibraryBookSearch} from "../interfaces/LibraryBook";
+import {libraryBookPage} from "../api/LibraryBooks";
+import A from "../components/A";
 
 const columns = [
   {
     title: '제목',
     dataIndex: 'title',
     key: 'title',
-    render: (text: string) => <a href={'/'}>{text}</a>,
+    render: (text: string, value: LibraryBookElement) => <A href={`/library-books/${value.id}`}>{text}</A>,
   },
   {
     title: '저자',

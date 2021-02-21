@@ -1,0 +1,13 @@
+.library-book-info .title {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.library-book-info .detail {
+  font-size: 1.3em;
+}
+
+.library-book-info .description {
+  font-size: 1.3em;
+  margin-top: 18px;
+}

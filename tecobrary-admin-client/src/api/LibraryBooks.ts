@@ -1,4 +1,4 @@
-import {LibraryBookElement} from "../interfaces/LibraryBook";
+import {LibraryBookDetail, LibraryBookElement} from "../interfaces/LibraryBook";
 
 export const libraryBookPage: LibraryBookElement[] = [
   {
@@ -50,3 +50,53 @@ export const libraryBookPage: LibraryBookElement[] = [
     categories: ["사실", "오해"]
   },
 ];
+
+export const libraryBookDetail: LibraryBookDetail = {
+  id: 6,
+  title: "객체지향의 사실과 오해",
+  image: "http://image.kyobobook.co.kr/images/book/xlarge/766/x9788998139766.jpg",
+  author: "조영호",
+  publisher: "위키북스",
+  isbn: "12345678 ABCDEFG",
+  description: "지금까지 이런 객체지향은 없었다.",
+  books: [
+    {
+      bookSerial: "1",
+      bookStatus: "IN_LIBRARY",
+    },
+    {
+      bookSerial: "2",
+      bookStatus: "RENT",
+      rentMember: "루피",
+      rentDateTime: '2020-01-02 17:00:00'
+    },
+    {
+      bookSerial: "3",
+      bookStatus: "IN_LIBRARY",
+    },
+    {
+      bookSerial: "4",
+      bookStatus: "RENT",
+      rentMember: "루피",
+      rentDateTime: '2020-01-02 17:00:00'
+    },
+    {
+      bookSerial: "5",
+      bookStatus: "IN_LIBRARY",
+    },
+    {
+      bookSerial: "6",
+      bookStatus: "RENT",
+      rentMember: "루피",
+      rentDateTime: '2020-01-02 17:00:00'
+    },
+    {
+      bookSerial: "7",
+      bookStatus: "IN_LIBRARY",
+    },
+    {
+      bookSerial: "8",
+      bookStatus: "IN_LIBRARY",
+    },
+  ]
+}
