@@ -1,22 +1,34 @@
 import React, {useState} from "react";
 import {Button, Layout, Menu} from "antd";
 import {
+  BookOutlined,
+  CarryOutOutlined,
+  DatabaseOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import "./App.css";
+import {useSetRecoilState} from "recoil";
+import {alertState} from "./states/alertState";
+import GlobalAlert from "./components/GlobalAlert";
 
 const {Header, Sider, Content} = Layout;
 
 function App() {
-  const [collapsed, setCollased] = useState<boolean>(false);
+  const setAlert = useSetRecoilState(alertState);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const toggle = () => {
-    setCollased(!collapsed);
+    setCollapsed(!collapsed);
   };
+
+  const makeAlert = () => {
+    setAlert({
+      message: "야호",
+      type: "success"
+    })
+  }
 
   return (
     <Layout className="global-layout" style={{height: "100%"}}>
@@ -24,13 +36,16 @@ function App() {
         <div className="logo"/>
         <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           <Menu.Item key="1" icon={<UserOutlined/>}>
-            nav 1
+            회원관리
           </Menu.Item>
-          <Menu.Item key="2" icon={<VideoCameraOutlined/>}>
-            nav 2
+          <Menu.Item key="2" icon={<BookOutlined/>}>
+            도서관리
           </Menu.Item>
-          <Menu.Item key="3" icon={<UploadOutlined/>}>
-            nav 3
+          <Menu.Item key="3" icon={<DatabaseOutlined/>}>
+            희망도서관리
+          </Menu.Item>
+          <Menu.Item key="4" icon={<CarryOutOutlined/>}>
+            대여내역
           </Menu.Item>
         </Menu>
       </Sider>
@@ -40,6 +55,7 @@ function App() {
             ? <MenuUnfoldOutlined className='trigger' onClick={toggle}/>
             : <MenuFoldOutlined className='trigger' onClick={toggle}/>}
         </Header>
+        <GlobalAlert/>
         <Content
           className="site-layout-background"
           style={{
@@ -49,7 +65,7 @@ function App() {
           }}
         >
           Content
-          <Button type="primary">Button</Button>
+          <Button onClick={makeAlert}>얼럿</Button>
         </Content>
       </Layout>
     </Layout>
