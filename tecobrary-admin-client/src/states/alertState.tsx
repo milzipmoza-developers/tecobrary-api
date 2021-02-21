@@ -1,6 +1,8 @@
 import {atom, selector} from "recoil";
 
-function alertDefault(message: string, type: 'success' | 'info' | 'warning' | 'error' | undefined) {
+type alertType = 'success' | 'info' | 'warning' | 'error' | undefined;
+
+function alertDefault(message: string, type: alertType) {
   return {
     message,
     type
