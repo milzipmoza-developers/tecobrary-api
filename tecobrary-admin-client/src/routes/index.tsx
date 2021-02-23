@@ -7,6 +7,7 @@ import WishBookPage from "../pages/WishBookPage";
 import RentPage from "../pages/RentPage";
 import React from "react";
 import LibraryBookDetailPage from "../pages/libraryBook/LIbraryBookDetailPage";
+import LibraryBookEnrollPage from "../pages/libraryBook/LibraryBookEnrollPage";
 
 export const routeItems: RouteMenuItem[] = [
   {
@@ -26,9 +27,21 @@ export const routeItems: RouteMenuItem[] = [
   {
     isMenu: true,
     icon: <BookOutlined/>,
-    name: "도서관리",
-    path: "/library-books",
-    component: LibraryBookPage
+    parentName: "도서",
+    menuItems: [
+      {
+        isMenu: true,
+        name: "등록",
+        path: "/library-books/enroll",
+        component: LibraryBookEnrollPage
+      },
+      {
+        isMenu: true,
+        name: "조회 및 관리",
+        path: "/library-books",
+        component: LibraryBookPage
+      },
+    ]
   },
   {
     isMenu: false,
