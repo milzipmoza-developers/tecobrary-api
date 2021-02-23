@@ -5,7 +5,7 @@ import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import GlobalAlert from "./components/GlobalAlert";
 import TestFeature from "./components/TestFeature";
 import GlobalSideMenu from "./components/GlobalSideMenu";
-import {RouteItem} from "./interfaces/RouteItem";
+import {GroupMenuItem, isGroupMenuItem, isMenuItem, MenuItem, RouteItem} from "./interfaces/RouteItem";
 import {routeItems} from "./routes";
 import "./App.css";
 
@@ -42,9 +42,19 @@ function App() {
           }}
         >
           <Switch>
-            {routeItems.map((value: RouteItem, index: number) => (
-              <Route exact path={value.path} component={value.component} key={index}/>
-            ))}
+            {routeItems.map((value: RouteItem, index: number) => {
+              if (isMenuItem(value)) {
+                const menu = value as MenuItem
+                return <Route exact path={menu.path} component={menu.component} key={index}/>
+              }
+              if (isGroupMenuItem(value)) {
+                const menu = value as GroupMenuItem
+                return menu.menuItems.map((item: MenuItem, innerIndex: number) => {
+                  return <Route exact path={item.path} component={item.component} key={index * innerIndex}/>
+                });
+              }
+              return null;
+            })}
           </Switch>
         </Content>
       </Layout>

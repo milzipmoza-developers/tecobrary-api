@@ -1,6 +1,6 @@
-import {RouteItem} from "../interfaces/RouteItem";
+import {RouteMenuItem} from "../interfaces/RouteItem";
 import IndexPage from "../pages/IndexPage";
-import {BookOutlined, CarryOutOutlined, DatabaseOutlined, UserOutlined, HomeOutlined} from "@ant-design/icons";
+import {BookOutlined, CarryOutOutlined, DatabaseOutlined, HomeOutlined, UserOutlined} from "@ant-design/icons";
 import MemberPage from "../pages/MemberPage";
 import LibraryBookPage from "../pages/libraryBook/LibraryBookPage";
 import WishBookPage from "../pages/WishBookPage";
@@ -8,7 +8,7 @@ import RentPage from "../pages/RentPage";
 import React from "react";
 import LibraryBookDetailPage from "../pages/libraryBook/LIbraryBookDetailPage";
 
-export const routeItems: RouteItem[] = [
+export const routeItems: RouteMenuItem[] = [
   {
     isMenu: true,
     icon: <HomeOutlined/>,

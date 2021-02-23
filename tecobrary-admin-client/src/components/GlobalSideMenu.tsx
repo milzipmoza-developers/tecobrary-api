@@ -1,18 +1,36 @@
 import {routeItems} from "../routes";
-import {RouteItem} from "../interfaces/RouteItem";
+import {GroupMenuItem, isGroupMenuItem, MenuItem, RouteItem} from "../interfaces/RouteItem";
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
 import React from "react";
+import SubMenu from "antd/es/menu/SubMenu";
 
 const GlobalSideMenu = () => {
   return (
     <Menu theme="dark" mode="inline" defaultSelectedKeys={["0"]}>
       {routeItems.map((value: RouteItem, index: number) => {
         if (!value.isMenu) return null;
+        if (isGroupMenuItem(value)) {
+          const groupMenu = value as GroupMenuItem;
+          return (
+            <SubMenu key={index} icon={groupMenu.icon} title={groupMenu.parentName}>
+              {groupMenu.menuItems.map((item: MenuItem, innerIndex: number) => {
+                return (
+                  <Menu.Item key={index * innerIndex} icon={item.icon}>
+                    <Link to={item.path}>
+                      {item.name}
+                    </Link>
+                  </Menu.Item>
+                )
+              })}
+            </SubMenu>
+          );
+        }
+        const menu = value as MenuItem
         return (
-          <Menu.Item key={index} icon={value.icon}>
-            <Link to={value.path}>
-              {value.name}
+          <Menu.Item key={index} icon={menu.icon}>
+            <Link to={menu.path}>
+              {menu.name}
             </Link>
           </Menu.Item>
         )
