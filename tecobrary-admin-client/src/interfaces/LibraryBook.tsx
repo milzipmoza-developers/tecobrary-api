@@ -16,14 +16,22 @@ export interface LibraryBookSearch {
 }
 
 export interface LibraryBookDetail {
-  id: number
-  title: string
-  image: string
-  author: string
-  publisher: string
-  isbn: string
-  description: string
-  books: Book[]
+  id: number;
+  title: string;
+  image: string;
+  author: string;
+  publisher: string;
+  isbn: string;
+  description: string;
+  books: Book[];
+}
+
+export interface LibraryBookEdit {
+  title?: string;
+  image?: string;
+  author?: string;
+  publisher?: string;
+  description?: string;
 }
 
 export interface LibraryBookPage {

@@ -19,7 +19,7 @@ function App() {
   };
 
   return (
-    <Layout className="global-layout" style={{height: "100%"}}>
+    <Layout className="global-layout" style={{height: "100%", overflow: "hidden"}}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">테코브러리 로고</div>
         <GlobalSideMenu/>
@@ -29,15 +29,16 @@ function App() {
           {collapsed
             ? <MenuUnfoldOutlined className='trigger' onClick={toggle}/>
             : <MenuFoldOutlined className='trigger' onClick={toggle}/>}
+          <TestFeature/>
         </Header>
         <GlobalAlert/>
-        <TestFeature/>
         <Content
           className="site-layout-background"
           style={{
             margin: '24px 16px',
             padding: 24,
             minHeight: 280,
+            overflow: 'auto'
           }}
         >
           <Switch>
