@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
-import {alertState} from "../states/alertState";
-import {LibraryBookDetail, LibraryBookEdit} from "../interfaces/LibraryBook";
-import {libraryBookDetail} from "../api/LibraryBooks";
+import {alertState} from "../../states/alertState";
+import {LibraryBookDetail, LibraryBookEdit} from "../../interfaces/LibraryBook";
+import {libraryBookDetail} from "../../api/LibraryBooks";
 import {Button, Col, Divider, Image, Row, Space} from "antd";
-import LibraryBookInfo from "../components/LibraryBookInfo";
-import BookTable from "../components/BookTable";
-import LibraryBookInfoEdit from "../components/libraryBook/LibraryBookInfoEdit";
+import LibraryBookInfo from "../../components/libraryBook/LibraryBookInfo";
+import BookTable from "../../components/BookTable";
+import LibraryBookInfoEdit from "../../components/libraryBook/LibraryBookInfoEdit";
 
 type urlParams = {
   id: string;

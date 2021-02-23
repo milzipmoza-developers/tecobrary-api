@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 import {Button, Col, Divider, Input, Row, Space, Table, Tag} from "antd";
-import {LibraryBookElement, LibraryBookSearch} from "../interfaces/LibraryBook";
-import {libraryBookPage} from "../api/LibraryBooks";
-import A from "../components/A";
+import {LibraryBookElement, LibraryBookSearch} from "../../interfaces/LibraryBook";
+import {libraryBookPage} from "../../api/LibraryBooks";
+import A from "../../components/A";
 
 const columns = [
   {

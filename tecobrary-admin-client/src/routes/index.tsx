@@ -2,11 +2,11 @@ import {RouteItem} from "../interfaces/RouteItem";
 import IndexPage from "../pages/IndexPage";
 import {BookOutlined, CarryOutOutlined, DatabaseOutlined, UserOutlined, HomeOutlined} from "@ant-design/icons";
 import MemberPage from "../pages/MemberPage";
-import LibraryBookPage from "../pages/LibraryBookPage";
+import LibraryBookPage from "../pages/libraryBook/LibraryBookPage";
 import WishBookPage from "../pages/WishBookPage";
 import RentPage from "../pages/RentPage";
 import React from "react";
-import LibraryBookDetailPage from "../pages/LIbraryBookDetailPage";
+import LibraryBookDetailPage from "../pages/libraryBook/LIbraryBookDetailPage";
 
 export const routeItems: RouteItem[] = [
   {
