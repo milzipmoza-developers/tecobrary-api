@@ -6,9 +6,10 @@ interface Props {
   href?: string;
   onClick?: any;
   children: ReactNode;
+  disabled?: boolean;
 }
 
-const A = ({href, onClick, children}: Props) => {
+const A = ({href, onClick, disabled, children}: Props) => {
   const history = useHistory();
 
   const _onClick = () => {
@@ -21,9 +22,10 @@ const A = ({href, onClick, children}: Props) => {
     console.debug("please check your component. at least href or onClick props need")
   }
 
-  return (
-    <div className="customA" onClick={_onClick}>{children}</div>
-  )
-}
+  if (disabled) {
+    return <div className="customA customA-disabled">{children}</div>
+  }
+  return <div className="customA" onClick={_onClick}>{children}</div>
+};
 
 export default A;

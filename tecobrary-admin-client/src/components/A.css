@@ -5,3 +5,8 @@
   outline: none;
   cursor: pointer;
 }
+
+.customA-disabled {
+  color: gray;
+  cursor: not-allowed;
+}
