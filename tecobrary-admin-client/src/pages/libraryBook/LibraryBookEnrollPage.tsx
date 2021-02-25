@@ -12,6 +12,9 @@ const columns = [
     title: '제목',
     dataIndex: 'title',
     key: 'title',
+    render: (text: string) => {
+      return <div dangerouslySetInnerHTML={{ __html: text }} />
+    }
   },
   {
     title: '저자',
@@ -50,7 +53,7 @@ export default function LibraryBookEnrollPage() {
   const setAlert = useSetRecoilState(alertState);
 
   useEffect(() => {
-    searchBooks()
+    whileLoading(() => searchBooks());
   }, [currentPage])
 
   const setEmptyData = () => {
@@ -63,7 +66,9 @@ export default function LibraryBookEnrollPage() {
   }
 
   const searchBooks = async () => {
-    setLoading(true);
+    if (search.keptKeyword.length < 2) {
+      return;
+    }
     try {
       const response = await searchNaverApiBooks({
         keyword: search.keptKeyword,
@@ -85,10 +90,9 @@ export default function LibraryBookEnrollPage() {
       console.log(e);
       setEmptyData();
     }
-    setLoading(false);
   }
 
-  function onSearch() {
+  const onSearch = () => {
     if (search.keyword.length < 2) {
       setAlert({
         type: "warning",
@@ -97,8 +101,14 @@ export default function LibraryBookEnrollPage() {
       return;
     }
     search.keptKeyword = search.keyword
-    searchBooks()
+    whileLoading(() => searchBooks());
   }
+
+  const whileLoading = (func: () => {}) => {
+    setLoading(true);
+    func();
+    setLoading(false);
+  };
 
   return (
     <div>
