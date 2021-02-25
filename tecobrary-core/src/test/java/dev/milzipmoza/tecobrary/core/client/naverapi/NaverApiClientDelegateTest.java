@@ -9,15 +9,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class NaverApiClientTest {
+class NaverApiClientDelegateTest {
 
     @Autowired
-    private NaverApiClient naverApiClient;
+    private NaverApiClientDelegate naverApiClientDelegate;
 
     @Test
     @DisplayName("네이버 API 책 검색 요청, 응답")
     void findBooks() {
-        NaverApiSearchBookResponse response = naverApiClient.findBooks("JPA 프로그래밍", 1L, 10L);
+        NaverApiSearchBookResponse response = naverApiClientDelegate.findBooks("JPA 프로그래밍", 1L, 10L);
 
         assertThat(response.getStart()).isEqualTo(1L);
         assertThat(response.getDisplay()).isEqualTo(10L);

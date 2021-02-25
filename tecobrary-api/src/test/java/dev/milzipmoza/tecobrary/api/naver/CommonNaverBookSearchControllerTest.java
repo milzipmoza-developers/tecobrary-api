@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.api.naver;
 
+import dev.milzipmoza.tecobrary.api.naver.dto.NaverBookSearchResponse;
 import dev.milzipmoza.tecobrary.api.naver.facade.NaverBookSearchFacade;
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverBookSearchItemDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,24 +50,29 @@ class CommonNaverBookSearchControllerTest {
     @Test
     void searchBook() throws Exception {
         given(naverBookSearchFacade.searchBooks(any(), any(), any()))
-                .willReturn(Arrays.asList(
-                        NaverBookSearchItemDto.builder()
-                                .title("제목")
-                                .author("작가")
-                                .publisher("출판사")
-                                .image("https://image.path/book.cover.img")
-                                .description("책 요약")
-                                .isbn("아이에스비엔")
-                                .build(),
-                        NaverBookSearchItemDto.builder()
-                                .title("제목")
-                                .author("작가")
-                                .publisher("출판사")
-                                .image("https://image.path/book.cover.img")
-                                .description("책 요약")
-                                .isbn("아이에스비엔")
-                                .build()
-                ));
+                .willReturn(NaverBookSearchResponse.builder()
+                        .total(100L)
+                        .start(1L)
+                        .display(10L)
+                        .items(Arrays.asList(
+                                NaverBookSearchItemDto.builder()
+                                        .title("제목")
+                                        .author("작가")
+                                        .publisher("출판사")
+                                        .image("https://image.path/book.cover.img")
+                                        .description("책 요약")
+                                        .isbn("아이에스비엔")
+                                        .build(),
+                                NaverBookSearchItemDto.builder()
+                                        .title("제목")
+                                        .author("작가")
+                                        .publisher("출판사")
+                                        .image("https://image.path/book.cover.img")
+                                        .description("책 요약")
+                                        .isbn("아이에스비엔")
+                                        .build()
+                        ))
+                        .build());
 
         this.mockMvc.perform(get("/admin/naver-api/books")
                 .queryParam("keyword", "HELLO WORLD")
@@ -89,6 +95,9 @@ class CommonNaverBookSearchControllerTest {
                                 fieldWithPath("message").description("응답 메시지"),
                                 fieldWithPath("serverDateTime").description("응답 서버 시간"),
                                 fieldWithPath("data").description("응답 데이터"),
+                                fieldWithPath("data.total").description("전체 데이터 수"),
+                                fieldWithPath("data.start").description("시작"),
+                                fieldWithPath("data.display").description("보여주는 데이터 수"),
                                 fieldWithPath("data.items[]").description("검색된 책의 목록"),
                                 fieldWithPath("data.items[].title").description("검색된 책 제목"),
                                 fieldWithPath("data.items[].author").description("검색된 책 작가"),

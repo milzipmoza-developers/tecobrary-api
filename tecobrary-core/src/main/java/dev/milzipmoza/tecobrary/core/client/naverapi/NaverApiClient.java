@@ -1,15 +1,18 @@
 package dev.milzipmoza.tecobrary.core.client.naverapi;
 
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverApiSearchBookResponse;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverBookSearchPageDto;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-@FeignClient(name = "${naver-api.name}", url = "${naver-api.url}", configuration = NaverApiConfiguration.class)
-public interface NaverApiClient {
+@Component
+@RequiredArgsConstructor
+public class NaverApiClient {
 
-    @GetMapping("/v1/search/book.json")
-    NaverApiSearchBookResponse findBooks(@RequestParam("query") String query,
-                                         @RequestParam("start") Long start,
-                                         @RequestParam("display") Long display);
+    private final NaverApiClientDelegate delegate;
+
+    public NaverBookSearchPageDto findBooks(String query, Long start, Long display) {
+        NaverApiSearchBookResponse response = delegate.findBooks(query, start, display);
+        return NaverBookSearchPageDto.of(response);
+    }
 }
