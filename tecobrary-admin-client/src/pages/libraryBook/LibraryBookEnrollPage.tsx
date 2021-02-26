@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Divider, Input, Space, Table} from "antd";
+import {Divider, Space, Table} from "antd";
 import {LibraryBookSearchData} from "../../interfaces/LibraryBook";
 import A from "../../components/A";
 import {searchNaverApiBooks} from "../../api/NaverApi";
@@ -46,7 +46,7 @@ export default function LibraryBookEnrollPage() {
   const [data, setData] = useState<LibraryBookSearchData>();
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [search, setSearch] = useState({
+  const [search] = useState({
     keyword: '',
     keptKeyword: ''
   });

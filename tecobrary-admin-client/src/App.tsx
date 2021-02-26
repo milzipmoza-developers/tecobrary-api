@@ -3,7 +3,6 @@ import {Route, Switch} from "react-router-dom";
 import {Layout} from "antd";
 import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
 import GlobalAlert from "./components/GlobalAlert";
-import TestFeature from "./components/TestFeature";
 import GlobalSideMenu from "./components/GlobalSideMenu";
 import {GroupMenuItem, isGroupMenuItem, isMenuItem, MenuItem, RouteItem} from "./interfaces/RouteItem";
 import {routeItems} from "./routes";
@@ -29,7 +28,6 @@ function App() {
           {collapsed
             ? <MenuUnfoldOutlined className='trigger' onClick={toggle}/>
             : <MenuFoldOutlined className='trigger' onClick={toggle}/>}
-          <TestFeature/>
         </Header>
         <GlobalAlert/>
         <Content
