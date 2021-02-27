@@ -38,17 +38,14 @@ export interface LibraryBookSearchData {
   total: number;
   start: number;
   display: number;
-  items: LibraryBookSearchItems[]
+  items: LibraryBookSearchItem[]
 }
 
-export interface LibraryBookSearchItems {
+export interface LibraryBookSearchItem {
   title: string;
   author: string;
   publisher: string;
   isbn: string;
-}
-
-export interface LibraryBookSearchResultDetail extends LibraryBookSearchItems {
   image: string;
   description: string;
 }

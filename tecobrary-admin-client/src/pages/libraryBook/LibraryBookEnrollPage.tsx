@@ -1,46 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Divider, Space, Table} from "antd";
-import {LibraryBookSearchData} from "../../interfaces/LibraryBook";
-import A from "../../components/A";
+import {Button, Divider, message, Modal} from "antd";
+import {LibraryBookSearchData, LibraryBookSearchItem} from "../../interfaces/LibraryBook";
 import {searchNaverApiBooks} from "../../api/NaverApi";
-import {useSetRecoilState} from "recoil";
-import {alertState} from "../../states/alertState";
 import Search from "antd/es/input/Search";
-
-const columns = [
-  {
-    title: '제목',
-    dataIndex: 'title',
-    key: 'title',
-    render: (text: string) => {
-      return <div dangerouslySetInnerHTML={{ __html: text }} />
-    }
-  },
-  {
-    title: '저자',
-    dataIndex: 'author',
-    key: 'author',
-  },
-  {
-    title: '출판사',
-    dataIndex: 'publisher',
-    key: 'publisher',
-  },
-  {
-    title: 'ISBN',
-    dataIndex: 'isbn',
-    key: 'isbn',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (text: string, record: any) => (
-      <Space size="middle">
-        <A>등록하기</A>
-      </Space>
-    ),
-  },
-];
+import {removeHtmlTag} from "../../utils";
+import NaverApiBookSearchResultTable from "../../components/libraryBook/enroll/NaverApiBookSearchResultTable";
+import ModalBookDetail from "../../components/libraryBook/ModalBookDetail";
 
 export default function LibraryBookEnrollPage() {
   const [data, setData] = useState<LibraryBookSearchData>();
@@ -50,20 +15,28 @@ export default function LibraryBookEnrollPage() {
     keyword: '',
     keptKeyword: ''
   });
-  const setAlert = useSetRecoilState(alertState);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedBook] = useState<LibraryBookSearchItem>({
+    title: '',
+    author: '',
+    publisher: '',
+    isbn: '',
+    image: '',
+    description: '',
+  });
 
   useEffect(() => {
     whileLoading(() => searchBooks());
-  }, [currentPage])
+  }, [currentPage]);
 
-  const setEmptyData = () => {
+  const initEmptyData = () => {
     setData({
       total: 0,
       start: 0,
       display: 10,
       items: []
-    })
-  }
+    });
+  };
 
   const searchBooks = async () => {
     if (search.keptKeyword.length < 2) {
@@ -77,37 +50,66 @@ export default function LibraryBookEnrollPage() {
       });
       const data = response.data as LibraryBookSearchData;
       setData(data);
-      setAlert({
-        type: "info",
-        message: `${response.message}`
-      });
+      message.success(`${response.message}`);
     } catch (e: any) {
       // todo: 에러 사유, 서버 쪽과 구체화 필요
-      setAlert({
-        type: "error",
-        message: `네이버 api 요청 중 에러가 발생하였습니다.`
-      });
+      message.error(`네이버 api 요청 중 에러가 발생하였습니다.`)
       console.log(e);
-      setEmptyData();
+      initEmptyData();
     }
-  }
+  };
 
   const onSearch = () => {
     if (search.keyword.length < 2) {
-      setAlert({
-        type: "warning",
-        message: `검색어를 두 글자 이상 입력해주세요.`
-      });
+      message.warning(`검색어를 두 글자 이상 입력해주세요.`)
       return;
     }
     search.keptKeyword = search.keyword
+    setCurrentPage(1);
     whileLoading(() => searchBooks());
-  }
+  };
 
   const whileLoading = (func: () => {}) => {
     setLoading(true);
     func();
     setLoading(false);
+  };
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const ModalDefaultFooters = () => {
+    return [
+      <Button key="back" onClick={handleCancel}>
+        수정 후 등록하기
+      </Button>,
+      <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
+        등록하기
+      </Button>,
+    ]
+  }
+
+  const onTableElementClick = (record: any) => {
+    showModal();
+    selectedBook.title = removeHtmlTag(record.title);
+    selectedBook.author = removeHtmlTag(record.author);
+    selectedBook.publisher = removeHtmlTag(record.publisher);
+    selectedBook.isbn = removeHtmlTag(record.isbn);
+    selectedBook.image = record.image;
+    selectedBook.description = removeHtmlTag(record.description);
+  };
+
+  const onTablePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -123,20 +125,21 @@ export default function LibraryBookEnrollPage() {
         onSearch={onSearch}
       />
       <Divider/>
-      <Table
-        dataSource={data ? data.items : []}
-        columns={columns}
-        rowKey="isbn"
+      <NaverApiBookSearchResultTable
         loading={loading}
-        pagination={{
-          total: data?.total,
-          defaultPageSize: data?.display,
-          showSizeChanger: false,
-          current: currentPage,
-          onChange: ((page: number) => {
-            setCurrentPage(page)
-          }),
-        }}/>
+        currentPage={currentPage}
+        data={data}
+        onTablePageChange={onTablePageChange}
+        onTableElementClick={onTableElementClick}
+      />
+      <Modal title="도서를 등록하시겠습니까?"
+             visible={isModalVisible}
+             onOk={handleOk}
+             onCancel={handleCancel}
+             width={1000}
+             footer={ModalDefaultFooters}>
+        <ModalBookDetail book={selectedBook}/>
+      </Modal>
     </div>
   );
 }
