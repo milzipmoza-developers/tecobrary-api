@@ -1,4 +1,4 @@
-import {Col, Divider} from "antd";
+import {Divider} from "antd";
 import React from "react";
 import "./LibraryBookInfo.css";
 import BookTitle from "../common/BookTitle";
