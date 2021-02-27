@@ -5,7 +5,7 @@ import {LibraryBookEdit} from "../../interfaces/LibraryBook";
 
 type Props = {
   edited: LibraryBookEdit
-  isbn?: string
+  isbn: string
 }
 
 const LibraryBookInfoEdit = ({edited, isbn}: Props) => {

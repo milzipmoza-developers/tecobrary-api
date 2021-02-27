@@ -74,6 +74,14 @@ export default function LibraryBookDetailPage() {
     });
   }
 
+  if (!detail) {
+    setAlert({
+      type: "error",
+      message: "도서 정보를 불러올 수 없습니다."
+    });
+    return null;
+  }
+
   return (
     <>
       <Row>
@@ -81,20 +89,20 @@ export default function LibraryBookDetailPage() {
           {isEditable
             ? <LibraryBookInfoEdit
               edited={edited}
-              isbn={detail?.isbn}
+              isbn={detail.isbn}
             />
             : <LibraryBookInfo
-              title={detail?.title}
-              author={detail?.author}
-              publisher={detail?.publisher}
-              isbn={detail?.isbn}
-              description={detail?.description}
+              title={detail.title}
+              author={detail.author}
+              publisher={detail.publisher}
+              isbn={detail.isbn}
+              description={detail.description}
             />}
         </Col>
         <Col span={4}>
           <Image
             width="100%"
-            src={detail?.image}
+            src={detail.image}
           />
         </Col>
         <Divider/>

@@ -1,28 +1,27 @@
 import {Col, Divider} from "antd";
 import React from "react";
 import "./LibraryBookInfo.css";
+import BookTitle from "../common/BookTitle";
 
 type Props = {
-  title?: string,
-  author?: string,
-  publisher?: string,
-  isbn?: string,
-  description?: string
+  title: string,
+  author: string,
+  publisher: string,
+  isbn: string,
+  description: string
 }
 
 const LibraryBookInfo = ({title, author, publisher, isbn, description}: Props) => {
   return (
     <div className="library-book-info">
-      <Col className="title">
-        {title}
-      </Col>
+      <BookTitle>{title}</BookTitle>
       <Divider/>
-      <Col className="detail">
+      <div className="detail">
         {author} | {publisher} | {isbn}
-      </Col>
-      <Col className="description">
+      </div>
+      <div className="description">
         {description}
-      </Col>
+      </div>
     </div>
   );
 };
