@@ -1,12 +1,18 @@
 import React, {useEffect, useState} from "react";
 import {Divider, message, Modal} from "antd";
-import {LibraryBookEdit, LibraryBookSearchData, LibraryBookSearchItem} from "../../interfaces/LibraryBook";
+import {
+  LibraryBookBasicInfo,
+  LibraryBookEnrollData,
+  LibraryBookSearchData,
+  LibraryBookSearchItem
+} from "../../interfaces/LibraryBook";
 import {searchNaverApiBooks} from "../../api/NaverApi";
 import Search from "antd/es/input/Search";
 import {removeHtmlTag} from "../../utils";
 import NaverApiBookSearchResultTable from "../../components/libraryBook/enroll/NaverApiBookSearchResultTable";
 import EditableBookDetail from "../../components/libraryBook/EditableBookDetail";
 import HideableButton from "../../components/common/buttons/HideableButton";
+import {enrollLibraryBook} from "../../api/LibraryBooks";
 
 export default function LibraryBookEnrollPage() {
   const [data, setData] = useState<LibraryBookSearchData>({
@@ -18,25 +24,26 @@ export default function LibraryBookEnrollPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [search] = useState({
-    keyword: '',
-    keptKeyword: '',
+    keyword: "",
+    keptKeyword: "",
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedBook] = useState<LibraryBookSearchItem>({
-    title: '',
-    author: '',
-    publisher: '',
-    isbn: '',
-    image: '',
-    description: '',
+    title: "",
+    author: "",
+    publisher: "",
+    isbn: "",
+    image: "",
+    description: "",
   });
   const [isEditable, setEditable] = useState<boolean>(false);
-  const [editedBook, setEdited] = useState<LibraryBookEdit>({
+  const [editedBook, setEdited] = useState<LibraryBookBasicInfo>({
     title: "",
     image: "",
     author: "",
     publisher: "",
-    description: ""
+    description: "",
+    isbn: "",
   });
 
   useEffect(() => {
@@ -51,6 +58,17 @@ export default function LibraryBookEnrollPage() {
       items: []
     });
   };
+
+  const initEditedBook = () => {
+    setEdited({
+      title: "",
+      image: "",
+      author: "",
+      publisher: "",
+      description: "",
+      isbn: "",
+    })
+  }
 
   const searchBooks = async () => {
     if (search.keptKeyword.length < 2) {
@@ -93,12 +111,24 @@ export default function LibraryBookEnrollPage() {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
+  const handleEnroll = async () => {
+    try {
+      const response = await enrollLibraryBook(editedBook);
+      const data = response.data as LibraryBookEnrollData;
+      setIsModalVisible(false);
+      message.info(`"${data.title}" ${response.message}`);
+      initEditedBook();
+      setEditable(false);
+    } catch (e: any) {
+      // todo: 에러 사유, 서버 쪽과 구체화 필요
+      message.error(`도서 등록 중 에러 발생.`)
+      console.log(e);
+    }
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setEditable(false);
   };
 
   const handleCancelEdit = () => {
@@ -106,11 +136,6 @@ export default function LibraryBookEnrollPage() {
   }
 
   const handleEditable = () => {
-    editedBook.title = selectedBook.title;
-    editedBook.publisher = selectedBook.publisher;
-    editedBook.author = selectedBook.author;
-    editedBook.description = selectedBook.description;
-    editedBook.image = selectedBook.image;
     setEditable(true);
   }
 
@@ -121,6 +146,12 @@ export default function LibraryBookEnrollPage() {
     selectedBook.isbn = removeHtmlTag(record.isbn);
     selectedBook.image = record.image;
     selectedBook.description = removeHtmlTag(record.description);
+    editedBook.title = selectedBook.title;
+    editedBook.publisher = selectedBook.publisher;
+    editedBook.author = selectedBook.author;
+    editedBook.description = selectedBook.description;
+    editedBook.image = selectedBook.image;
+    editedBook.isbn = selectedBook.isbn;
     showModal();
   };
 
@@ -150,7 +181,6 @@ export default function LibraryBookEnrollPage() {
       />
       <Modal title="도서를 등록하시겠습니까?"
              visible={isModalVisible}
-             onOk={handleOk}
              onCancel={handleCancel}
              width={1000}
              footer={[
@@ -174,8 +204,8 @@ export default function LibraryBookEnrollPage() {
                  key="submit"
                  type="primary"
                  hide={false}
-                 onClick={handleOk}>
-                 등록하기
+                 onClick={handleEnroll}>
+                 {isEditable ? "수정된 내용 등록하기" : "등록하기"}
                </HideableButton>,
              ]}>
         <EditableBookDetail isEditable={isEditable} book={selectedBook} editedBook={editedBook}/>

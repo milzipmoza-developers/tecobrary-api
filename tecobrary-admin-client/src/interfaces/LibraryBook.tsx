@@ -39,6 +39,20 @@ export interface LibraryBookBasicInfo {
   description: string;
 }
 
+export interface LibraryBookEnrollRequest extends LibraryBookBasicInfo {
+
+}
+
+export interface LibraryBookEnrollData extends LibraryBookBasicInfo {
+  id: number;
+  title: string;
+  author: string;
+  publisher: string;
+  isbn: string;
+  image: string;
+  description: string;
+}
+
 export interface LibraryBookDetail extends LibraryBookBasicInfo {
   id: number;
   title: string;

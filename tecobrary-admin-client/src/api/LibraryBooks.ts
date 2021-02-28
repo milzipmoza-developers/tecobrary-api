@@ -1,4 +1,10 @@
-import {LibraryBookDetail, LibraryBookElement} from "../interfaces/LibraryBook";
+import api from './index';
+import {
+  LibraryBookBasicInfo,
+  LibraryBookDetail,
+  LibraryBookElement,
+  LibraryBookEnrollRequest
+} from "../interfaces/LibraryBook";
 
 export const libraryBookPage: LibraryBookElement[] = [
   {
@@ -99,4 +105,11 @@ export const libraryBookDetail: LibraryBookDetail = {
       bookStatus: "IN_LIBRARY",
     },
   ]
+}
+
+export const enrollLibraryBook = async (book: LibraryBookEnrollRequest) => {
+  const response = await api.put("/admin/library-books", {
+    ...book
+  });
+  return response.data
 }

@@ -13,7 +13,7 @@ interface Props {
 const EditableBookDetail = ({isEditable, editedBook, book}: Props) => {
   return (
     <>
-      <Row>
+      <Row gutter={16}>
         <Col span={6}>
           <Image
             width="100%"
