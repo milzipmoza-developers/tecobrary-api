@@ -2,7 +2,7 @@ import {atom, selector} from "recoil";
 
 type alertType = 'success' | 'info' | 'warning' | 'error' | undefined;
 
-function alertDefault(message: string, type: alertType) {
+export function alertDefault(message: string, type: alertType) {
   return {
     message,
     type

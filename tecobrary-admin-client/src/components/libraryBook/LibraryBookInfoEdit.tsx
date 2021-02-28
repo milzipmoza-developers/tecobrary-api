@@ -18,13 +18,13 @@ const LibraryBookInfoEdit = ({edited, isbn}: Props) => {
         <Divider/>
         <Col className="detail">
           <Row>
-            <Col span={8}>
+            <Col span={7}>
               <Input addonBefore="저자" defaultValue={edited.author} onChange={(e) => {edited.author = e.target.value}}/>
             </Col>
-            <Col span={8}>
+            <Col span={7}>
               <Input addonBefore="출판사" defaultValue={edited.publisher} onChange={(e) => {edited.publisher = e.target.value}}/>
             </Col>
-            <Col span={8}>
+            <Col span={10}>
               <Input addonBefore="ISBN" value={isbn} disabled/>
             </Col>
           </Row>

@@ -58,7 +58,7 @@ const columns = [
 ];
 
 interface Props {
-  data?: LibraryBookSearchData;
+  data: LibraryBookSearchData;
   loading: boolean;
   currentPage: number;
   onTablePageChange: (page: number) => void
@@ -68,20 +68,20 @@ interface Props {
 const NaverApiBookSearchResultTable = (props: Props) => {
   return (
     <Table
-      dataSource={props.data ? props.data.items : []}
+      dataSource={props.data.items}
       columns={columns}
       rowKey="isbn"
       loading={props.loading}
       pagination={{
-        total: props.data?.total,
-        defaultPageSize: props.data?.display,
+        total: props.data.total,
+        defaultPageSize: props.data.display,
         showSizeChanger: false,
         current: props.currentPage,
         onChange: props.onTablePageChange,
       }}
       onRow={(record, rowIndex) => {
         return {
-          onClick: props.onTableElementClick,
+          onClick: event => props.onTableElementClick(record),
         };
       }}
     />

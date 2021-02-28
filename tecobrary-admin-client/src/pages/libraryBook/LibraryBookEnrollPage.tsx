@@ -1,19 +1,25 @@
 import React, {useEffect, useState} from "react";
-import {Button, Divider, message, Modal} from "antd";
-import {LibraryBookSearchData, LibraryBookSearchItem} from "../../interfaces/LibraryBook";
+import {Divider, message, Modal} from "antd";
+import {LibraryBookEdit, LibraryBookSearchData, LibraryBookSearchItem} from "../../interfaces/LibraryBook";
 import {searchNaverApiBooks} from "../../api/NaverApi";
 import Search from "antd/es/input/Search";
 import {removeHtmlTag} from "../../utils";
 import NaverApiBookSearchResultTable from "../../components/libraryBook/enroll/NaverApiBookSearchResultTable";
-import ModalBookDetail from "../../components/libraryBook/ModalBookDetail";
+import EditableBookDetail from "../../components/libraryBook/EditableBookDetail";
+import HideableButton from "../../components/common/buttons/HideableButton";
 
 export default function LibraryBookEnrollPage() {
-  const [data, setData] = useState<LibraryBookSearchData>();
+  const [data, setData] = useState<LibraryBookSearchData>({
+    total: 0,
+    start: 0,
+    display: 10,
+    items: [],
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [search] = useState({
     keyword: '',
-    keptKeyword: ''
+    keptKeyword: '',
   });
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedBook] = useState<LibraryBookSearchItem>({
@@ -23,6 +29,14 @@ export default function LibraryBookEnrollPage() {
     isbn: '',
     image: '',
     description: '',
+  });
+  const [isEditable, setEditable] = useState<boolean>(false);
+  const [editedBook, setEdited] = useState<LibraryBookEdit>({
+    title: "",
+    image: "",
+    author: "",
+    publisher: "",
+    description: ""
   });
 
   useEffect(() => {
@@ -87,25 +101,27 @@ export default function LibraryBookEnrollPage() {
     setIsModalVisible(false);
   };
 
-  const ModalDefaultFooters = () => {
-    return [
-      <Button key="back" onClick={handleCancel}>
-        수정 후 등록하기
-      </Button>,
-      <Button key="submit" type="primary" loading={loading} onClick={handleOk}>
-        등록하기
-      </Button>,
-    ]
+  const handleCancelEdit = () => {
+    setEditable(false);
+  }
+
+  const handleEditable = () => {
+    editedBook.title = selectedBook.title;
+    editedBook.publisher = selectedBook.publisher;
+    editedBook.author = selectedBook.author;
+    editedBook.description = selectedBook.description;
+    editedBook.image = selectedBook.image;
+    setEditable(true);
   }
 
   const onTableElementClick = (record: any) => {
-    showModal();
     selectedBook.title = removeHtmlTag(record.title);
     selectedBook.author = removeHtmlTag(record.author);
     selectedBook.publisher = removeHtmlTag(record.publisher);
     selectedBook.isbn = removeHtmlTag(record.isbn);
     selectedBook.image = record.image;
     selectedBook.description = removeHtmlTag(record.description);
+    showModal();
   };
 
   const onTablePageChange = (page: number) => {
@@ -137,8 +153,32 @@ export default function LibraryBookEnrollPage() {
              onOk={handleOk}
              onCancel={handleCancel}
              width={1000}
-             footer={ModalDefaultFooters}>
-        <ModalBookDetail book={selectedBook}/>
+             footer={[
+               <HideableButton
+                 key="cancel"
+                 type="primary"
+                 hide={!isEditable}
+                 danger
+                 onClick={handleCancelEdit}>
+                 취소
+               </HideableButton>,
+               <HideableButton
+                 key="back"
+                 type="primary"
+                 hide={isEditable}
+                 onClick={handleEditable}
+                 color="green">
+                 수정 후 등록하기
+               </HideableButton>,
+               <HideableButton
+                 key="submit"
+                 type="primary"
+                 hide={false}
+                 onClick={handleOk}>
+                 등록하기
+               </HideableButton>,
+             ]}>
+        <EditableBookDetail isEditable={isEditable} book={selectedBook} editedBook={editedBook}/>
       </Modal>
     </div>
   );

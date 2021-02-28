@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
-import {alertState} from "../../states/alertState";
+import {alertDefault, alertState} from "../../states/alertState";
 import {LibraryBookDetail, LibraryBookEdit} from "../../interfaces/LibraryBook";
 import {libraryBookDetail} from "../../api/LibraryBooks";
 import {Button, Col, Divider, Image, Row, Space} from "antd";
@@ -40,6 +40,7 @@ export default function LibraryBookDetailPage() {
 
   useEffect(() => {
     setDetail(libraryBookDetail);
+    setAlert(alertDefault('', undefined));
     setEdited({
       title: detail?.title,
       image: detail?.image,
