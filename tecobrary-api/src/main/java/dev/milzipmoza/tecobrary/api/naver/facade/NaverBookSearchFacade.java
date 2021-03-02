@@ -1,5 +1,6 @@
 package dev.milzipmoza.tecobrary.api.naver.facade;
 
+import dev.milzipmoza.tecobrary.api.naver.converter.NaverBookSearchConverter;
 import dev.milzipmoza.tecobrary.api.naver.dto.NaverBookSearchResponse;
 import dev.milzipmoza.tecobrary.core.client.naverapi.NaverApiClient;
 import dev.milzipmoza.tecobrary.core.client.naverapi.dto.NaverBookSearchPageDto;
@@ -11,10 +12,11 @@ import org.springframework.stereotype.Component;
 public class NaverBookSearchFacade {
 
     private final NaverApiClient client;
+    private final NaverBookSearchConverter converter;
 
     public NaverBookSearchResponse searchBooks(String keyword, Long page, Long size) {
         NaverBookSearchPageDto pageBooks = client.findBooks(keyword, calculateStart(page, size), size);
-        return NaverBookSearchResponse.of(pageBooks);
+        return converter.convert(pageBooks);
     }
 
     private long calculateStart(Long page, Long size) {
