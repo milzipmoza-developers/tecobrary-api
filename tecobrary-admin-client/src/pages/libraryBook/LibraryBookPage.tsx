@@ -1,7 +1,7 @@
-import React, {useState} from "react";
-import {Button, Col, Divider, Input, Row, Space, Table, Tag} from "antd";
-import {LibraryBookElement, LibraryBookSearch} from "../../interfaces/LibraryBook";
-import {libraryBookPage} from "../../api/LibraryBooks";
+import React, {useEffect, useState} from "react";
+import {Button, Col, Divider, Input, message, Row, Space, Table} from "antd";
+import {LibraryBookElement, LibraryBookPageData, LibraryBookSearch} from "../../interfaces/LibraryBook";
+import {getPageLibraryBooks} from "../../api/LibraryBooks";
 import A from "../../components/A";
 
 const columns = [
@@ -9,43 +9,34 @@ const columns = [
     title: '제목',
     dataIndex: 'title',
     key: 'title',
+    width: '40%',
     render: (text: string, value: LibraryBookElement) => <A href={`/library-books/${value.id}`}>{text}</A>,
   },
   {
     title: '저자',
     dataIndex: 'author',
     key: 'author',
+    width: '15%',
   },
   {
     title: '출판사',
     dataIndex: 'publisher',
     key: 'publisher',
+    width: '15%',
   },
   {
     title: 'ISBN',
     dataIndex: 'isbn',
     key: 'isbn',
+    width: '20%',
   },
   {
-    title: '카테고리',
-    key: 'categories',
-    dataIndex: 'categories',
-    render: (categories: string[]) => (
-      <>
-        {categories.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
+    title: '보유수량',
+    dataIndex: 'counts',
+    key: 'counts',
+    width: '10%',
+    render: (text: string) => (`${text} 권`)
+  }
 ];
 
 export default function LibraryBookPage() {
@@ -55,6 +46,31 @@ export default function LibraryBookPage() {
     author: "",
     publisher: "",
   });
+  const [libraryBooks, setLibraryBooks] = useState<LibraryBookElement[]>([]);
+  const [pagination] = useState({
+    page: 1,
+    size: 10,
+  })
+
+  useEffect(() => {
+    pageLibraryBooks()
+  }, []);
+
+  const pageLibraryBooks = async() => {
+    try {
+      const response = await getPageLibraryBooks({
+        page: pagination.page,
+        size: pagination.size
+      });
+      const data = response.data as LibraryBookPageData;
+      setLibraryBooks(data.books);
+      message.success(`${response.message}`);
+    } catch (e: any) {
+      // todo: 에러 사유, 서버 쪽과 구체화 필요
+      message.error(`네이버 api 요청 중 에러가 발생하였습니다.`);
+      console.log(e);
+    }
+  }
 
   const onPageChange = (page: number, pageSize?: number) => {
     console.log(`page changed page=${page} pagesize=${pageSize}`);
@@ -87,11 +103,13 @@ export default function LibraryBookPage() {
           </Col>
         </Row>
         <Divider/>
-        <Table columns={columns} dataSource={libraryBookPage} rowKey="id" pagination={{
-          total: libraryBookPage.length,
-          pageSize: 10,
-          onChange: onPageChange
-        }}/>
+        <Table columns={columns}
+               dataSource={libraryBooks}
+               rowKey="id"
+               pagination={{
+                 pageSize: 10,
+                 onChange: onPageChange
+               }}/>
       </Col>
     </>
   );

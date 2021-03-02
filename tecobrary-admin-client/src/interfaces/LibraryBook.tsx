@@ -6,7 +6,7 @@ export interface LibraryBookElement {
   author: string;
   publisher: string;
   isbn: string;
-  categories: string[];
+  counts: number;
 }
 
 export interface LibraryBookSearch {
@@ -71,6 +71,15 @@ export interface LibraryBookSearchItem extends LibraryBookBasicInfo {
   publisher: string;
   isbn: string;
   description: string;
+}
+
+export interface LibraryBookPageRequest {
+  page: number;
+  size: number;
+}
+
+export interface LibraryBookPageData {
+  books: LibraryBookElement[];
 }
 
 export interface LibraryBookPage {
