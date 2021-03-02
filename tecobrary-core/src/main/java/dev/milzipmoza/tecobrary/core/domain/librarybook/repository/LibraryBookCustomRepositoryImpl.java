@@ -37,7 +37,8 @@ public class LibraryBookCustomRepositoryImpl extends QuerydslRepositorySupport i
     @Override
     public Page<LibraryBook> findAllWithBooks(Pageable pageable) {
         QueryResults<LibraryBook> results = from(libraryBook)
-                .innerJoin(libraryBook.books, book)
+                .leftJoin(libraryBook.books, book)
+                .fetchJoin()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();
