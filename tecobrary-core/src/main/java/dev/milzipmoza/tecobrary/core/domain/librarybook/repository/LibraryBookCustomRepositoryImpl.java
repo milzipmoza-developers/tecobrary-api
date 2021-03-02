@@ -1,7 +1,11 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.repository;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.JPQLQueryFactory;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.Optional;
@@ -28,5 +32,15 @@ public class LibraryBookCustomRepositoryImpl extends QuerydslRepositorySupport i
                         .where(libraryBook.id.eq(libraryBookId))
                         .fetchOne()
         );
+    }
+
+    @Override
+    public Page<LibraryBook> findAllWithBooks(Pageable pageable) {
+        QueryResults<LibraryBook> results = from(libraryBook)
+                .innerJoin(libraryBook.books, book)
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
+        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
     }
 }

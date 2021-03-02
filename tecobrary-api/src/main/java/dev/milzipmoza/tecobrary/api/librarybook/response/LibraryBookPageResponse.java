@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 public class LibraryBookPageResponse {
 
-
     private List<LibraryBookElementDto> books;
 
     public LibraryBookPageResponse(List<LibraryBookElementDto> books) {

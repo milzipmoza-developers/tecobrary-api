@@ -25,7 +25,7 @@ public class LibraryBookQueryService {
 
     public List<LibraryBookElementDto> getPageLibraryBooks(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
-        Page<LibraryBook> books = libraryBookRepository.findAll(pageRequest);
+        Page<LibraryBook> books = libraryBookRepository.findAllWithBooks(pageRequest);
         return books.stream()
                 .map(LibraryBookElementDto::of)
                 .collect(Collectors.toList());
