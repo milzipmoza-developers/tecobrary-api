@@ -5,17 +5,26 @@ spring:
     url: jdbc:h2:mem:testdb;MODE=MYSQL
     username: root
     password: 1234
-    jpa:
-      database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
-      show-sql: true
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
       hibernate:
-        ddl-auto: create
-      properties:
-        hibernate:
-          format_sql: true
+        format_sql: true
+        show_sql: true
+        use_sql_comments: true
+
+logging:
+  level:
+    org.hibernate:
+      type:
+        descriptor:
+          sql: trace
 
 naver-api:
   name: naver-api
   url: https://openapi.naver.com
   client-id: ErQ8LcHWD6j6deNvMdIm
-  client-secret: 3PThTA8sfy
+  client-secret: NH74mZfhBB
