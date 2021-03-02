@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Divider, Input, message, Row, Space, Table} from "antd";
+import {Button, Col, Divider, Input, message, Row, Table} from "antd";
 import {LibraryBookElement, LibraryBookPageData, LibraryBookSearch} from "../../interfaces/LibraryBook";
 import {getPageLibraryBooks} from "../../api/LibraryBooks";
 import A from "../../components/A";
@@ -96,10 +96,7 @@ export default function LibraryBookPage() {
             <Input placeholder="출판사" onChange={(e) => {search.publisher = e.target.value}}/>
           </Col>
           <Col span={6} style={style}>
-            <Space size="middle">
-              <Button type="primary" onClick={onSearchButtonClick}>검색</Button>
-              <Button type="primary">등록</Button>
-            </Space>
+            <Button type="primary" onClick={onSearchButtonClick}>검색</Button>
           </Col>
         </Row>
         <Divider/>
