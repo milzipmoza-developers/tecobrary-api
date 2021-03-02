@@ -4,7 +4,7 @@ import dev.milzipmoza.tecobrary.api.ApiResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
 import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookListRequest;
 import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookDetailResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookListResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +23,8 @@ public class CommonLibraryBookController {
             "/web/library-books",
             "/admin/library-books"
     })
-    public ApiResponse<LibraryBookListResponse> getLibraryBooks(LibraryBookListRequest request) {
-        LibraryBookListResponse response = libraryBookFacade.getBooks(request);
+    public ApiResponse<LibraryBookPageResponse> getLibraryBooks(LibraryBookListRequest request) {
+        LibraryBookPageResponse response = libraryBookFacade.getBooks(request);
         return ApiResponse.ok(GET_LIBRARY_BOOKS_SUCCESS, response);
     }
 

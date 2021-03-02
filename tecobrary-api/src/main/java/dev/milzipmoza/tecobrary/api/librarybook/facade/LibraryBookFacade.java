@@ -5,12 +5,9 @@ import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookListRequest;
 import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookUpdateRequest;
 import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookDetailResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookListResponse;
+import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookPageResponse;
 import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookUpdateResponse;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDetailDto;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookEnrollDto;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookUpdateDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.*;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookCommandService;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.service.LibraryBookQueryService;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +24,9 @@ public class LibraryBookFacade {
     private final LibraryBookCommandService libraryBookCommandService;
     private final LibraryBookQueryService libraryBookQueryService;
 
-    public LibraryBookListResponse getBooks(LibraryBookListRequest request) {
-        List<LibraryBookDto> books = libraryBookQueryService.getPageLibraryBooks(request.getPage(), request.getSize());
-        return new LibraryBookListResponse(books);
+    public LibraryBookPageResponse getBooks(LibraryBookListRequest request) {
+        List<LibraryBookElementDto> books = libraryBookQueryService.getPageLibraryBooks(request.getPage(), request.getSize());
+        return new LibraryBookPageResponse(books);
     }
 
     public LibraryBookDetailResponse getBookDetail(Long id) {

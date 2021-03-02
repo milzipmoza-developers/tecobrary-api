@@ -5,7 +5,7 @@ import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialNotFoundException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDetailDto;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
+import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookElementDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookNotFoundException;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.repository.LibraryBookRepository;
@@ -23,11 +23,11 @@ public class LibraryBookQueryService {
 
     private final LibraryBookRepository libraryBookRepository;
 
-    public List<LibraryBookDto> getPageLibraryBooks(int page, int size) {
+    public List<LibraryBookElementDto> getPageLibraryBooks(int page, int size) {
         PageRequest pageRequest = PageRequest.of(page - 1, size);
         Page<LibraryBook> books = libraryBookRepository.findAll(pageRequest);
         return books.stream()
-                .map(LibraryBookDto::of)
+                .map(LibraryBookElementDto::of)
                 .collect(Collectors.toList());
     }
 
