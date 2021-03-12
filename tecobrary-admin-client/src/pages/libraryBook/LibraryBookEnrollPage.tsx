@@ -12,7 +12,7 @@ import {removeHtmlTag} from "../../utils";
 import NaverApiBookSearchResultTable from "../../components/libraryBook/enroll/NaverApiBookSearchResultTable";
 import EditableBookDetail from "../../components/libraryBook/EditableBookDetail";
 import HideableButton from "../../components/common/buttons/HideableButton";
-import {enrollLibraryBook} from "../../api/LibraryBooks";
+import {requestEnrollLibraryBook} from "../../api/LibraryBooks";
 
 export default function LibraryBookEnrollPage() {
   const [data, setData] = useState<LibraryBookSearchData>({
@@ -113,7 +113,7 @@ export default function LibraryBookEnrollPage() {
 
   const handleEnroll = async () => {
     try {
-      const response = await enrollLibraryBook(editedBook);
+      const response = await requestEnrollLibraryBook(editedBook);
       const data = response.data as LibraryBookEnrollData;
       setIsModalVisible(false);
       message.info(`"${data.title}" ${response.message}`);

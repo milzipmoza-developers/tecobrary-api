@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Divider, Input, message, Row, Table} from "antd";
 import {LibraryBookElement, LibraryBookPageData, LibraryBookSearch} from "../../interfaces/LibraryBook";
-import {getPageLibraryBooks} from "../../api/LibraryBooks";
+import {requestPageLibraryBooks} from "../../api/LibraryBooks";
 import A from "../../components/A";
 
 const columns = [
@@ -58,7 +58,7 @@ export default function LibraryBookPage() {
 
   const pageLibraryBooks = async() => {
     try {
-      const response = await getPageLibraryBooks({
+      const response = await requestPageLibraryBooks({
         page: pagination.page,
         size: pagination.size
       });

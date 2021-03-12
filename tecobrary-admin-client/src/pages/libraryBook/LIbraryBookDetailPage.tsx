@@ -3,7 +3,7 @@ import {useHistory, useParams} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
 import {alertState} from "../../states/alertState";
 import {LibraryBookDetailData, LibraryBookEdit} from "../../interfaces/LibraryBook";
-import {getLibraryBookDetail} from "../../api/LibraryBooks";
+import {requestLibraryBookDetail} from "../../api/LibraryBooks";
 import {Button, Col, Divider, Image, message, Row, Space} from "antd";
 import LibraryBookInfo from "../../components/libraryBook/LibraryBookInfo";
 import BookTable from "../../components/BookTable";
@@ -64,7 +64,7 @@ export default function LibraryBookDetailPage() {
 
   const getDetail = async () => {
     try {
-      const response = await getLibraryBookDetail(id);
+      const response = await requestLibraryBookDetail(id);
       const detail = response.data as LibraryBookDetailData;
       setDetail(detail);
       message.info(response.message);
