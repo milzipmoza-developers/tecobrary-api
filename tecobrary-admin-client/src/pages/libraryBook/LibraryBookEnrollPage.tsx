@@ -133,6 +133,12 @@ export default function LibraryBookEnrollPage() {
 
   const handleCancelEdit = () => {
     setEditable(false);
+    editedBook.title = selectedBook.title;
+    editedBook.publisher = selectedBook.publisher;
+    editedBook.author = selectedBook.author;
+    editedBook.description = selectedBook.description;
+    editedBook.image = selectedBook.image;
+    editedBook.isbn = selectedBook.isbn;
   }
 
   const handleEditable = () => {

@@ -53,7 +53,7 @@ export interface LibraryBookEnrollData extends LibraryBookBasicInfo {
   description: string;
 }
 
-export interface LibraryBookDetail extends LibraryBookBasicInfo {
+export interface LibraryBookDetailData extends LibraryBookBasicInfo {
   id: number;
   title: string;
   image: string;

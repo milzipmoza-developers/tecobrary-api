@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
-import {alertDefault, alertState} from "../../states/alertState";
-import {LibraryBookDetail, LibraryBookEdit} from "../../interfaces/LibraryBook";
-import {libraryBookDetail} from "../../api/LibraryBooks";
-import {Button, Col, Divider, Image, Row, Space} from "antd";
+import {alertState} from "../../states/alertState";
+import {LibraryBookDetailData, LibraryBookEdit} from "../../interfaces/LibraryBook";
+import {getLibraryBookDetail} from "../../api/LibraryBooks";
+import {Button, Col, Divider, Image, message, Row, Space} from "antd";
 import LibraryBookInfo from "../../components/libraryBook/LibraryBookInfo";
 import BookTable from "../../components/BookTable";
 import LibraryBookInfoEdit from "../../components/libraryBook/LibraryBookInfoEdit";
+import HideableButton from "../../components/common/buttons/HideableButton";
 
 type urlParams = {
   id: string;
@@ -17,7 +18,16 @@ export default function LibraryBookDetailPage() {
   const {id}: urlParams = useParams();
   const setAlert = useSetRecoilState(alertState);
   const history = useHistory();
-  const [detail, setDetail] = useState<LibraryBookDetail>();
+  const [detail, setDetail] = useState<LibraryBookDetailData>({
+    id: 0,
+    title: "",
+    image: "",
+    author: "",
+    publisher: "",
+    isbn: "",
+    description: "",
+    books: []
+  });
   const [isEditable, setEditable] = useState<boolean>(false);
   const [edited, setEdited] = useState<LibraryBookEdit>({
     title: "",
@@ -39,8 +49,10 @@ export default function LibraryBookDetailPage() {
   });
 
   useEffect(() => {
-    setDetail(libraryBookDetail);
-    setAlert(alertDefault('', undefined));
+    getDetail();
+  }, [])
+
+  useEffect(() => {
     setEdited({
       title: detail?.title,
       image: detail?.image,
@@ -49,6 +61,18 @@ export default function LibraryBookDetailPage() {
       description: detail?.description
     });
   }, [detail]);
+
+  const getDetail = async () => {
+    try {
+      const response = await getLibraryBookDetail(id);
+      const detail = response.data as LibraryBookDetailData;
+      setDetail(detail);
+      message.info(response.message);
+    } catch (e: any) {
+      message.error(`api 요청 중 에러가 발생하였습니다.`);
+      history.push("/library-books");
+    }
+  }
 
   const onEditButtonClick = () => {
     setEditable(true);
@@ -110,15 +134,15 @@ export default function LibraryBookDetailPage() {
         <Col span={24}>
           <Row justify="end">
             <Space align="end">
-              {isEditable ? <Button type="primary" onClick={onCompleteButtonClick}>완료</Button> : null}
-              {isEditable ? <Button danger type="primary" onClick={onCancelButtonClick}>취소</Button> : null}
+              <HideableButton type="primary" hide={!isEditable} onClick={onCompleteButtonClick}>완료</HideableButton>
+              <HideableButton type="primary" danger hide={!isEditable} onClick={onCancelButtonClick}>취소</HideableButton>
               <Button type="primary" danger disabled={isEditable} onClick={onEditButtonClick}>수정</Button>
             </Space>
           </Row>
         </Col>
       </Row>
       <Divider/>
-      <BookTable books={detail?.books}/>
+      <BookTable books={detail.books}/>
     </>
   )
 }

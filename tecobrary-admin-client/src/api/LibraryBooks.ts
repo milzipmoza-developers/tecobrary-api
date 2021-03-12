@@ -1,7 +1,7 @@
 import api from './index';
 import {
   LibraryBookBasicInfo,
-  LibraryBookDetail,
+  LibraryBookDetailData,
   LibraryBookElement,
   LibraryBookEnrollRequest, LibraryBookPage, LibraryBookPageRequest
 } from "../interfaces/LibraryBook";
@@ -13,7 +13,12 @@ export const getPageLibraryBooks = async ({page, size}: LibraryBookPageRequest) 
   return response.data
 };
 
-export const libraryBookDetail: LibraryBookDetail = {
+export const getLibraryBookDetail = async (id: string) => {
+  const response = await api.get(`/admin/library-books/${id}`);
+  return response.data;
+}
+
+export const libraryBookDetail: LibraryBookDetailData = {
   id: 6,
   title: "객체지향의 사실과 오해",
   image: "http://image.kyobobook.co.kr/images/book/xlarge/766/x9788998139766.jpg",
