@@ -8,7 +8,7 @@ interface Props {
 const Hideable = ({hide, children}: Props) => {
   return hide
     ? null
-    : <>{children}</>;
+    : <div>{children}</div>;
 };
 
 export default Hideable;

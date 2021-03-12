@@ -4,11 +4,15 @@ import {useSetRecoilState} from "recoil";
 import {alertState} from "../../states/alertState";
 import {LibraryBookDetailData, LibraryBookEdit, LibraryBookUpdateData} from "../../interfaces/LibraryBook";
 import {requestLibraryBookDetail, requestUpdateLibraryBook} from "../../api/LibraryBooks";
-import {Button, Col, Divider, Image, message, Row, Skeleton, Space} from "antd";
+import {Button, Col, Divider, Image, Input, message, Row, Skeleton, Space} from "antd";
 import LibraryBookInfo from "../../components/libraryBook/LibraryBookInfo";
 import BookTable from "../../components/BookTable";
 import LibraryBookInfoEdit from "../../components/libraryBook/LibraryBookInfoEdit";
 import HideableButton from "../../components/common/buttons/HideableButton";
+import Hideable from "../../components/common/Hideable";
+import ColorButton from "../../components/common/buttons/ColorButton";
+import {Book, SerialNumber} from "../../interfaces/Book";
+import {requestEnrollBook} from "../../api/Books";
 
 type urlParams = {
   id: string;
@@ -35,6 +39,9 @@ export default function LibraryBookDetailPage() {
     author: "",
     publisher: "",
     description: ""
+  });
+  const [book, setBook] = useState<SerialNumber>({
+    serialNumber: ""
   });
 
   useEffect(() => {
@@ -104,6 +111,31 @@ export default function LibraryBookDetailPage() {
     }
   }
 
+  const onBookAddButtonClick = async () => {
+    if (book.serialNumber === "") {
+      message.warn("등록할 장서 번호를 입력해주세요.");
+      setBook({serialNumber: ""})
+      return;
+    }
+    if (!/[0-9]+/.test(book.serialNumber)) {
+      message.warn("숫자로 입력해주세요.");
+      setBook({serialNumber: ""})
+      return;
+    }
+    try {
+      const response = await requestEnrollBook(id, book);
+      const books = response.data.books as Book[];
+      setDetail({
+        ...detail,
+        books: books,
+      });
+      setBook({serialNumber: ""})
+    } catch (e: any) {
+      console.error(e);
+      message.error(`장서 등록에 실패하였습니다.`);
+    }
+  }
+
   if (!detail) {
     message.error(`도서 정보를 불러올 수 없습니다.`);
     history.push("/library-books");
@@ -136,6 +168,15 @@ export default function LibraryBookDetailPage() {
         <Col span={24}>
           <Row justify="end">
             <Space align="end">
+              <Hideable hide={!isEditable}>
+                <Input addonBefore="추가할 장서 번호"
+                       placeholder="숫자로 입력해주세요."
+                       value={book.serialNumber}
+                       onChange={(e) => {setBook({serialNumber: e.target.value})}}/>
+              </Hideable>
+              <Hideable hide={!isEditable}>
+                <ColorButton type="primary" color="orange" onClick={onBookAddButtonClick}>도서 추가</ColorButton>
+              </Hideable>
               <HideableButton type="primary" hide={!isEditable} onClick={onCompleteButtonClick}>완료</HideableButton>
               <HideableButton type="primary" danger hide={!isEditable} onClick={onCancelButtonClick}>취소</HideableButton>
               <Button type="primary" danger disabled={isEditable} onClick={onEditButtonClick}>수정</Button>

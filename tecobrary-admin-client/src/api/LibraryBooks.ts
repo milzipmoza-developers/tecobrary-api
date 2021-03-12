@@ -1,10 +1,5 @@
 import api from './index';
-import {
-  LibraryBookBasicInfo,
-  LibraryBookDetailData,
-  LibraryBookElement,
-  LibraryBookEnrollRequest, LibraryBookPage, LibraryBookPageRequest, LibraryBookUpdateRequest
-} from "../interfaces/LibraryBook";
+import {LibraryBookEnrollRequest, LibraryBookPageRequest, LibraryBookUpdateRequest} from "../interfaces/LibraryBook";
 
 export const requestPageLibraryBooks = async ({page, size}: LibraryBookPageRequest) => {
   const response = await api.get('/admin/library-books', {
