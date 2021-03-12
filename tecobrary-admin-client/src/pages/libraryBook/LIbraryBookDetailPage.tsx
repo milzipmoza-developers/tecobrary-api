@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import {useSetRecoilState} from "recoil";
 import {alertState} from "../../states/alertState";
-import {LibraryBookDetailData, LibraryBookEdit} from "../../interfaces/LibraryBook";
-import {requestLibraryBookDetail} from "../../api/LibraryBooks";
-import {Button, Col, Divider, Image, message, Row, Space} from "antd";
+import {LibraryBookDetailData, LibraryBookEdit, LibraryBookUpdateData} from "../../interfaces/LibraryBook";
+import {requestLibraryBookDetail, requestUpdateLibraryBook} from "../../api/LibraryBooks";
+import {Button, Col, Divider, Image, message, Row, Skeleton, Space} from "antd";
 import LibraryBookInfo from "../../components/libraryBook/LibraryBookInfo";
 import BookTable from "../../components/BookTable";
 import LibraryBookInfoEdit from "../../components/libraryBook/LibraryBookInfoEdit";
@@ -54,11 +54,11 @@ export default function LibraryBookDetailPage() {
 
   useEffect(() => {
     setEdited({
-      title: detail?.title,
-      image: detail?.image,
-      author: detail?.author,
-      publisher: detail?.publisher,
-      description: detail?.description
+      title: detail.title,
+      image: detail.image,
+      author: detail.author,
+      publisher: detail.publisher,
+      description: detail.description
     });
   }, [detail]);
 
@@ -87,24 +87,26 @@ export default function LibraryBookDetailPage() {
     edited.description = detail?.description;
   };
 
-  const onCompleteButtonClick = () => {
+  const onCompleteButtonClick = async () => {
     setEditable(false);
-    // 요청
-    console.log('업데이트 요청');
-    console.log(edited);
-
-    setAlert({
-      type: "info",
-      message: "도서 정보가 수정되었습니다."
-    });
+    try {
+      const response = await requestUpdateLibraryBook(id, edited);
+      const data = response.data as LibraryBookUpdateData;
+      setDetail({
+        books: detail.books,
+        ...data
+      });
+      message.info(response.message);
+    } catch (e: any) {
+      // todo: 서버 쪽과 메시지 구체화
+      console.error(e);
+      message.error(`도서 정보 업데이트에 실패하였습니다.`);
+    }
   }
 
   if (!detail) {
-    setAlert({
-      type: "error",
-      message: "도서 정보를 불러올 수 없습니다."
-    });
-    return null;
+    message.error(`도서 정보를 불러올 수 없습니다.`);
+    history.push("/library-books");
   }
 
   return (

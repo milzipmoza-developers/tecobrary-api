@@ -15,14 +15,6 @@ export interface LibraryBookSearch {
   publisher: string;
 }
 
-export interface LibraryBookEdit {
-  title?: string;
-  image?: string;
-  author?: string;
-  publisher?: string;
-  description?: string;
-}
-
 export interface LibraryBookSearchData {
   total: number;
   start: number;
@@ -53,6 +45,32 @@ export interface LibraryBookEnrollData extends LibraryBookBasicInfo {
   description: string;
 }
 
+export interface LibraryBookUpdateRequest {
+  title: string;
+  image: string;
+  author: string;
+  publisher: string;
+  description: string;
+}
+
+export interface LibraryBookEdit extends LibraryBookUpdateRequest{
+  title: string;
+  image: string;
+  author: string;
+  publisher: string;
+  description: string;
+}
+
+export interface LibraryBookUpdateData extends LibraryBookBasicInfo {
+  id: number;
+  title: string;
+  author: string;
+  publisher: string;
+  isbn: string;
+  image: string;
+  description: string;
+}
+
 export interface LibraryBookDetailData extends LibraryBookBasicInfo {
   id: number;
   title: string;
@@ -63,7 +81,6 @@ export interface LibraryBookDetailData extends LibraryBookBasicInfo {
   description: string;
   books: Book[];
 }
-
 export interface LibraryBookSearchItem extends LibraryBookBasicInfo {
   title: string;
   image: string;
