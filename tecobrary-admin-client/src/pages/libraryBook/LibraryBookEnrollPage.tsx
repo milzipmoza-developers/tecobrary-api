@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Divider, message, Modal} from "antd";
+import {Divider, message, Modal, Row, Space} from "antd";
 import {
   LibraryBookBasicInfo,
   LibraryBookEnrollData,
@@ -165,6 +165,38 @@ export default function LibraryBookEnrollPage() {
     setCurrentPage(page);
   };
 
+  const Footer = () => {
+    return (
+      <Row justify="end">
+        <Space size="middle">
+          <HideableButton
+            key="cancel"
+            type="primary"
+            hide={!isEditable}
+            danger
+            onClick={handleCancelEdit}>
+            취소
+          </HideableButton>
+          <HideableButton
+            key="back"
+            type="primary"
+            hide={isEditable}
+            onClick={handleEditable}
+            color="green">
+            수정 후 등록하기
+          </HideableButton>
+          <HideableButton
+            key="submit"
+            type="primary"
+            hide={false}
+            onClick={handleEnroll}>
+            {isEditable ? "수정된 내용 등록하기" : "등록하기"}
+          </HideableButton>
+        </Space>
+      </Row>
+    )
+  }
+
   return (
     <div>
       <Search
@@ -190,29 +222,7 @@ export default function LibraryBookEnrollPage() {
              onCancel={handleCancel}
              width={1000}
              footer={[
-               <HideableButton
-                 key="cancel"
-                 type="primary"
-                 hide={!isEditable}
-                 danger
-                 onClick={handleCancelEdit}>
-                 취소
-               </HideableButton>,
-               <HideableButton
-                 key="back"
-                 type="primary"
-                 hide={isEditable}
-                 onClick={handleEditable}
-                 color="green">
-                 수정 후 등록하기
-               </HideableButton>,
-               <HideableButton
-                 key="submit"
-                 type="primary"
-                 hide={false}
-                 onClick={handleEnroll}>
-                 {isEditable ? "수정된 내용 등록하기" : "등록하기"}
-               </HideableButton>,
+               <Footer/>
              ]}>
         <EditableBookDetail isEditable={isEditable} book={selectedBook} editedBook={editedBook}/>
       </Modal>
