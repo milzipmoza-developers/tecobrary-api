@@ -48,7 +48,7 @@ function App() {
               if (isGroupMenuItem(value)) {
                 const menu = value as GroupMenuItem
                 return menu.menuItems.map((item: MenuItem, innerIndex: number) => {
-                  return <Route exact path={item.path} component={item.component} key={10000 + innerIndex}/>
+                  return <Route exact path={item.path} component={item.component} key={(100 * index) + innerIndex}/>
                 });
               }
               return null;

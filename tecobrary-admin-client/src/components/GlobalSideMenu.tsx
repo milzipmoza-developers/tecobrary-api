@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import React from "react";
 import SubMenu from "antd/es/menu/SubMenu";
 
-const SUB_MENU_START = 10000; // 메뉴의 고유 숫자가 겹치면 안되는데 임시방편. 좋은 방법이 있을까?
+const SUB_MENU_START = 100; // 메뉴의 고유 숫자가 겹치면 안되는데 임시방편. 좋은 방법이 있을까?
 
 const GlobalSideMenu = () => {
   return (
@@ -18,7 +18,7 @@ const GlobalSideMenu = () => {
             <SubMenu key={index} icon={groupMenu.icon} title={groupMenu.parentName}>
               {groupMenu.menuItems.map((item: MenuItem, innerIndex: number) => {
                 return (
-                  <Menu.Item key={SUB_MENU_START + innerIndex} icon={item.icon}>
+                  <Menu.Item key={(SUB_MENU_START * index) + innerIndex} icon={item.icon}>
                     <Link to={item.path}>
                       {item.name}
                     </Link>
