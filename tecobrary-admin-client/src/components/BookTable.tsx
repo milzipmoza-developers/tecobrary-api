@@ -41,7 +41,7 @@ const columns = [
     render: (text: string, record: Book) => (
       <Space size="middle">
         <A disabled>반납요청</A>
-        <A>삭제</A>
+        <A disabled>삭제</A>
       </Space>
     ),
   },
