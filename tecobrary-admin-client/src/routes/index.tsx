@@ -1,7 +1,7 @@
 import {RouteMenuItem} from "../interfaces/RouteItem";
 import IndexPage from "../pages/IndexPage";
 import {BookOutlined, CarryOutOutlined, DatabaseOutlined, HomeOutlined, UserOutlined} from "@ant-design/icons";
-import MemberPage from "../pages/MemberPage";
+import MemberPage from "../pages/member/MemberPage";
 import LibraryBookPage from "../pages/libraryBook/LibraryBookPage";
 import WishBookPage from "../pages/WishBookPage";
 import RentPage from "../pages/RentPage";
