@@ -21,8 +21,8 @@ public class BookFacade {
         return BookEnrollResponse.of(bookDetailDto);
     }
 
-    public BookDeleteResponse delete(Long libraryBookId, String bookSerial) {
-        bookCommandService.deleteBook(libraryBookId, bookSerial);
+    public BookDeleteResponse delete(Long libraryBookId, String serialNumber) {
+        bookCommandService.deleteBook(libraryBookId, serialNumber);
         BookDetailDto bookDetailDto = libraryBookQueryService.getBookDetail(libraryBookId);
         return BookDeleteResponse.of(bookDetailDto);
     }
