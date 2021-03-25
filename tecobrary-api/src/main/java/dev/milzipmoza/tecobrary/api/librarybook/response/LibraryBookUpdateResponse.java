@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.api.librarybook.response;
 
-import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
+import dev.milzipmoza.tecobrary.core.domain.book.dto.BookDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,15 +28,15 @@ public class LibraryBookUpdateResponse {
         this.description = description;
     }
 
-    public static LibraryBookUpdateResponse of(LibraryBookDto libraryBookDto) {
+    public static LibraryBookUpdateResponse of(BookDto bookDto) {
         return LibraryBookUpdateResponse.builder()
-                .id(libraryBookDto.getId())
-                .title(libraryBookDto.getTitle())
-                .author(libraryBookDto.getAuthor())
-                .publisher(libraryBookDto.getPublisher())
-                .description(libraryBookDto.getDescription())
-                .isbn(libraryBookDto.getIsbn())
-                .image(libraryBookDto.getImageUrl())
+                .id(bookDto.getId())
+                .title(bookDto.getTitle())
+                .author(bookDto.getAuthor())
+                .publisher(bookDto.getPublisher())
+                .description(bookDto.getDescription())
+                .isbn(bookDto.getIsbn())
+                .image(bookDto.getImageUrl())
                 .build();
     }
 }

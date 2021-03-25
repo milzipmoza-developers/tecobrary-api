@@ -1,6 +1,6 @@
 package dev.milzipmoza.tecobrary.api.librarybook.response;
 
-import dev.milzipmoza.tecobrary.core.domain.librarybook.dto.LibraryBookDto;
+import dev.milzipmoza.tecobrary.core.domain.book.dto.BookDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ public class LibraryBookEnrollResponse {
         this.description = description;
     }
 
-    public static LibraryBookEnrollResponse of(LibraryBookDto enrolledBook) {
+    public static LibraryBookEnrollResponse of(BookDto enrolledBook) {
         return LibraryBookEnrollResponse.builder()
                 .id(enrolledBook.getId())
                 .title(enrolledBook.getTitle())
