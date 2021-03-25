@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.core.domain.librarybook.entity;
+package dev.milzipmoza.tecobrary.core.domain.book.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
 import org.junit.jupiter.api.DisplayName;
@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LibraryBookTest {
+class BookTest {
 
     private static final String UPDATE_TITLE = "제목";
     private static final String UPDATE_AUTHOR = "요리왕 상디";
@@ -17,7 +17,7 @@ class LibraryBookTest {
     @Test
     @DisplayName("도서 정보를 수정할 수 있다.")
     void updateBookInfo() {
-        LibraryBook libraryBook = new LibraryBook(BookInfo.builder()
+        Book book = new Book(BookInfo.builder()
                 .title("제목")
                 .isbn("isbn")
                 .author("개발왕루피")
@@ -25,9 +25,9 @@ class LibraryBookTest {
                 .description("이것은 책의 간단한 설명을 담는 곳이여")
                 .build());
 
-        libraryBook.updateBookInfo(UPDATE_TITLE, UPDATE_AUTHOR, UPDATE_IMAGE_URL, UPDATE_PUBLISHER, UPDATE_DESCRIPTION);
+        book.updateBookInfo(UPDATE_TITLE, UPDATE_AUTHOR, UPDATE_IMAGE_URL, UPDATE_PUBLISHER, UPDATE_DESCRIPTION);
 
-        BookInfo bookInfo = libraryBook.getBookInfo();
+        BookInfo bookInfo = book.getBookInfo();
 
         assertThat(bookInfo.getTitle()).isEqualTo(UPDATE_TITLE);
         assertThat(bookInfo.getAuthor()).isEqualTo(UPDATE_AUTHOR);
@@ -39,7 +39,7 @@ class LibraryBookTest {
     @Test
     @DisplayName("장서를 제거할 수 있다.")
     void removeBook() {
-        LibraryBook libraryBook = new LibraryBook(BookInfo.builder()
+        Book book = new Book(BookInfo.builder()
                 .title("제목")
                 .isbn("isbn")
                 .author("개발왕루피")
@@ -47,11 +47,11 @@ class LibraryBookTest {
                 .description("이것은 책의 간단한 설명을 담는 곳이여")
                 .build());
 
-        libraryBook.addBook("1");
-        libraryBook.addBook("2");
+        book.addBook("1");
+        book.addBook("2");
 
-        libraryBook.deleteBook("2");
+        book.deleteBook("2");
 
-        assertThat(libraryBook.getBooks().size()).isEqualTo(1);
+        assertThat(book.getBooks().size()).isEqualTo(1);
     }
 }

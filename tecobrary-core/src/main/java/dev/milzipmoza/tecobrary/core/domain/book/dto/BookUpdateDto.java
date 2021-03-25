@@ -1,10 +1,10 @@
-package dev.milzipmoza.tecobrary.core.domain.librarybook.dto;
+package dev.milzipmoza.tecobrary.core.domain.book.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class LibraryBookUpdateDto {
+public class BookUpdateDto {
 
     private final Long id;
     private final String title;
@@ -15,7 +15,7 @@ public class LibraryBookUpdateDto {
     private final String description;
 
     @Builder
-    public LibraryBookUpdateDto(Long id, String title, String imageUrl, String author, String publisher, String isbn, String description) {
+    public BookUpdateDto(Long id, String title, String imageUrl, String author, String publisher, String isbn, String description) {
         this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;

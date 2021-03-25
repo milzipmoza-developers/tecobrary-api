@@ -1,12 +1,12 @@
-package dev.milzipmoza.tecobrary.core.domain.librarybook.dto;
+package dev.milzipmoza.tecobrary.core.domain.book.dto;
 
+import dev.milzipmoza.tecobrary.core.domain.book.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class LibraryBookEnrollDto {
+public class BookEnrollDto {
 
     private final String title;
     private final String image;
@@ -16,7 +16,7 @@ public class LibraryBookEnrollDto {
     private final String description;
 
     @Builder
-    public LibraryBookEnrollDto(String title, String image, String author, String publisher, String isbn, String description) {
+    public BookEnrollDto(String title, String image, String author, String publisher, String isbn, String description) {
         this.title = title;
         this.image = image;
         this.author = author;
@@ -25,8 +25,8 @@ public class LibraryBookEnrollDto {
         this.description = description;
     }
 
-    public LibraryBook toEntity() {
-        return new LibraryBook(BookInfo.builder()
+    public Book toEntity() {
+        return new Book(BookInfo.builder()
                 .title(this.title)
                 .imageUrl(this.image)
                 .author(this.author)

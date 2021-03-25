@@ -1,7 +1,7 @@
 package dev.milzipmoza.tecobrary.api.librarybook;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookNotFoundException;
+import dev.milzipmoza.tecobrary.core.domain.book.exception.BookNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,9 +15,9 @@ import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.LIBRARY_BOOK_NOT_F
 @Slf4j
 public class LibraryBookControllerAdvice {
 
-    @ExceptionHandler(LibraryBookNotFoundException.class)
+    @ExceptionHandler(BookNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiResponse<?> handleNotFoundException(LibraryBookNotFoundException e, WebRequest request) {
+    public ApiResponse<?> handleNotFoundException(BookNotFoundException e, WebRequest request) {
         log.error("[LibraryBookController] 도서 검색 실패 request={}, e={}", request, e);
         return ApiResponse.fail(LIBRARY_BOOK_NOT_FOUND);
     }

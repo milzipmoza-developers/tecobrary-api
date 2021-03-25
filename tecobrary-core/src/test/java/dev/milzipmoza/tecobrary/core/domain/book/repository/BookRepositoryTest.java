@@ -1,7 +1,7 @@
-package dev.milzipmoza.tecobrary.core.domain.librarybook.repository;
+package dev.milzipmoza.tecobrary.core.domain.book.repository;
 
+import dev.milzipmoza.tecobrary.core.domain.book.entity.Book;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,17 +11,17 @@ import javax.persistence.EntityManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class LibraryBookRepositoryTest {
+class BookRepositoryTest {
 
     @Autowired
-    private LibraryBookRepository libraryBookRepository;
+    private BookRepository bookRepository;
 
     @Autowired
     private EntityManager em;
 
     @Test
     void saveTest() {
-        LibraryBook libraryBook = new LibraryBook(BookInfo.builder()
+        Book book = new Book(BookInfo.builder()
                 .title("제목")
                 .author("작가")
                 .imageUrl("이미지")
@@ -30,16 +30,16 @@ class LibraryBookRepositoryTest {
                 .description("요약")
                 .build());
 
-        LibraryBook savedLibraryBook = libraryBookRepository.saveAndFlush(libraryBook);
+        Book savedBook = bookRepository.saveAndFlush(book);
 
-        Long id = savedLibraryBook.getId();
+        Long id = savedBook.getId();
 
         em.clear();
 
-        LibraryBook foundLibraryBook = libraryBookRepository.findById(id).get();
+        Book foundBook = bookRepository.findById(id).get();
 
-        assertThat(foundLibraryBook.getId()).isEqualTo(id);
-        assertThat(foundLibraryBook.getCreatedAt()).isNotNull();
-        assertThat(foundLibraryBook.getModifiedAt()).isNotNull();
+        assertThat(foundBook.getId()).isEqualTo(id);
+        assertThat(foundBook.getCreatedAt()).isNotNull();
+        assertThat(foundBook.getModifiedAt()).isNotNull();
     }
 }

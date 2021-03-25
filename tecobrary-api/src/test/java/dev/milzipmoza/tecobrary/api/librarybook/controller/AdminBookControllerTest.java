@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
 import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookEnrollRequest;
 import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.exception.LibraryBookAlreadyEnrolledException;
+import dev.milzipmoza.tecobrary.core.domain.book.exception.BookAlreadyEnrolledException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith({RestDocumentationExtension.class, MockitoExtension.class})
 @AutoConfigureRestDocs
-class AdminLibraryBookControllerTest {
+class AdminBookControllerTest {
 
     private MockMvc mockMvc;
 
@@ -116,7 +116,7 @@ class AdminLibraryBookControllerTest {
                 .build());
 
         given(libraryBookFacade.enroll(any()))
-                .willThrow(new LibraryBookAlreadyEnrolledException());
+                .willThrow(new BookAlreadyEnrolledException());
 
         this.mockMvc.perform(put("/admin/library-books")
                 .contentType(MediaType.APPLICATION_JSON)

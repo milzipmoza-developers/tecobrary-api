@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.core.domain.librarybook.entity;
+package dev.milzipmoza.tecobrary.core.domain.book.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class LibraryBook extends BaseTimeEntity {
+public class Book extends BaseTimeEntity {
 
     @Embedded
     @AttributeOverrides({
@@ -24,7 +24,7 @@ public class LibraryBook extends BaseTimeEntity {
     })
     private BookInfo bookInfo;
 
-    public LibraryBook(BookInfo bookInfo) {
+    public Book(BookInfo bookInfo) {
         this.bookInfo = bookInfo;
     }
 
