@@ -1,12 +1,8 @@
 package dev.milzipmoza.tecobrary.core.domain.librarybook.dto;
 
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.dto.BookDto;
 import dev.milzipmoza.tecobrary.core.domain.librarybook.entity.LibraryBook;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 public class LibraryBookDetailDto {
@@ -18,10 +14,9 @@ public class LibraryBookDetailDto {
     private final String publisher;
     private final String isbn;
     private final String description;
-    private final List<BookDto> books;
 
     @Builder
-    public LibraryBookDetailDto(Long id, String title, String imageUrl, String author, String publisher, String isbn, String description, List<BookDto> books) {
+    public LibraryBookDetailDto(Long id, String title, String imageUrl, String author, String publisher, String isbn, String description) {
         this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
@@ -29,7 +24,6 @@ public class LibraryBookDetailDto {
         this.publisher = publisher;
         this.isbn = isbn;
         this.description = description;
-        this.books = books;
     }
 
     public static LibraryBookDetailDto of(LibraryBook libraryBook) {
@@ -41,9 +35,6 @@ public class LibraryBookDetailDto {
                 .publisher(libraryBook.getBookInfo().getPublisher())
                 .isbn(libraryBook.getBookInfo().getIsbn())
                 .description(libraryBook.getBookInfo().getDescription())
-                .books(libraryBook.getBooks().stream()
-                        .map(BookDto::of)
-                        .collect(Collectors.toList()))
                 .build();
     }
 }

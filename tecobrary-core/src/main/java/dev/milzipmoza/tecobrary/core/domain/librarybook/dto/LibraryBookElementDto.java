@@ -12,16 +12,14 @@ public class LibraryBookElementDto {
     private final String author;
     private final String publisher;
     private final String isbn;
-    private final int counts;
 
     @Builder
-    public LibraryBookElementDto(Long id, String title, String author, String publisher, String isbn, int counts) {
+    public LibraryBookElementDto(Long id, String title, String author, String publisher, String isbn) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.isbn = isbn;
-        this.counts = counts;
     }
 
     public static LibraryBookElementDto of(LibraryBook libraryBook) {
@@ -31,7 +29,6 @@ public class LibraryBookElementDto {
                 .author(libraryBook.getBookInfo().getAuthor())
                 .publisher(libraryBook.getBookInfo().getPublisher())
                 .isbn(libraryBook.getBookInfo().getIsbn())
-                .counts(libraryBook.getBooks().size())
                 .build();
     }
 }

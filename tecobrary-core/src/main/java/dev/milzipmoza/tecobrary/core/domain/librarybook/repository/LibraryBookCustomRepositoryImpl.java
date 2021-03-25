@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 import java.util.Optional;
 
-import static dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity.QBook.book;
 import static dev.milzipmoza.tecobrary.core.domain.librarybook.entity.QLibraryBook.libraryBook;
 
 public class LibraryBookCustomRepositoryImpl extends QuerydslRepositorySupport implements LibraryBookCustomRepository {
@@ -26,9 +25,7 @@ public class LibraryBookCustomRepositoryImpl extends QuerydslRepositorySupport i
     public Optional<LibraryBook> findByIdWithBookOrderAsc(Long libraryBookId) {
         return Optional.ofNullable(
                 from(libraryBook)
-                        .leftJoin(libraryBook.books, book)
                         .fetchJoin()
-                        .orderBy(book.bookSerial.asc())
                         .where(libraryBook.id.eq(libraryBookId))
                         .fetchOne()
         );
@@ -37,8 +34,6 @@ public class LibraryBookCustomRepositoryImpl extends QuerydslRepositorySupport i
     @Override
     public Page<LibraryBook> findAllWithBooks(Pageable pageable) {
         QueryResults<LibraryBook> results = from(libraryBook)
-                .leftJoin(libraryBook.books, book)
-                .fetchJoin()
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetchResults();

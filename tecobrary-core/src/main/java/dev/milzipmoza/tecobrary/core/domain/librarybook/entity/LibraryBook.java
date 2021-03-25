@@ -2,16 +2,11 @@ package dev.milzipmoza.tecobrary.core.domain.librarybook.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.entity.Book;
-import dev.milzipmoza.tecobrary.core.domain.librarybook.book.exception.BookSerialNotFoundException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Getter
@@ -29,9 +24,6 @@ public class LibraryBook extends BaseTimeEntity {
     })
     private BookInfo bookInfo;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "libraryBook", orphanRemoval = true)
-    private List<Book> books = new ArrayList<>();
-
     public LibraryBook(BookInfo bookInfo) {
         this.bookInfo = bookInfo;
     }
@@ -42,37 +34,6 @@ public class LibraryBook extends BaseTimeEntity {
         this.bookInfo.updateImageUrl(imageUrl);
         this.bookInfo.updatePublisher(publisher);
         this.bookInfo.updateDescription(description);
-    }
-
-    public void addBook(String bookSerial) {
-        this.books.add(new Book(bookSerial, this));
-    }
-
-    public void deleteBook(String bookSerial) {
-        Book deleteBook = findBookBySerial(bookSerial)
-                .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
-        books.remove(deleteBook);
-        deleteBook.delete();
-    }
-
-    public Book rentBook(String bookSerial, String memberNumber) {
-        Book rentBook = findBookBySerial(bookSerial)
-                .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
-        rentBook.rent(memberNumber);
-        return rentBook;
-    }
-
-    public Book returnBook(String bookSerial, String rentMemberNumber) {
-        Book returnBook = findBookBySerial(bookSerial)
-                .orElseThrow(() -> new BookSerialNotFoundException("해당하는 장서가 존재하지 않습니다."));
-        returnBook.doReturn(rentMemberNumber);
-        return returnBook;
-    }
-
-    public Optional<Book> findBookBySerial(String bookSerial) {
-        return this.books.stream()
-                .filter(book -> book.getBookSerial().equals(bookSerial))
-                .findAny();
     }
 }
 
