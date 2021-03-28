@@ -8,6 +8,7 @@ import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthDetail;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthProvider;
 import dev.milzipmoza.tecobrary.core.domain.member.entity.MemberAuthority;
 import dev.milzipmoza.tecobrary.core.domain.member.repository.MemberRepository;
+import dev.milzipmoza.tecobrary.core.domain.member.util.MemberNumberGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import javax.persistence.EntityNotFoundException;
 public class MemberCommandService {
 
     private final MemberRepository memberRepository;
+    private final MemberNumberGenerator memberNumberGenerator;
 
     public MemberSimpleInfoDto upsert(MemberUpsertDto memberDto) {
         MemberAuthProvider provider = MemberAuthProvider.of(memberDto.getProvider());
@@ -27,7 +29,7 @@ public class MemberCommandService {
                         .email(memberDto.getEmail())
                         .profileImageUrl(memberDto.getProfileImageUrl())
                         .authDetail(new MemberAuthDetail(memberDto.getProviderKey(), provider))
-                        .number("NONE")
+                        .number(memberNumberGenerator.generate()) // todo: 중복 처리
                         .build());
 
         return MemberSimpleInfoDto.of(memberRepository.save(member));

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseTimeEntity {
 
-    @Column
+    @Column(unique = true)
     private String number;
 
     @Column
@@ -30,7 +30,7 @@ public class Member extends BaseTimeEntity {
     private MemberAuthority authority;
 
     @AttributeOverrides({
-            @AttributeOverride(name = "key", column = @Column(name = "auth_service_key", nullable = false)),
+            @AttributeOverride(name = "key", column = @Column(name = "auth_service_key", nullable = false, unique = true)),
             @AttributeOverride(name = "provider", column = @Column(name = "auth_service_provider", nullable = false))
     })
     private MemberAuthDetail authDetail;
