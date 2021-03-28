@@ -4,6 +4,8 @@ import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BookTest {
@@ -37,7 +39,7 @@ class BookTest {
     }
 
     @Test
-    @DisplayName("장서를 제거할 수 있다.")
+    @DisplayName("도서 좋아요를 할 수 있다.")
     void removeBook() {
         Book book = new Book(BookInfo.builder()
                 .title("제목")
@@ -47,11 +49,8 @@ class BookTest {
                 .description("이것은 책의 간단한 설명을 담는 곳이여")
                 .build());
 
-        book.addBook("1");
-        book.addBook("2");
+        book.doLikeBook("19930705", LocalDateTime.now());
 
-        book.deleteBook("2");
-
-        assertThat(book.getBooks().size()).isEqualTo(1);
+        assertThat(book.getLikes().size()).isEqualTo(1L);
     }
 }

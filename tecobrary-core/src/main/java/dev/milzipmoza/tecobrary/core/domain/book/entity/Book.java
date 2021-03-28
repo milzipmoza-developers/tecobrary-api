@@ -1,12 +1,16 @@
 package dev.milzipmoza.tecobrary.core.domain.book.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
+import dev.milzipmoza.tecobrary.core.domain.book.subdomain.like.entity.BookLike;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +28,9 @@ public class Book extends BaseTimeEntity {
     })
     private BookInfo bookInfo;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    private final List<BookLike> likes = new ArrayList<>();
+
     public Book(BookInfo bookInfo) {
         this.bookInfo = bookInfo;
     }
@@ -34,6 +41,10 @@ public class Book extends BaseTimeEntity {
         this.bookInfo.updateImageUrl(imageUrl);
         this.bookInfo.updatePublisher(publisher);
         this.bookInfo.updateDescription(description);
+    }
+
+    public void doLikeBook(String memberNumber, LocalDateTime likeDateTime) {
+        this.likes.add(new BookLike(memberNumber, likeDateTime));
     }
 }
 
