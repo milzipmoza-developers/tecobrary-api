@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.librarybook.response;
+package dev.milzipmoza.tecobrary.api.book.response;
 
 import dev.milzipmoza.tecobrary.core.domain.book.dto.BookElementDto;
 import lombok.Getter;
@@ -8,11 +8,11 @@ import java.util.List;
 
 @Getter
 @NoArgsConstructor
-public class LibraryBookPageResponse {
+public class BookPageResponse {
 
     private List<BookElementDto> books;
 
-    public LibraryBookPageResponse(List<BookElementDto> books) {
+    public BookPageResponse(List<BookElementDto> books) {
         this.books = books;
     }
 }

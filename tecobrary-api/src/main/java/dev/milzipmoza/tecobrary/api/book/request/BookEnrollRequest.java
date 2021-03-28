@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.librarybook.request;
+package dev.milzipmoza.tecobrary.api.book.request;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class LibraryBookEnrollRequest {
+public class BookEnrollRequest {
 
     private String title;
     private String image;
@@ -16,7 +16,7 @@ public class LibraryBookEnrollRequest {
     private String description;
 
     @Builder
-    public LibraryBookEnrollRequest(String title, String image, String author, String publisher, String isbn, String description) {
+    public BookEnrollRequest(String title, String image, String author, String publisher, String isbn, String description) {
         this.title = title;
         this.image = image;
         this.author = author;

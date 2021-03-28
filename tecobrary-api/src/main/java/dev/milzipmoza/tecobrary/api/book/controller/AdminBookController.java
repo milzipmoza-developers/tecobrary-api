@@ -1,11 +1,11 @@
-package dev.milzipmoza.tecobrary.api.librarybook.controller;
+package dev.milzipmoza.tecobrary.api.book.controller;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
-import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookUpdateRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookUpdateResponse;
+import dev.milzipmoza.tecobrary.api.book.facade.BookFacade;
+import dev.milzipmoza.tecobrary.api.book.request.BookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.book.request.BookUpdateRequest;
+import dev.milzipmoza.tecobrary.api.book.response.BookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.book.response.BookUpdateResponse;
 import dev.milzipmoza.tecobrary.core.domain.book.exception.BookAlreadyEnrolledException;
 import dev.milzipmoza.tecobrary.core.domain.book.exception.BookDeletedFailedException;
 import dev.milzipmoza.tecobrary.core.domain.book.exception.BookUpdateFailedException;
@@ -20,23 +20,23 @@ import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class AdminLibraryBookController {
+public class AdminBookController {
 
-    private final LibraryBookFacade libraryBookFacade;
+    private final BookFacade bookFacade;
 
     @PutMapping("/admin/library-books")
-    public ApiResponse<LibraryBookEnrollResponse> enroll(@RequestBody LibraryBookEnrollRequest body) {
-        return ApiResponse.ok(ENROLL_LIBRARY_BOOK_SUCCESS, libraryBookFacade.enroll(body));
+    public ApiResponse<BookEnrollResponse> enroll(@RequestBody BookEnrollRequest body) {
+        return ApiResponse.ok(ENROLL_LIBRARY_BOOK_SUCCESS, bookFacade.enroll(body));
     }
 
     @PostMapping("/admin/library-books")
-    public ApiResponse<LibraryBookUpdateResponse> update(@RequestBody LibraryBookUpdateRequest body) {
-        return ApiResponse.ok(UPDATE_LIBRARY_BOOK_SUCCESS, libraryBookFacade.update(body));
+    public ApiResponse<BookUpdateResponse> update(@RequestBody BookUpdateRequest body) {
+        return ApiResponse.ok(UPDATE_LIBRARY_BOOK_SUCCESS, bookFacade.update(body));
     }
 
     @DeleteMapping("/admin/library-books/{id}")
     public ApiResponse<?> delete(@PathVariable Long id) {
-        libraryBookFacade.delete(id);
+        bookFacade.delete(id);
         return ApiResponse.ok(DELETE_LIBRARY_BOOK_SUCCESS);
     }
 

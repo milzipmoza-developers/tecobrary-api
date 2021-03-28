@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.librarybook.response;
+package dev.milzipmoza.tecobrary.api.book.response;
 
 import dev.milzipmoza.tecobrary.core.domain.book.dto.BookDetailDto;
 import lombok.Builder;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class LibraryBookDetailResponse {
+public class BookDetailResponse {
 
     private Long id;
     private String title;
@@ -18,7 +18,7 @@ public class LibraryBookDetailResponse {
     private String description;
 
     @Builder
-    public LibraryBookDetailResponse(Long id, String title, String image, String author, String publisher, String isbn, String description) {
+    public BookDetailResponse(Long id, String title, String image, String author, String publisher, String isbn, String description) {
         this.id = id;
         this.title = title;
         this.image = image;
@@ -28,8 +28,8 @@ public class LibraryBookDetailResponse {
         this.description = description;
     }
 
-    public static LibraryBookDetailResponse of(BookDetailDto libraryBooks) {
-        return LibraryBookDetailResponse.builder()
+    public static BookDetailResponse of(BookDetailDto libraryBooks) {
+        return BookDetailResponse.builder()
                 .id(libraryBooks.getId())
                 .title(libraryBooks.getTitle())
                 .image(libraryBooks.getImageUrl())

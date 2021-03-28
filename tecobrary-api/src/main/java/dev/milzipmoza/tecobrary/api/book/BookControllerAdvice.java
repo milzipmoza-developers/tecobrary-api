@@ -1,4 +1,4 @@
-package dev.milzipmoza.tecobrary.api.librarybook;
+package dev.milzipmoza.tecobrary.api.book;
 
 import dev.milzipmoza.tecobrary.api.ApiResponse;
 import dev.milzipmoza.tecobrary.core.domain.book.exception.BookNotFoundException;
@@ -13,7 +13,7 @@ import static dev.milzipmoza.tecobrary.api.ApiResponseMessage.LIBRARY_BOOK_NOT_F
 
 @RestControllerAdvice
 @Slf4j
-public class LibraryBookControllerAdvice {
+public class BookControllerAdvice {
 
     @ExceptionHandler(BookNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)

@@ -1,9 +1,9 @@
-package dev.milzipmoza.tecobrary.api.librarybook.controller;
+package dev.milzipmoza.tecobrary.api.book.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.milzipmoza.tecobrary.api.librarybook.facade.LibraryBookFacade;
-import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.book.facade.BookFacade;
+import dev.milzipmoza.tecobrary.api.book.request.BookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.book.response.BookEnrollResponse;
 import dev.milzipmoza.tecobrary.core.domain.book.exception.BookAlreadyEnrolledException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,21 +39,21 @@ class AdminBookControllerTest {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Mock
-    private LibraryBookFacade libraryBookFacade;
+    private BookFacade bookFacade;
 
     @InjectMocks
-    private AdminLibraryBookController adminLibraryBookController;
+    private AdminBookController adminBookController;
 
     @BeforeEach
     void setUp(RestDocumentationContextProvider restDocumentation) {
-        this.mockMvc = MockMvcBuilders.standaloneSetup(adminLibraryBookController)
+        this.mockMvc = MockMvcBuilders.standaloneSetup(adminBookController)
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
     }
 
     @Test
     void enroll() throws Exception {
-        String content = objectMapper.writeValueAsString(LibraryBookEnrollRequest.builder()
+        String content = objectMapper.writeValueAsString(BookEnrollRequest.builder()
                 .title("자바 ORM 표준 JPA 프로그래밍")
                 .author("김영한")
                 .publisher("에이콘")
@@ -62,8 +62,8 @@ class AdminBookControllerTest {
                 .image("https://book.image/path.jpg")
                 .build());
 
-        given(libraryBookFacade.enroll(any()))
-                .willReturn(LibraryBookEnrollResponse.builder()
+        given(bookFacade.enroll(any()))
+                .willReturn(BookEnrollResponse.builder()
                         .id(1L)
                         .title("자바 ORM 표준 JPA 프로그래밍")
                         .author("김영한")
@@ -106,7 +106,7 @@ class AdminBookControllerTest {
 
     @Test
     void enrollFailed() throws Exception {
-        String content = objectMapper.writeValueAsString(LibraryBookEnrollRequest.builder()
+        String content = objectMapper.writeValueAsString(BookEnrollRequest.builder()
                 .title("자바 ORM 표준 JPA 프로그래밍")
                 .author("김영한")
                 .publisher("에이콘")
@@ -115,7 +115,7 @@ class AdminBookControllerTest {
                 .image("https://book.image/path.jpg")
                 .build());
 
-        given(libraryBookFacade.enroll(any()))
+        given(bookFacade.enroll(any()))
                 .willThrow(new BookAlreadyEnrolledException());
 
         this.mockMvc.perform(put("/admin/library-books")

@@ -1,12 +1,12 @@
-package dev.milzipmoza.tecobrary.api.librarybook.facade;
+package dev.milzipmoza.tecobrary.api.book.facade;
 
-import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookEnrollRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookListRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.request.LibraryBookUpdateRequest;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookDetailResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookEnrollResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookPageResponse;
-import dev.milzipmoza.tecobrary.api.librarybook.response.LibraryBookUpdateResponse;
+import dev.milzipmoza.tecobrary.api.book.request.BookEnrollRequest;
+import dev.milzipmoza.tecobrary.api.book.request.BookListRequest;
+import dev.milzipmoza.tecobrary.api.book.request.BookUpdateRequest;
+import dev.milzipmoza.tecobrary.api.book.response.BookDetailResponse;
+import dev.milzipmoza.tecobrary.api.book.response.BookEnrollResponse;
+import dev.milzipmoza.tecobrary.api.book.response.BookPageResponse;
+import dev.milzipmoza.tecobrary.api.book.response.BookUpdateResponse;
 import dev.milzipmoza.tecobrary.core.domain.book.dto.*;
 import dev.milzipmoza.tecobrary.core.domain.book.service.BookCommandService;
 import dev.milzipmoza.tecobrary.core.domain.book.service.BookQueryService;
@@ -19,22 +19,22 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class LibraryBookFacade {
+public class BookFacade {
 
     private final BookCommandService bookCommandService;
     private final BookQueryService bookQueryService;
 
-    public LibraryBookPageResponse getBooks(LibraryBookListRequest request) {
+    public BookPageResponse getBooks(BookListRequest request) {
         List<BookElementDto> books = bookQueryService.getPageBooks(request.getPage(), request.getSize());
-        return new LibraryBookPageResponse(books);
+        return new BookPageResponse(books);
     }
 
-    public LibraryBookDetailResponse getBookDetail(Long id) {
+    public BookDetailResponse getBookDetail(Long id) {
         BookDetailDto book = bookQueryService.getBook(id);
-        return LibraryBookDetailResponse.of(book);
+        return BookDetailResponse.of(book);
     }
 
-    public LibraryBookEnrollResponse enroll(LibraryBookEnrollRequest request) {
+    public BookEnrollResponse enroll(BookEnrollRequest request) {
         BookEnrollDto enrollDto = BookEnrollDto.builder()
                 .title(request.getTitle())
                 .author(request.getAuthor())
@@ -44,10 +44,10 @@ public class LibraryBookFacade {
                 .description(request.getDescription())
                 .build();
         BookDto enrolledBook = bookCommandService.enroll(enrollDto);
-        return LibraryBookEnrollResponse.of(enrolledBook);
+        return BookEnrollResponse.of(enrolledBook);
     }
 
-    public LibraryBookUpdateResponse update(LibraryBookUpdateRequest body) {
+    public BookUpdateResponse update(BookUpdateRequest body) {
         BookUpdateDto updateDto = BookUpdateDto.builder()
                 .id(body.getId())
                 .title(body.getTitle())
@@ -57,7 +57,7 @@ public class LibraryBookFacade {
                 .description(body.getDescription())
                 .build();
         BookDto updatedBook = bookCommandService.update(updateDto);
-        return LibraryBookUpdateResponse.of(updatedBook);
+        return BookUpdateResponse.of(updatedBook);
     }
 
     public void delete(Long id) {
