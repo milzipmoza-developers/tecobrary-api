@@ -14,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
 @Slf4j
@@ -25,8 +23,8 @@ public class BookFacade {
     private final BookQueryService bookQueryService;
 
     public BookPageResponse getBooks(BookListRequest request) {
-        List<BookElementDto> books = bookQueryService.getPageBooks(request.getPage(), request.getSize());
-        return new BookPageResponse(books);
+        BookPageDto pageBooks = bookQueryService.getPageBooks(request.getPage(), request.getSize());
+        return BookPageResponse.of(pageBooks);
     }
 
     public BookDetailResponse getBookDetail(Long id) {
