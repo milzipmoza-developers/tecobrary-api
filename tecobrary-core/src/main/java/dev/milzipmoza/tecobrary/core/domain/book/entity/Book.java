@@ -2,6 +2,7 @@ package dev.milzipmoza.tecobrary.core.domain.book.entity;
 
 import dev.milzipmoza.tecobrary.core.domain.audit.BaseTimeEntity;
 import dev.milzipmoza.tecobrary.core.domain.book.subdomain.like.entity.BookLike;
+import dev.milzipmoza.tecobrary.core.domain.book.subdomain.review.entity.Review;
 import dev.milzipmoza.tecobrary.core.domain.common.vo.BookInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,6 +31,9 @@ public class Book extends BaseTimeEntity {
 
     @OneToMany(cascade = CascadeType.ALL)
     private final List<BookLike> likes = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private final List<Review> reviews = new ArrayList<>();
 
     public Book(BookInfo bookInfo) {
         this.bookInfo = bookInfo;
