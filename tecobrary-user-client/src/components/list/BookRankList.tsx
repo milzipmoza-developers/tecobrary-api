@@ -1,6 +1,6 @@
 import React, {ReactElement} from "react";
 import styled from "styled-components";
-import RankListElement from "./RankListElement";
+import BookRankElement from "./BookRankElement";
 import {useHistory} from "react-router-dom";
 
 const Wrapper = styled.div`
@@ -59,13 +59,13 @@ const listItems: RankListItem[] = [
 ]
 
 
-function RankList(): ReactElement {
+function BookRankList(): ReactElement {
   const history = useHistory();
 
   return (
     <Wrapper>
       {listItems.map((item: RankListItem, index: number) =>
-        <RankListElement
+        <BookRankElement
           rank={item.rank}
           title={item.title}
           author={item.author}
@@ -77,4 +77,4 @@ function RankList(): ReactElement {
   )
 }
 
-export default RankList
+export default BookRankList

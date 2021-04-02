@@ -10,7 +10,7 @@ interface Props {
 }
 
 
-const RankListElement = (props: Props): ReactElement => (
+const BookRankElement = (props: Props): ReactElement => (
   <Wrapper onClick={props.onClick}>
     <RankDiv>{props.rank}</RankDiv>
     <ContentDiv>
@@ -21,7 +21,7 @@ const RankListElement = (props: Props): ReactElement => (
   </Wrapper>
 )
 
-export default RankListElement
+export default BookRankElement
 
 const Wrapper = styled.div`
   display: flex;
