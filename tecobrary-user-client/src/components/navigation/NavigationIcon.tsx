@@ -3,7 +3,7 @@ import {Home, Person, Reader} from "react-ionicons";
 import styled from "styled-components";
 import {useRecoilState} from "recoil";
 import {navigationState} from "../../states/Navigation";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 export type iconType = "home" | "reader" | "person"
 
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const iconColor = {
-  selected: "#8e44ad",
+  selected: "#34495e",
   unselected: "#7f8c8d"
 }
 
@@ -31,6 +31,7 @@ const NavElement = styled.div`
 
 export const NavigationIcon = ({index, name, height, width, to}: Props): ReactElement => {
   const [navigation, setNavigationState] = useRecoilState(navigationState);
+  const history = useHistory();
 
   const color: string = navigation.selected == index ? iconColor.selected : iconColor.unselected
 
@@ -40,6 +41,7 @@ export const NavigationIcon = ({index, name, height, width, to}: Props): ReactEl
     }
     console.log('navigation selected', index) // todo: remove
     setNavigationState({selected: index})
+    history.push(to)
   }
 
   const CustomIonicon = () => {
@@ -57,9 +59,7 @@ export const NavigationIcon = ({index, name, height, width, to}: Props): ReactEl
 
   return (
     <NavElement onClick={onClick}>
-      <Link to={to}>
         <CustomIonicon/>
-      </Link>
     </NavElement>
   )
 }
