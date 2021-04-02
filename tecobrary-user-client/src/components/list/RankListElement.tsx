@@ -6,16 +6,18 @@ interface Props {
   title: string
   author: string
   counts: number
+  onClick: () => void
 }
 
-const RankListElement = ({rank, title, author, counts}: Props): ReactElement => (
-  <Wrapper>
-    <RankDiv>{rank}</RankDiv>
+
+const RankListElement = (props: Props): ReactElement => (
+  <Wrapper onClick={props.onClick}>
+    <RankDiv>{props.rank}</RankDiv>
     <ContentDiv>
-      <TitleDiv>{title}</TitleDiv>
-      <AuthorDiv>{author}</AuthorDiv>
+      <TitleDiv>{props.title}</TitleDiv>
+      <AuthorDiv>{props.author}</AuthorDiv>
     </ContentDiv>
-    <CountDiv>{counts}건</CountDiv>
+    <CountDiv>{props.counts}건</CountDiv>
   </Wrapper>
 )
 
