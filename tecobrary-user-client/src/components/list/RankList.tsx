@@ -54,11 +54,10 @@ const listItems: RankListItem[] = [
 
 function RankList(): ReactElement {
 
-
   return (
     <Wrapper>
-      {listItems.map(({rank, title, author, counts}: RankListItem) =>
-        <RankListElement rank={rank} title={title} author={author} counts={counts}/>
+      {listItems.map(({rank, title, author, counts}: RankListItem, index: number) =>
+        <RankListElement rank={rank} title={title} author={author} counts={counts} key={index}/>
       )}
     </Wrapper>
   )
