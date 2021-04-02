@@ -5,6 +5,7 @@ import CardButton from "./CardButton";
 interface Props {
   title: string
   children: ReactNode
+  backgroundColor: string
   buttonText?: string
   buttonTo?: string
 }
@@ -13,7 +14,6 @@ const CardWrapper = styled.div`
   border-radius: 1.5rem;
   width: auto;
   max-width: 36rem;
-  background-color: bisque;
 `
 
 const CardInside = styled.div`
@@ -27,9 +27,9 @@ const CardTitle = styled.div`
   margin-bottom: 1.5rem;
 `
 
-function Card({title, children, buttonText, buttonTo}: Props): ReactElement {
+function Card({title, backgroundColor, children, buttonText, buttonTo}: Props): ReactElement {
   return (
-    <CardWrapper>
+    <CardWrapper style={{backgroundColor: `${backgroundColor}`}}>
       <CardInside>
         <CardTitle>
           {title}
