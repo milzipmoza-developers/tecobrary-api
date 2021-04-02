@@ -1,17 +1,24 @@
 import React, {ReactElement, ReactNode} from "react";
 import styled from "styled-components";
+import CardButton from "./CardButton";
 
 interface Props {
   title: string
   children: ReactNode
+  buttonText?: string
+  buttonTo?: string
 }
 
 const CardWrapper = styled.div`
-  padding: 1.5rem;
   border-radius: 1.5rem;
   width: auto;
   max-width: 36rem;
   background-color: bisque;
+`
+
+const CardInside = styled.div`
+  padding: 1.5rem;
+  width: auto;
 `
 
 const CardTitle = styled.div`
@@ -20,13 +27,18 @@ const CardTitle = styled.div`
   margin-bottom: 1.5rem;
 `
 
-function Card({title, children}: Props): ReactElement {
+function Card({title, children, buttonText, buttonTo}: Props): ReactElement {
   return (
     <CardWrapper>
-      <CardTitle>
-        {title}
-      </CardTitle>
-      {children}
+      <CardInside>
+        <CardTitle>
+          {title}
+        </CardTitle>
+        {children}
+      </CardInside>
+      { buttonText && buttonTo
+        ? <CardButton text={buttonText} to={buttonTo}/>
+        : null}
     </CardWrapper>
   )
 }
