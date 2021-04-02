@@ -5,9 +5,11 @@ import {useRecoilState} from "recoil";
 import {navigationState} from "../../states/Navigation";
 import {Link} from "react-router-dom";
 
+export type iconType = "home" | "reader" | "person"
+
 interface Props {
   index: number
-  name: "home" | "reader" | "person"
+  name: iconType
   height: string
   width: string
   to: string
@@ -30,7 +32,7 @@ const NavElement = styled.div`
 export const NavigationIcon = ({index, name, height, width, to}: Props): ReactElement => {
   const [navigation, setNavigationState] = useRecoilState(navigationState);
 
-  const color = (): string => navigation.selected == index ? iconColor.selected : iconColor.unselected
+  const color: string = navigation.selected == index ? iconColor.selected : iconColor.unselected
 
   const onClick = () => {
     if (navigation.selected == index) {
