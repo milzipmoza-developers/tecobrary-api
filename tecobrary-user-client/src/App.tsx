@@ -25,7 +25,6 @@ const Wrapper = styled.div`
   position: relative;
   background-color: white;
   max-width: 36rem;
-  margin-top: 70px; // header height
 `;
 
 function App(): ReactElement {
