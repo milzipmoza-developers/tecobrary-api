@@ -6,6 +6,8 @@ import {Route, Switch} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import TimelinePage from "./pages/TimelinePage";
 import MyPage from "./pages/MyPage";
+import BookPage from "./pages/BookPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const Background = styled.div`
   width: 100vw;
@@ -36,6 +38,8 @@ function App(): ReactElement {
           <Route exact path={"/"} component={HomePage}/>
           <Route exact path={"/timeline"} component={TimelinePage}/>
           <Route exact path={"/my-page"} component={MyPage}/>
+          <Route exact path={"/books/:id"} component={BookPage}/>
+          <Route component={NotFoundPage} />
         </Switch>
         <Navigation/>
       </Wrapper>
