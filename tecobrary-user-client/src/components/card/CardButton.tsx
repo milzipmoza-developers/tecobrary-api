@@ -22,7 +22,7 @@ const CardButtonWrapper = styled.div`
 const CardText = styled.div`
   font-weight: bold;
   font-size: small;
-  color: #2980b9;
+  color: #3498db;
   height: fit-content;
 `
 

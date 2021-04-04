@@ -5,6 +5,7 @@ import {PageContent} from "../components/page/PageContent";
 import Plain from "../components/plain/Plain";
 import BookRankList from "../components/list/BookRankList";
 import ReviewRankList from "../components/list/ReviewRankList";
+import NewBookCarousel from "../components/carousel/NewBookCarousel";
 
 function HomePage(): ReactElement {
   return (
@@ -14,7 +15,7 @@ function HomePage(): ReactElement {
               backgroundColor="#EAEBFF"
               buttonText="새로운 도서 구경하러가기"
               buttonTo="/timeline">
-          새로운 도서 구경하기
+          <NewBookCarousel/>
         </Card>
       </PageContent>
       <PageContent>
