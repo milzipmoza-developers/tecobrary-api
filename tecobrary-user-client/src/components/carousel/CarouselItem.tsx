@@ -1,8 +1,9 @@
 import {ReactElement} from "react";
 import {CategoryBadges} from "../badges/CategoryBadges";
-import {BookActionButtons} from "./BookActionButtons";
+import {BookActionButtons} from "../buttons/BookActionButtons";
 import styled from "styled-components";
 import {Category} from "../../interfaces";
+import {useHistory} from "react-router-dom";
 
 interface Props {
   id: number

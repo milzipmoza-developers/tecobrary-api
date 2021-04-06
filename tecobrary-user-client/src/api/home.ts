@@ -52,7 +52,7 @@ export const getNewArrivalBooks: NewBook[] = [
 ]
 
 
-function getRandomColor(): string {
+export function getRandomColor(): string {
   const letters = '0123456789ABCDEF';
   let color = '#';
   for (let i = 0; i < 6; i++) {
