@@ -3,6 +3,7 @@ import {CategoryBadges} from "../badges/CategoryBadges";
 import {BookActionButtons} from "../buttons/BookActionButtons";
 import styled from "styled-components";
 import {BookLike, BookMarked, Category} from "../../interfaces";
+import {FoldableCard} from "./FoldableCard";
 
 interface Props {
   id: number
@@ -35,7 +36,9 @@ export const BookCardContent = (props: Props): ReactElement => {
                              detailButton={false}/>
         </BookDetailContent>
       </BookDetail>
-      <BookDescription>{props.description}</BookDescription>
+      <FoldableCard backgroundColor="#ecf0f1">
+        <div>{props.description}</div>
+      </FoldableCard>
     </Wrapper>
   )
 }
@@ -64,11 +67,4 @@ const BookDetailContent = styled.div`
   display: flex;
   flex: 3;
   flex-direction: column;
-`
-
-const BookDescription = styled.div`
-  margin-top: 1rem;
-  background-color: #ecf0f1;
-  padding: 1rem;
-  border-radius: 1.5rem;
 `

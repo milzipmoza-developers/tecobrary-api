@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CardButton from "./CardButton";
 
 interface Props {
-  title: string
+  title?: string | ReactElement
   children: ReactNode
   backgroundColor: string
   buttonText?: string
@@ -31,9 +31,9 @@ function Card({title, backgroundColor, children, buttonText, buttonTo}: Props): 
   return (
     <CardWrapper style={{backgroundColor: `${backgroundColor}`}}>
       <CardInside>
-        <CardTitle>
+        {title ? <CardTitle>
           {title}
-        </CardTitle>
+        </CardTitle> : null}
         {children}
       </CardInside>
       { buttonText && buttonTo
