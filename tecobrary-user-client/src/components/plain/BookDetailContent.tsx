@@ -3,7 +3,7 @@ import {CategoryBadges} from "../badges/CategoryBadges";
 import {BookActionButtons} from "../buttons/BookActionButtons";
 import styled from "styled-components";
 import {BookLike, BookMarked, Category} from "../../interfaces";
-import {FoldableCard} from "./FoldableCard";
+import {FoldableCard} from "../card/FoldableCard";
 
 interface Props {
   id: number
@@ -17,14 +17,14 @@ interface Props {
   bookMark: BookMarked
 }
 
-export const BookCardContent = (props: Props): ReactElement => {
+export const BookDetailContent = (props: Props): ReactElement => {
   return (
     <Wrapper>
-      <BookDetail>
-        <BookDetailImage>
+      <Detail>
+        <BookImage>
           <img src={props.imageUrl} width="100%"/>
-        </BookDetailImage>
-        <BookDetailContent>
+        </BookImage>
+        <BookContent>
           <CategoryBadges categories={props.categories}/>
           <div>{props.author}</div>
           <div>{props.publisher}</div>
@@ -34,8 +34,8 @@ export const BookCardContent = (props: Props): ReactElement => {
                              marked={props.bookMark.marked}
                              bookMarkedCounts={props.bookMark.counts}
                              detailButton={false}/>
-        </BookDetailContent>
-      </BookDetail>
+        </BookContent>
+      </Detail>
       <FoldableCard backgroundColor="#ecf0f1">
         <div>{props.description}</div>
       </FoldableCard>
@@ -51,19 +51,19 @@ const Wrapper = styled.div`
   width: 100%;
 `
 
-const BookDetail = styled.div`
+const Detail = styled.div`
   display: flex;
   flex-direction: row;
   height: fit-content;
   width: 100%;
 `
 
-const BookDetailImage = styled.div`
+const BookImage = styled.div`
   display: flex;
   flex: 1.2;
 `
 
-const BookDetailContent = styled.div`
+const BookContent = styled.div`
   display: flex;
   flex: 3;
   flex-direction: column;

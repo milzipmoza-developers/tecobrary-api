@@ -6,7 +6,7 @@ import Plain from "../components/plain/Plain";
 import {BookDetail} from "../interfaces";
 import {getBookDetail} from "../api/bookDetail";
 import {useParams} from "react-router-dom";
-import {BookCardContent} from "../components/card/BookCardContent";
+import {BookDetailContent} from "../components/plain/BookDetailContent";
 
 interface Params {
   id?: string | undefined
@@ -22,7 +22,7 @@ function BookPage(): ReactElement {
     <PageFrame title="도서 상세">
       <PageContent>
         <Plain title={bookDetail.title}>
-          <BookCardContent {...bookDetail}/>
+          <BookDetailContent {...bookDetail}/>
         </Plain>
       </PageContent>
       <PageContent>
