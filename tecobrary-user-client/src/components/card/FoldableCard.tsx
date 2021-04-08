@@ -36,7 +36,6 @@ export const FoldableCard = ({backgroundColor, children}: Props): ReactElement =
 
 const Wrapper = styled.div`
   width: auto;
-  margin-top: 1rem;
   border-radius: 1.5rem;
   max-width: 36rem;
   position: relative;

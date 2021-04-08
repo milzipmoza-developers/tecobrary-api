@@ -25,6 +25,13 @@ export interface BookMarked {
   counts: number
 }
 
+export interface BookTechDetail {
+  mainTech: string
+  additionalTech: string[]
+  mainVersion: string
+  versionDependency: string
+}
+
 export interface BookDetail {
   id: number
   imageUrl: string
@@ -32,7 +39,22 @@ export interface BookDetail {
   author: string
   publisher: string
   description: string
+  publishDate: string
   categories: Category[]
   like: BookLike
   bookMark: BookMarked
+  techDetail?: BookTechDetail
+}
+
+export interface BookReview {
+  id: number
+  member: BookReviewMember
+  reviewType: string
+  content: string
+  rate: number
+}
+
+export interface BookReviewMember {
+  name: string
+  profileUrl: string
 }

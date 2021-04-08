@@ -22,35 +22,35 @@ interface RankListItem {
 
 const listItems: RankListItem[] = [
   {
-    id: 1,
+    id: 2,
     rank: 1,
-    title: '객체지향의 사실과 오해',
-    author: '조영호',
+    title: '실전 리액트 프로그래밍 리액트 훅부터 Next.js까지 개정판',
+    author: '이재승',
     counts: 10
   },
   {
     id: 1,
     rank: 2,
-    title: '데이터베이스 인터널스',
-    author: '알렉스 페트로프',
+    title: '오늘도 개발자가 안된다고 말했다',
+    author: '김중철, 김수지',
     counts: 9
   },
   {
-    id: 1,
+    id: 4,
     rank: 3,
     title: '이것이 레디스다',
     author: '강대명',
     counts: 7
   },
   {
-    id: 1,
+    id: 5,
     rank: 4,
     title: '빅 데이터 세상으로 떠나는 간결한 안내서 NoSQL',
     author: '마틴 파울러',
     counts: 5
   },
   {
-    id: 1,
+    id: 6,
     rank: 5,
     title: '성공과 실패를 결정하는 1%의 네트워크 원리',
     author: 'Tsutomu Tone',

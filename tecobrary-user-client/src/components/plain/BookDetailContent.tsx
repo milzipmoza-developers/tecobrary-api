@@ -2,8 +2,10 @@ import React, {ReactElement} from "react";
 import {CategoryBadges} from "../badges/CategoryBadges";
 import {BookActionButtons} from "../buttons/BookActionButtons";
 import styled from "styled-components";
-import {BookLike, BookMarked, Category} from "../../interfaces";
+import {BookLike, BookMarked, BookTechDetail, Category} from "../../interfaces";
 import {FoldableCard} from "../card/FoldableCard";
+import Plain from "./Plain";
+import {BookDetail} from "./BookDetail";
 
 interface Props {
   id: number
@@ -11,38 +13,42 @@ interface Props {
   title: string
   author: string
   publisher: string
+  publishDate: string
   description: string
   categories: Category[]
   like: BookLike
   bookMark: BookMarked
+  techDetail?: BookTechDetail
 }
 
 export const BookDetailContent = (props: Props): ReactElement => {
   return (
     <Wrapper>
-      <Detail>
-        <BookImage>
-          <img src={props.imageUrl} width="100%"/>
-        </BookImage>
-        <BookContent>
-          <CategoryBadges categories={props.categories}/>
-          <div>{props.author}</div>
-          <div>{props.publisher}</div>
-          <BookActionButtons id={props.id}
-                             like={props.like.liked}
-                             likeCounts={props.like.counts}
-                             marked={props.bookMark.marked}
-                             bookMarkedCounts={props.bookMark.counts}
-                             detailButton={false}/>
-        </BookContent>
-      </Detail>
+      <BookDetail {...props}/>
+      {props.techDetail ? <Plain title="이런 기술을 다뤄요">
+        <TechDetailRow>
+          <div>주로</div>
+          <div>{props.techDetail?.mainTech}</div>
+        </TechDetailRow>
+        <TechDetailRow>
+          <div>추가로</div>
+          <div>{props.techDetail?.additionalTech}</div>
+        </TechDetailRow>
+        <TechDetailRow>
+          <div>버전은</div>
+          <div>{props.techDetail?.mainVersion}</div>
+        </TechDetailRow>
+        <TechDetailRow>
+          <div>버전과 강한 의존성</div>
+          <div>{props.techDetail?.versionDependency}</div>
+        </TechDetailRow>
+      </Plain> : null}
       <FoldableCard backgroundColor="#ecf0f1">
         <div>{props.description}</div>
       </FoldableCard>
     </Wrapper>
   )
 }
-
 
 const Wrapper = styled.div`
   display: flex;
@@ -51,20 +57,9 @@ const Wrapper = styled.div`
   width: 100%;
 `
 
-const Detail = styled.div`
+const TechDetailRow = styled.div`
+  width: auto;
   display: flex;
   flex-direction: row;
-  height: fit-content;
-  width: 100%;
-`
-
-const BookImage = styled.div`
-  display: flex;
-  flex: 1.2;
-`
-
-const BookContent = styled.div`
-  display: flex;
-  flex: 3;
-  flex-direction: column;
+  justify-content: space-between;
 `
