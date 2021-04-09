@@ -1,13 +1,12 @@
 import React, {ReactElement} from "react";
 import styled from "styled-components";
-import Header from "./components/Header";
 import Navigation from "./components/navigation/Navigation";
 import {Route, Switch} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import TimelinePage from "./pages/TimelinePage";
 import MyPage from "./pages/MyPage";
-import BookPage from "./pages/BookPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import BookDetailPage from "./pages/bookDetail/BookDetailPage";
 
 const Background = styled.div`
   width: 100vw;
@@ -33,12 +32,12 @@ function App(): ReactElement {
   return (
     <Background className="background">
       <Wrapper>
-        <Header/>
+        {/*<Header/>*/}
         <Switch>
           <Route exact path={"/"} component={HomePage}/>
           <Route exact path={"/timeline"} component={TimelinePage}/>
           <Route exact path={"/my-page"} component={MyPage}/>
-          <Route exact path={"/books/:id"} component={BookPage}/>
+          <Route exact path={"/books/:id"} component={BookDetailPage}/>
           <Route component={NotFoundPage} />
         </Switch>
         <Navigation/>

@@ -1,15 +1,16 @@
-import {ReactNode} from "react";
+import {ReactElement, ReactNode} from "react";
 import styled from "styled-components";
 
 interface Props {
+  color?: string
   counts?: number
   children: ReactNode
 }
 
-export const CountActionButton = ({counts, children}: Props) => (
+export const CountActionButton = ({color, counts, children}: Props): ReactElement => (
   <Wrapper>
     <ChildrenWrapper>{children}</ChildrenWrapper>
-    <CountWrapper>{counts}</CountWrapper>
+    <CountWrapper style={{color: color ? color : "#34495e"}}>{counts}</CountWrapper>
   </Wrapper>
 )
 
@@ -27,6 +28,5 @@ const ChildrenWrapper = styled.div`
 
 const CountWrapper = styled.div`
   font-size: x-small;
-  color: #34495e;
   text-align: center;
 `
