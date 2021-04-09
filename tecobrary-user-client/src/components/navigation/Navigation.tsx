@@ -8,8 +8,9 @@ const NavigationWrapper = styled.div`
   position: fixed;
   bottom: 0px;
   max-width: 36rem;
-  border-top: 1px solid #7f8c8d;
-  background-color: rgba(236, 240, 241, 0.95);
+  border-radius: 2rem 2rem 0 0;
+  background-color: #ecf0f1;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 `
 
 const NavigationContent = styled.div`
@@ -18,7 +19,7 @@ const NavigationContent = styled.div`
   width: 100%;
   min-width: fit-content;
   height: 100%;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 `
 
@@ -26,9 +27,9 @@ function Navigation(): ReactElement {
   return (
     <NavigationWrapper>
       <NavigationContent>
-        <NavigationIcon index={1} name="home" width={"2rem"} height={"2rem"} to="/"/>
-        <NavigationIcon index={2} name="reader" width={"2rem"} height={"2rem"} to="/timeline"/>
-        <NavigationIcon index={3} name="person" width={"2rem"} height={"2rem"} to="/my-page"/>
+        <NavigationIcon index={1} name="home" width={"1.5rem"} height={"1.5rem"} to="/"/>
+        <NavigationIcon index={2} name="reader" width={"1.5rem"} height={"1.5rem"} to="/timeline"/>
+        <NavigationIcon index={3} name="person" width={"1.5rem"} height={"1.5rem"} to="/my-page"/>
       </NavigationContent>
     </NavigationWrapper>
   );

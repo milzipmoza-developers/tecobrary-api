@@ -1,5 +1,5 @@
 import React, {ReactElement} from "react";
-import {Home, Person, Reader} from "react-ionicons";
+import {Home, HomeOutline, Person, PersonOutline, Reader, ReaderOutline} from "react-ionicons";
 import styled from "styled-components";
 import {useRecoilState} from "recoil";
 import {navigationState} from "../../states/Navigation";
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const iconColor = {
-  selected: "#34495e",
+  selected: "#000000",
   unselected: "#7f8c8d"
 }
 
