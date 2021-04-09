@@ -2,7 +2,8 @@ import React, {ReactElement, ReactNode} from "react";
 import styled from "styled-components";
 
 interface Props {
-  title: string
+  title?: string
+  backgroundColor?: string
   children: ReactNode
 }
 
@@ -20,12 +21,12 @@ const PageTitle = styled.div`
   font-size: xx-large;
 `
 
-function PageFrame({title, children}: Props): ReactElement {
+function PageFrame({title, backgroundColor, children}: Props): ReactElement {
   return (
-    <PageWrapper>
-      <PageTitle>
+    <PageWrapper style={{backgroundColor}}>
+      {title ? <PageTitle>
         {title}
-      </PageTitle>
+      </PageTitle> : null}
       {children}
     </PageWrapper>
   )
