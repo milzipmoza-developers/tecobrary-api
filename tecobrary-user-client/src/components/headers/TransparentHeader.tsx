@@ -16,4 +16,5 @@ const HeaderWrapper = styled.div`
   position: fixed;
   max-width: 36rem;
   margin: 2rem 1rem 0 1rem;
+  z-index: 100;
 `
