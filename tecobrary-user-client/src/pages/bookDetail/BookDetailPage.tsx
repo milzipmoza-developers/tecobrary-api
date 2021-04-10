@@ -4,6 +4,8 @@ import {BookDetail} from "../../interfaces";
 import {getBookDetail} from "../../api/bookDetail";
 import {TransparentPageFrame} from "../../components/page/TransparentPageFrame";
 import BookDetailCard from "./BookDetailCard";
+import Plain from "../../components/plain/Plain";
+import {PageContent} from "../../components/page/PageContent";
 
 interface Params {
   id?: string | undefined
@@ -16,9 +18,14 @@ function BookDetailPage(): ReactElement {
 
   return (
     <TransparentPageFrame header={true}>
-      <div className={"page-content"} style={{height: 'fit-content'}}>
+      <PageContent>
         <BookDetailCard {...bookDetail}/>
-      </div>
+      </PageContent>
+      <PageContent>
+        <Plain title='리뷰를 확인해보세요' margin='0 1rem 0 1rem'>
+
+        </Plain>
+      </PageContent>
     </TransparentPageFrame>
   )
 }

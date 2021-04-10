@@ -4,6 +4,7 @@ import {parseDate} from "../../utils/date";
 import {BookDetailActionButtons} from "./BookDetailActionButtons";
 import styled from "styled-components";
 import {BookLike, BookMarked, BookTechDetail, Category} from "../../interfaces";
+import Plain from "../../components/plain/Plain";
 
 interface Props {
   id: number
@@ -20,6 +21,43 @@ interface Props {
 }
 
 function BookDetailCard(props: Props): ReactElement {
+
+  const BookPublishInfo = () => (
+    <BookPublishInfoWrapper>
+      <div>{props.publisher}</div>
+      <div>{props.author}</div>
+    </BookPublishInfoWrapper>
+  )
+
+  const BookSubInfo = () => (
+    <BookSubInfoWrapper>
+      <BookPublishDateWrapper>출판일 {parseDate(props.publishDate)}</BookPublishDateWrapper>
+      <BookDetailActionButtons id={props.id}
+                               like={props.like.liked}
+                               likeCounts={props.like.counts}
+                               marked={props.bookMark.marked}
+                               bookMarkedCounts={props.bookMark.counts}/>
+    </BookSubInfoWrapper>
+  )
+
+  const BookTechInfo = () => (
+    props.techDetail
+      ? (
+        <Plain title='이런 기술을 다뤄요' margin="0 0 2rem 0">
+          <div style={{marginLeft: '0.5rem', fontWeight: 'lighter'}}>
+            주로 <b>{props.techDetail?.mainTech}</b> <b>{props.techDetail?.mainVersion}</b> 버전을 다뤄요
+          </div>
+          <div style={{marginLeft: '0.5rem', fontWeight: 'lighter'}}>
+            추가로 <b>{props.techDetail?.additionalTech}</b> 도 다루고 있어요
+          </div>
+          <div style={{marginLeft: '0.5rem', fontWeight: 'lighter'}}>
+            버전과의 의존성은 {props.techDetail?.versionDependency}
+          </div>
+        </Plain>
+      )
+      : null
+  )
+
   return (
     <Wrapper>
       <ImageWrapper>
@@ -28,22 +66,13 @@ function BookDetailCard(props: Props): ReactElement {
       <BookDetailWrapper>
         <BookTitleWrapper>{props.title}</BookTitleWrapper>
         <CategoryBadges categories={props.categories}/>
-        <BookPublishInfoWrapper>
-          <div>{props.publisher}</div>
-          <div>{props.author}</div>
-        </BookPublishInfoWrapper>
-        <BookSubInfoWrapper>
-          <div style={{fontWeight: "lighter"}}>출판일 {parseDate(props.publishDate)}</div>
-          <BookDetailActionButtons id={props.id}
-                                   like={props.like.liked}
-                                   likeCounts={props.like.counts}
-                                   marked={props.bookMark.marked}
-                                   bookMarkedCounts={props.bookMark.counts}/>
-        </BookSubInfoWrapper>
+        <BookPublishInfo/>
+        <BookSubInfo/>
         <BookDescriptionWrapper>
           {props.description}
         </BookDescriptionWrapper>
       </BookDetailWrapper>
+      <BookTechInfo/>
     </Wrapper>
   )
 }
@@ -59,6 +88,7 @@ const Wrapper = styled.div`
   color: white;
   border-radius: 2rem;
   padding: 1rem;
+  margin-bottom: 13rem; // top 13rem
 `
 
 const ImageWrapper = styled.div`
@@ -109,8 +139,12 @@ const BookSubInfoWrapper = styled.div`
   align-items: center;
 `
 
+const BookPublishDateWrapper = styled.div`
+  font-weight: lighter;
+`
+
 const BookDescriptionWrapper = styled.div`
   font-weight: lighter;
   font-size: small;
-  margin: 2rem 1rem 0 1rem;
+  margin: 2rem 1rem 2rem 1rem;
 `
