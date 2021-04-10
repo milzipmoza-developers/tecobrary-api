@@ -12,17 +12,18 @@ interface Props {
   likeCounts?: number
   marked: boolean
   bookMarkedCounts?: number
+  color?: string
 }
 
 export const BookDetailActionButtons = (props: Props): ReactElement => {
   return (
     <ActionButtonWrapper>
-      <CountActionButton counts={props.likeCounts} color="white">
-        <LikeIcon like={props.like} color="white"/>
+      <CountActionButton counts={props.likeCounts} color={props.color ? props.color : "black"}>
+        <LikeIcon like={props.like} color={props.color ? props.color : "black"}/>
       </CountActionButton>
       <Space/>
-      <CountActionButton counts={props.bookMarkedCounts} color="white">
-        <BookmarkIcon marked={props.marked} color="white"/>
+      <CountActionButton counts={props.bookMarkedCounts} color={props.color ? props.color : "black"}>
+        <BookmarkIcon marked={props.marked} color={props.color ? props.color : "black"}/>
       </CountActionButton>
     </ActionButtonWrapper>
   )

@@ -64,8 +64,8 @@ function BookDetailCard(props: Props): ReactElement {
         <Image src={props.imageUrl}/>
       </ImageWrapper>
       <BookDetailWrapper>
-        <BookTitleWrapper>{props.title}</BookTitleWrapper>
         <CategoryBadges categories={props.categories}/>
+        <BookTitleWrapper>{props.title}</BookTitleWrapper>
         <BookPublishInfo/>
         <BookSubInfo/>
         <BookDescriptionWrapper>
@@ -84,8 +84,8 @@ const Wrapper = styled.div`
   top: 13rem;
   width: auto;
   height: fit-content;
-  background-color: #1E1E1E;
-  color: white;
+  background-color: white;
+  color: black;
   border-radius: 2rem;
   padding: 1rem;
   margin-bottom: 13rem; // top 13rem
@@ -100,7 +100,7 @@ const ImageWrapper = styled.div`
   height: 12.5rem;
   transform: translate3d(0, -50%, 0);
   border-radius: 1rem;
-  margin-bottom: -3.5rem;
+  margin-bottom: -4rem;
 `
 
 const Image = styled.img`
@@ -122,6 +122,7 @@ const BookTitleWrapper = styled.div`
   font-weight: bold;
   font-size: 1.5em;
   text-align: center;
+  margin: 1rem 0 0.5rem 0;
 `
 
 const BookPublishInfoWrapper = styled.div`
