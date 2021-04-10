@@ -4,10 +4,25 @@ import styled from "styled-components";
 interface Props {
   subTitle?: string
   title: string
+  margin?: string
   children: ReactNode
 }
 
-const PlainWrapper = styled.div`
+function Plain({subTitle, margin, title, children}: Props): ReactElement {
+  return (
+    <Wrapper style={{margin}}>
+      {subTitle
+        ? <PlainSubTitle>{subTitle}</PlainSubTitle>
+        : null}
+      <PlainTitle>{title}</PlainTitle>
+      {children}
+    </Wrapper>
+  )
+}
+
+export default Plain
+
+const Wrapper = styled.div`
   padding: 0.5rem;
   width: auto;
   max-width: 36rem;
@@ -25,17 +40,3 @@ const PlainTitle = styled.div`
   font-weight: bold;
   margin-bottom: 1.5rem;
 `
-
-function Plain({subTitle, title, children}: Props): ReactElement {
-  return (
-    <PlainWrapper>
-      {subTitle
-        ? <PlainSubTitle>{subTitle}</PlainSubTitle>
-        : null}
-      <PlainTitle>{title}</PlainTitle>
-      {children}
-    </PlainWrapper>
-  )
-}
-
-export default Plain
