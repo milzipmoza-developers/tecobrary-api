@@ -1,6 +1,12 @@
-export interface Category {
+export interface Tag {
   name: string
   color: string
+}
+
+export interface Category {
+  id: number
+  name: string
+  logoUrl: string
 }
 
 export interface NewBook {
@@ -20,7 +26,7 @@ export interface InterestedBook {
   imageUrl: string
   title: string
   author: string
-  categories: Category[]
+  categories: Tag[]
   counts: number
 }
 
@@ -49,7 +55,7 @@ export interface BookDetail {
   publisher: string
   description: string
   publishDate: string
-  categories: Category[]
+  categories: Tag[]
   like: BookLike
   bookMark: BookMarked
   techDetail?: BookTechDetail

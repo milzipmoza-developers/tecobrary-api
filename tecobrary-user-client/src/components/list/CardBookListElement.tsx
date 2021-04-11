@@ -3,7 +3,7 @@ import {CategoryBadges} from "../badges/CategoryBadges";
 import {CountedIconBadge} from "../badges/CountedIconBadge";
 import {ReviewIcon} from "../icons/ReviewIcon";
 import styled from "styled-components";
-import {Category} from "../../interfaces";
+import {Tag} from "../../interfaces";
 import {useHistory} from "react-router-dom";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
   imageUrl: string
   title: string
   author: string
-  categories: Category[]
+  categories: Tag[]
   counts: number
   iconBadge: ReactElement
 }

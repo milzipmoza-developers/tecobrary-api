@@ -3,7 +3,7 @@ import {CategoryBadges} from "../../components/badges/CategoryBadges";
 import {parseDate} from "../../utils/date";
 import {BookDetailActionButtons} from "./BookDetailActionButtons";
 import styled from "styled-components";
-import {BookLike, BookMarked, BookTechDetail, Category} from "../../interfaces";
+import {BookLike, BookMarked, BookTechDetail, Tag} from "../../interfaces";
 import Plain from "../../components/plain/Plain";
 
 interface Props {
@@ -14,7 +14,7 @@ interface Props {
   publisher: string
   description: string
   publishDate: string
-  categories: Category[]
+  categories: Tag[]
   like: BookLike
   bookMark: BookMarked
   techDetail?: BookTechDetail

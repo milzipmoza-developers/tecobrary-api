@@ -1,4 +1,4 @@
-import {InterestedBooks, NewBook} from "../interfaces";
+import {Category, InterestedBooks, NewBook} from "../interfaces";
 
 export const getNewArrivalBooks: NewBook[] = [
   {
@@ -147,6 +147,34 @@ export const getInterestedBooks: InterestedBooks[] = [
 
     ]
   }
+]
+
+export const getBookCategories: Category[] = [
+  {
+    id: 1,
+    name: '리액트',
+    logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/react_logo.png'
+  },
+  {
+    id: 2,
+    name: '스프링부트',
+    logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/springboot_logo.png'
+  },
+  {
+    id: 3,
+    name: '코틀린',
+    logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/kotlin_logo.png'
+  },
+  {
+    id: 4,
+    name: '자바',
+    logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/java_logo.png'
+  },
+  {
+    id: 5,
+    name: 'MySQL',
+    logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/mysql_logo.png'
+  },
 ]
 
 export function getRandomColor(): string {

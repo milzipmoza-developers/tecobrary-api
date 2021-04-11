@@ -1,18 +1,18 @@
 import {ReactElement} from "react";
 import {CategoryBadge} from "./CategoryBadge";
 import styled from "styled-components";
-import {Category} from "../../interfaces";
+import {Tag} from "../../interfaces";
 
 interface Props {
   size?: 'small' | 'medium'
   maxLength?: number
   bold?: boolean
-  categories: Category[]
+  categories: Tag[]
 }
 
 export const CategoryBadges = ({size, maxLength, bold, categories}: Props): ReactElement => (
   <Wrapper>
-    {categories.map((it: Category, index: number) => {
+    {categories.map((it: Tag, index: number) => {
       if (maxLength && index > maxLength - 1) return null
       return (<CategoryBadge key={index}
                              backgroundColor={it.color}

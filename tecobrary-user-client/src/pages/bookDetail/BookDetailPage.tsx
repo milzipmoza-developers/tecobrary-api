@@ -18,10 +18,10 @@ function BookDetailPage(): ReactElement {
 
   return (
     <PageFrame header={true}>
-      <PageContent>
+      <PageContent style={{marginBottom: '2rem'}}>
         <BookDetailCard {...bookDetail}/>
       </PageContent>
-      <PageContent>
+      <PageContent style={{marginBottom: '2rem'}}>
         <Plain title='리뷰를 확인해보세요' margin='0 1rem 0 1rem'>
 
         </Plain>

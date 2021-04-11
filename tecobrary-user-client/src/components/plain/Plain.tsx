@@ -5,16 +5,17 @@ interface Props {
   subTitle?: string
   title: string
   margin?: string
+  titleMargin?: string
   children: ReactNode
 }
 
-function Plain({subTitle, margin, title, children}: Props): ReactElement {
+function Plain({subTitle, margin, title, titleMargin, children}: Props): ReactElement {
   return (
     <Wrapper style={{margin}}>
       {subTitle
         ? <PlainSubTitle>{subTitle}</PlainSubTitle>
         : null}
-      <PlainTitle>{title}</PlainTitle>
+      <PlainTitle style={{margin: titleMargin ? titleMargin : '0 1rem 1.5rem 1rem'}}>{title}</PlainTitle>
       {children}
     </Wrapper>
   )
@@ -37,5 +38,4 @@ const PlainSubTitle = styled.div`
 const PlainTitle = styled.div`
   font-size: large;
   font-weight: bold;
-  margin: 0 1rem 1.5rem 1rem;
 `
