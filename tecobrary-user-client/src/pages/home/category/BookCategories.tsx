@@ -1,29 +1,35 @@
 import {ReactElement} from "react";
 import {Category} from "../../../interfaces";
 import styled from "styled-components";
+import "./book-categories.css";
+import {EllipsisHorizontal} from "react-ionicons";
+import {BookCategoryButton} from "./BookCategoryButton";
+import {useHistory} from "react-router-dom";
 
 interface Props {
   categories: Category[]
 }
 
 function BookCategories({categories}: Props): ReactElement {
+  const history = useHistory()
+
+  const onClick = (id: number) => () => {
+    history.push(`/categories/${id}`)
+  }
+
+  const moreCategoriesOnClick = () => {
+    history.push(`/categories`)
+  }
+
   return (
     <Wrapper>
-      <CategoryElements>
-        <Space/>
+      <CategoryElements className='scroll-hidden'>
         {categories.map((category: Category, index: number) => (
-          <CategoryElement key={index}>
-            <CategoryContent>
-              <LogoWrapper>
-                <img src={category.logoUrl} width='100%'/>
-              </LogoWrapper>
-              <NameWrapper>
-                <div>{category.name}</div>
-              </NameWrapper>
-            </CategoryContent>
-          </CategoryElement>
+          <BookCategoryButton key={index} name={category.name} imgSrc={category.logoUrl} onClick={onClick(category.id)}/>
         ))}
-        <Space/>
+        <BookCategoryButton name='더보기'
+                            imgSrc='https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/more.png'
+                            onClick={moreCategoriesOnClick}/>
       </CategoryElements>
     </Wrapper>
   )
@@ -33,7 +39,7 @@ export default BookCategories
 
 const Wrapper = styled.div`
   height: fit-content;
-  width: fit-content;
+  width: auto;
   display: flex;
   flex-direction: row;
   overflow-y: hidden;
@@ -44,11 +50,7 @@ const CategoryElements = styled.div`
   display: flex;
   flex-direction: row;
   width: fit-content;
-  padding: 2rem 0 1rem 0;
-`
-
-const Space = styled.div`
-  width: 2rem;
+  padding: 1rem 1rem 1rem 1rem;
 `
 
 const CategoryElement = styled.div`
@@ -61,8 +63,8 @@ const CategoryElement = styled.div`
 `
 
 const CategoryContent = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 8rem;
+  height: 8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,9 +72,12 @@ const CategoryContent = styled.div`
 `
 
 const LogoWrapper = styled.div`
+  display: flex;
   width: 4rem;
   height: 4rem;
   margin-bottom: 1rem;
+  justify-content: center;
+  align-items: center;
 `
 
 const NameWrapper = styled.div`

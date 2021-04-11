@@ -18,6 +18,12 @@ export const getNewArrivalBooks: NewBook[] = [
     imageUrl: "http://image.kyobobook.co.kr/images/book/xlarge/670/x9788966262670.jpg",
     title: "실전 리액트 프로그래밍 리액트 훅부터 Next.js까지 개정판",
     author: "이재승",
+  },
+  {
+    id: 4,
+    imageUrl: "http://image.kyobobook.co.kr/images/book/xlarge/670/x9788966262670.jpg",
+    title: "실전 리액트 프로그래밍 리액트 훅부터 Next.js까지 개정판",
+    author: "이재승",
   }
 ]
 
