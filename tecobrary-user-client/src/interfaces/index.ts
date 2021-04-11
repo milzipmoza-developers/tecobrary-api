@@ -70,6 +70,11 @@ export interface BookReview {
   blogContentUrl?: string
 }
 
+export interface BookDetailReview {
+  counts: number
+  reviews: BookReview[]
+}
+
 export interface BookReviewMember {
   name: string
   profileUrl: string

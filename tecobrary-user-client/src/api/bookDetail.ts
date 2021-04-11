@@ -1,4 +1,4 @@
-import {BookDetail, BookReview} from "../interfaces";
+import {BookDetail, BookDetailReview, BookReview} from "../interfaces";
 import {getRandomColor} from "./home";
 
 export const getBookDetail: Map<number, BookDetail> = new Map([
@@ -78,7 +78,12 @@ export const getBookDetail: Map<number, BookDetail> = new Map([
   }]
 ])
 
-export const getBookReviews: BookReview[] = [
+export const getBookDetailReview = (counts: number): BookDetailReview => ({
+  counts,
+  reviews: getBookReviews
+})
+
+const getBookReviews: BookReview[] = [
   {
     id: 1,
     member: {
@@ -99,5 +104,15 @@ export const getBookReviews: BookReview[] = [
     content: '책임-주도 설계는 어떤 메시지들이 필요한지를 먼저 뽑은 후에, 어떤 객체가 각각의 책임을 지면 좋을지를 생각하면서 협력을 만들어내는 것이다. 메시지를 결정하기 전 까지는 객체에 관한 생각을 일단 하지 않는다. 의도적으로 가장 추상적인 레벨에서 필요한 메시지를 우선 완성하는 것이다. 이러한 메시지들이 결정된 후에야 이 메시지를 처리할 객체에 매핑 시키며 협력을 만들어낸다.',
     rate: 4,
     blogContentUrl: 'https://velog.io/@aidenshin/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%EC%9D%98-%EC%82%AC%EC%8B%A4%EA%B3%BC-%EC%98%A4%ED%95%B4-%EB%A6%AC%EB%B7%B0'
+  },
+  {
+    id: 3,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 5,
   },
 ]

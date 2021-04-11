@@ -10,6 +10,7 @@ import ScrollToTop from "./routes/ScrollToTop";
 import HomePage from "./pages/home/HomePage";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryBookPage from "./pages/CategoryBookPage";
+import BookReviewPage from "./pages/review/BookReviewPage";
 
 const Background = styled.div`
   width: 100vw;
@@ -41,7 +42,8 @@ function App(): ReactElement {
           <Route exact path={"/"} component={HomePage}/>
           <Route exact path={"/timeline"} component={TimelinePage}/>
           <Route exact path={"/my-page"} component={MyPage}/>
-          <Route exact path={"/books/:id"} component={BookDetailPage}/>
+          <Route exact path={"/books/:bookId"} component={BookDetailPage}/>
+          <Route exact path={"/books/:bookId/reviews"} component={BookReviewPage}/>
           <Route exact path={"/categories/:id"} component={CategoryBookPage}/>
           <Route exact path={"/categories"} component={CategoriesPage}/>
           <Route component={NotFoundPage}/>

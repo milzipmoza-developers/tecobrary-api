@@ -12,7 +12,7 @@ const CardButtonWrapper = styled.div`
   border-radius: 0 0 1.5rem 1.5rem;
   width: auto;
   height: 3rem;
-  background-color: rgba(149, 165, 166, 0.15);
+  background-color: rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: row;
   align-items: center;

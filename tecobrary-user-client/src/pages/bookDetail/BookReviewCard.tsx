@@ -3,33 +3,40 @@ import {ReviewTypeBadge} from "../../components/badges/ReviewTypeBadge";
 import {ScoreBadge} from "../../components/badges/ScoreBadge";
 import Card from "../../components/card/Card";
 import styled from "styled-components";
-import {BookReview, BookReviewMember} from "../../interfaces";
+import {BookReview} from "../../interfaces";
 
 interface Props {
-  bookReviews: BookReview[]
+  bookId?: string
+  counts: number
+  reviews: BookReview[]
 }
 
-function BookReviewCard({bookReviews}: Props): ReactElement {
+function BookReviewCard({bookId, counts, reviews}: Props): ReactElement {
   return (
-    <Card backgroundColor='white'>
-      {bookReviews.map((bookReview: BookReview, index: number) => (
-        <Wrapper key={index}>
-          <ProfileWrapper>
-            <ProfileImage src={bookReview.member.profileUrl}/>
-          </ProfileWrapper>
-          <ReviewWrapper>
-            <FirstLine>
-              <div style={{fontWeight: 'bold', fontSize: 'medium'}}>{bookReview.member.name}</div>
-              <ReviewTypeBadge type={bookReview.reviewType} link={bookReview.blogContentUrl}/>
-            </FirstLine>
-            <SecondLine>
-              <ScoreBadge rate={bookReview.rate}/>
-            </SecondLine>
-            <div>{bookReview.content}</div>
-          </ReviewWrapper>
-        </Wrapper>
-      ))}
-    </Card>
+    <div>
+      <Card backgroundColor='white'
+            buttonText={counts > 3 ? '더보기' : undefined}
+            buttonTo={`/books/${bookId}/reviews`}
+            boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
+        {reviews.map((bookReview: BookReview, index: number) => (
+          <Wrapper key={index}>
+            <ProfileWrapper>
+              <ProfileImage src={bookReview.member.profileUrl}/>
+            </ProfileWrapper>
+            <ReviewWrapper>
+              <FirstLine>
+                <div style={{fontWeight: 'bold', fontSize: 'medium'}}>{bookReview.member.name}</div>
+                <ReviewTypeBadge type={bookReview.reviewType} link={bookReview.blogContentUrl}/>
+              </FirstLine>
+              <SecondLine>
+                <ScoreBadge rate={bookReview.rate}/>
+              </SecondLine>
+              <div>{bookReview.content}</div>
+            </ReviewWrapper>
+          </Wrapper>
+        ))}
+      </Card>
+    </div>
   )
 }
 
@@ -72,4 +79,10 @@ const SecondLine = styled.div`
   width: 100%;
   justify-content: flex-end;
   margin-bottom: 0.5rem;
+`
+
+const LoadMoreReviewButton = styled.div`
+  width: 100%;
+  height: 4rem;
+  background-color: black;
 `
