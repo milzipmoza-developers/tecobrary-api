@@ -64,9 +64,10 @@ export interface BookDetail {
 export interface BookReview {
   id: number
   member: BookReviewMember
-  reviewType: string
+  reviewType: 'SHORT_REVIEW' | 'BLOG_IMPORT'
   content: string
   rate: number
+  blogContentUrl?: string
 }
 
 export interface BookReviewMember {
