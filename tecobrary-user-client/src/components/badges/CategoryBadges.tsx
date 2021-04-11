@@ -4,13 +4,21 @@ import styled from "styled-components";
 import {Category} from "../../interfaces";
 
 interface Props {
+  size?: 'small' | 'medium'
+  maxLength?: number
+  bold?: boolean
   categories: Category[]
 }
 
-export const CategoryBadges = ({categories}: Props): ReactElement => (
+export const CategoryBadges = ({size, maxLength, bold, categories}: Props): ReactElement => (
   <Wrapper>
-    {categories.map((it: Category, index: number) => (
-      <CategoryBadge key={index} backgroundColor={it.color}>{it.name}</CategoryBadge>))}
+    {categories.map((it: Category, index: number) => {
+      if (maxLength && index > maxLength - 1) return null
+      return (<CategoryBadge key={index}
+                             backgroundColor={it.color}
+                             size={size}
+                             fontWeight={bold ? 'bold' : undefined}>{it.name}</CategoryBadge>)
+    })}
   </Wrapper>
 )
 

@@ -2,20 +2,19 @@ import {ReactElement, useState} from "react";
 import styled from "styled-components";
 import {InterestedBook, InterestedBooks} from "../../../interfaces";
 import {getInterestedBooks} from "../../../api/home";
-import {LikedIcon} from "../../../components/icons/LikedIcon";
+import {BookmarkedIcon} from "../../../components/icons/BookmarkedIcon";
 import {CardBookList} from "../../../components/list/CardBookList";
 
-export const InterestLikeContent = (): ReactElement => {
+export const InterestBookmarkContent = (): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const [reviewBooks] = useState<InterestedBook[]>((getInterestedBooks.find((it: InterestedBooks) => it.type === 'LIKE'))!.books)
+  const [reviewBooks] = useState<InterestedBook[]>((getInterestedBooks.find((it: InterestedBooks) => it.type === 'BOOK_MARKED'))!.books)
 
   return (
     <Wrapper>
-      <CardBookList iconBadge={<LikedIcon/>} reviewBooks={reviewBooks}/>
+      <CardBookList iconBadge={<BookmarkedIcon/>} reviewBooks={reviewBooks}/>
     </Wrapper>
   )
 }
-
 
 const Wrapper = styled.div`
   width: auto;

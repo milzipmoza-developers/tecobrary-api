@@ -8,8 +8,20 @@ export interface NewBook {
   imageUrl: string
   title: string
   author: string
-  publisher: string
+}
+
+export interface InterestedBooks {
+  type: 'REVIEW' | 'LIKE' | 'BOOK_MARKED'
+  books: InterestedBook[]
+}
+
+export interface InterestedBook {
+  id: number
+  imageUrl: string
+  title: string
+  author: string
   categories: Category[]
+  counts: number
 }
 
 export interface BookLike {
