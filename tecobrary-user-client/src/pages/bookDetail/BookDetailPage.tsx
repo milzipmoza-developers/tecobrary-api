@@ -2,7 +2,7 @@ import React, {ReactElement, useState} from "react";
 import {useParams} from "react-router-dom";
 import {BookDetail} from "../../interfaces";
 import {getBookDetail} from "../../api/bookDetail";
-import {TransparentPageFrame} from "../../components/page/TransparentPageFrame";
+import {PageFrame} from "../../components/page/PageFrame";
 import BookDetailCard from "./BookDetailCard";
 import Plain from "../../components/plain/Plain";
 import {PageContent} from "../../components/page/PageContent";
@@ -17,7 +17,7 @@ function BookDetailPage(): ReactElement {
   const [bookDetail] = useState<BookDetail>(getBookDetail.get(Number.parseInt(id!)) ? getBookDetail.get(Number.parseInt(id!))! : getBookDetail.get(1)!)
 
   return (
-    <TransparentPageFrame header={true}>
+    <PageFrame header={true}>
       <PageContent>
         <BookDetailCard {...bookDetail}/>
       </PageContent>
@@ -26,7 +26,7 @@ function BookDetailPage(): ReactElement {
 
         </Plain>
       </PageContent>
-    </TransparentPageFrame>
+    </PageFrame>
   )
 }
 

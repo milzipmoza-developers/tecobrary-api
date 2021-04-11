@@ -9,10 +9,7 @@ export interface NewBook {
   title: string
   author: string
   publisher: string
-  description: string
   categories: Category[]
-  like: boolean
-  bookMarked: boolean
 }
 
 export interface BookLike {

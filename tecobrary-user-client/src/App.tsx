@@ -2,12 +2,12 @@ import React, {ReactElement} from "react";
 import styled from "styled-components";
 import Navigation from "./components/navigation/Navigation";
 import {Route, Switch} from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import TimelinePage from "./pages/TimelinePage";
 import MyPage from "./pages/MyPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import BookDetailPage from "./pages/bookDetail/BookDetailPage";
 import ScrollToTop from "./routes/ScrollToTop";
+import HomePage from "./pages/home/HomePage";
 
 const Background = styled.div`
   width: 100vw;

@@ -8,6 +8,7 @@ interface Props {
   backgroundColor: string
   buttonText?: string
   buttonTo?: string
+  boxShadow?: string
 }
 
 const CardWrapper = styled.div`
@@ -27,9 +28,9 @@ const CardTitle = styled.div`
   margin-bottom: 1.5rem;
 `
 
-function Card({title, backgroundColor, children, buttonText, buttonTo}: Props): ReactElement {
+function Card({title, backgroundColor, children, buttonText, buttonTo, boxShadow}: Props): ReactElement {
   return (
-    <CardWrapper style={{backgroundColor: `${backgroundColor}`}}>
+    <CardWrapper style={{backgroundColor, boxShadow}}>
       <CardInside>
         {title ? <CardTitle>
           {title}

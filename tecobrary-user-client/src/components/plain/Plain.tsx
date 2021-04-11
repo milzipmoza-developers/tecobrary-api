@@ -23,7 +23,6 @@ function Plain({subTitle, margin, title, children}: Props): ReactElement {
 export default Plain
 
 const Wrapper = styled.div`
-  padding: 0.5rem;
   width: auto;
   max-width: 36rem;
 `
@@ -38,5 +37,5 @@ const PlainSubTitle = styled.div`
 const PlainTitle = styled.div`
   font-size: large;
   font-weight: bold;
-  margin-bottom: 1.5rem;
+  margin: 0 1rem 1.5rem 1rem;
 `
