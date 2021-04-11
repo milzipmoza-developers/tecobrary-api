@@ -7,36 +7,39 @@ import {BookReview} from "../../interfaces";
 
 interface Props {
   bookId?: string
-  counts: number
+  slice?: number
+  button?: boolean
+  counts?: number
   reviews: BookReview[]
 }
 
-function BookReviewCard({bookId, counts, reviews}: Props): ReactElement {
+function BookReviewCard({bookId, slice, counts, button, reviews}: Props): ReactElement {
+
+  const reviews2 = slice ? reviews.slice(0, 3) : reviews
+
   return (
-    <div>
-      <Card backgroundColor='white'
-            buttonText={counts > 3 ? '더보기' : undefined}
-            buttonTo={`/books/${bookId}/reviews`}
-            boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
-        {reviews.map((bookReview: BookReview, index: number) => (
-          <Wrapper key={index}>
-            <ProfileWrapper>
-              <ProfileImage src={bookReview.member.profileUrl}/>
-            </ProfileWrapper>
-            <ReviewWrapper>
-              <FirstLine>
-                <div style={{fontWeight: 'bold', fontSize: 'medium'}}>{bookReview.member.name}</div>
-                <ReviewTypeBadge type={bookReview.reviewType} link={bookReview.blogContentUrl}/>
-              </FirstLine>
-              <SecondLine>
-                <ScoreBadge rate={bookReview.rate}/>
-              </SecondLine>
-              <div>{bookReview.content}</div>
-            </ReviewWrapper>
-          </Wrapper>
-        ))}
-      </Card>
-    </div>
+    <Card backgroundColor='white'
+          buttonText={counts && counts > 3 ? '더보기' : undefined}
+          buttonTo={button ? `/books/${bookId}/reviews` : undefined}
+          boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
+      {reviews2.map((bookReview: BookReview, index: number) => (
+        <Wrapper key={index}>
+          <ProfileWrapper>
+            <ProfileImage src={bookReview.member.profileUrl}/>
+          </ProfileWrapper>
+          <ReviewWrapper>
+            <FirstLine>
+              <div style={{fontWeight: 'bold', fontSize: 'medium'}}>{bookReview.member.name}</div>
+              <ReviewTypeBadge type={bookReview.reviewType} link={bookReview.blogContentUrl}/>
+            </FirstLine>
+            <SecondLine>
+              <ScoreBadge rate={bookReview.rate}/>
+            </SecondLine>
+            <div>{bookReview.content}</div>
+          </ReviewWrapper>
+        </Wrapper>
+      ))}
+    </Card>
   )
 }
 

@@ -83,7 +83,7 @@ export const getBookDetailReview = (counts: number): BookDetailReview => ({
   reviews: getBookReviews
 })
 
-const getBookReviews: BookReview[] = [
+export const getBookReviews: BookReview[] = [
   {
     id: 1,
     member: {
@@ -114,5 +114,75 @@ const getBookReviews: BookReview[] = [
     reviewType: 'SHORT_REVIEW',
     content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
     rate: 5,
+  },
+  {
+    id: 4,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 1,
+  },
+  {
+    id: 5,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 5,
+  },
+  {
+    id: 6,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 2,
+  },
+  {
+    id: 7,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 4,
+  },
+  {
+    id: 8,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 2,
+  },
+  {
+    id: 9,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 3,
+  },
+  {
+    id: 10,
+    member: {
+      name: "개발왕루피",
+      profileUrl: "https://avatars.githubusercontent.com/u/52121827?v=4"
+    },
+    reviewType: 'SHORT_REVIEW',
+    content: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia magnam veritatis sed ut velit nemo omnis accusamus aliquam doloribus! Saepe.',
+    rate: 2,
   },
 ]

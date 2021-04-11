@@ -27,6 +27,8 @@ function BookDetailPage(): ReactElement {
       <PageContent style={{marginBottom: '2rem', marginTop: '15rem'}}>
         <Plain title='리뷰를 확인해보세요' margin='0 1rem 0 1rem'>
           <BookReviewCard bookId={bookId}
+                          slice={3}
+                          button={true}
                           reviews={bookDetailReview.reviews}
                           counts={bookDetailReview.counts}/>
         </Plain>
