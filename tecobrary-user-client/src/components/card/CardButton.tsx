@@ -1,10 +1,11 @@
 import React, {ReactElement} from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 export interface Props {
   text: string
-  to: string
+  to?: string
+  onClick?: () => void
 }
 
 
@@ -17,6 +18,7 @@ const CardButtonWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 `
 
 const CardText = styled.div`
@@ -26,12 +28,16 @@ const CardText = styled.div`
   height: fit-content;
 `
 
-function CardButton({text, to}: Props): ReactElement {
+function CardButton({text, to, onClick}: Props): ReactElement {
 
   const history = useHistory()
 
+  const onClickTo = () => {
+    history.push(`${to}`)
+  }
+
   return (
-    <CardButtonWrapper onClick={() => {history.push(`${to}`)}}>
+    <CardButtonWrapper onClick={onClick ? onClick : onClickTo}>
       <CardText>
         {text}
       </CardText>

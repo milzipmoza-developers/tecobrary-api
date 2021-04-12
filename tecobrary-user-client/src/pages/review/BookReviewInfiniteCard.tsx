@@ -1,28 +1,24 @@
 import React, {ReactElement} from "react";
 import {ReviewTypeBadge} from "../../components/badges/ReviewTypeBadge";
 import {ScoreBadge} from "../../components/badges/ScoreBadge";
-import Card from "../../components/card/Card";
 import styled from "styled-components";
 import {BookReview} from "../../interfaces";
+import ExpandableCard from "../../components/card/ExpandableCard";
 
 interface Props {
-  bookId?: string
-  slice?: number
-  button?: boolean
-  counts?: number
+  isLast: boolean
+  buttonOnClick: () => void
   reviews: BookReview[]
 }
 
-function BookReviewCard({bookId, slice, counts, button, reviews}: Props): ReactElement {
-
-  const reviews2 = slice ? reviews.slice(0, 3) : reviews
+function BookReviewInfiniteCard({isLast, buttonOnClick, reviews}: Props): ReactElement {
 
   return (
-    <Card backgroundColor='white'
-          buttonText={counts && counts > 3 ? '더보기' : undefined}
-          buttonTo={button ? `/books/${bookId}/reviews` : undefined}
-          boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
-      {reviews2.map((bookReview: BookReview, index: number) => (
+    <ExpandableCard backgroundColor='white'
+                    boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+                    buttonText='더보기'
+                    buttonOnClick={isLast ? undefined : buttonOnClick}>
+      {reviews.map((bookReview: BookReview, index: number) => (
         <Wrapper key={index}>
           <ProfileWrapper>
             <ProfileImage src={bookReview.member.profileUrl}/>
@@ -39,11 +35,11 @@ function BookReviewCard({bookId, slice, counts, button, reviews}: Props): ReactE
           </ReviewWrapper>
         </Wrapper>
       ))}
-    </Card>
+    </ExpandableCard>
   )
 }
 
-export default BookReviewCard
+export default BookReviewInfiniteCard
 
 const Wrapper = styled.div`
   display: flex;
