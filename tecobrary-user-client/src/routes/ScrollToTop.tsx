@@ -5,13 +5,13 @@ function ScrollToTop({history}: any) {
   useEffect(() => {
     const unlisten = history.listen(() => {
       window.scrollTo(0, 0);
-    });
+    })
     return () => {
-      unlisten();
+      unlisten()
     }
-  }, []);
+  }, [])
 
-  return null;
+  return null
 }
 
 export default withRouter(ScrollToTop);

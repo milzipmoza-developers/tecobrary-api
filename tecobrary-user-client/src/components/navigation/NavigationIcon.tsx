@@ -1,9 +1,9 @@
 import React, {ReactElement} from "react";
-import {Home, HomeOutline, Person, PersonOutline, Reader, ReaderOutline} from "react-ionicons";
+import {Home, Person, Reader} from "react-ionicons";
 import styled from "styled-components";
 import {useRecoilState} from "recoil";
 import {navigationState} from "../../states/Navigation";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 export type iconType = "home" | "reader" | "person"
 

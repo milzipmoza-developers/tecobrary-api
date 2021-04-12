@@ -1,5 +1,6 @@
 import React, {ReactElement} from "react";
 import styled from "styled-components";
+import {AddReviewIcon} from "../icons/AddReviewIcon";
 import {NavigationIcon} from "./NavigationIcon";
 
 const NavigationWrapper = styled.div`
@@ -27,9 +28,10 @@ function Navigation(): ReactElement {
   return (
     <NavigationWrapper>
       <NavigationContent>
-        <NavigationIcon index={1} name="home" width={"1.5rem"} height={"1.5rem"} to="/"/>
-        <NavigationIcon index={2} name="reader" width={"1.5rem"} height={"1.5rem"} to="/timeline"/>
-        <NavigationIcon index={3} name="person" width={"1.5rem"} height={"1.5rem"} to="/my-page"/>
+        <NavigationIcon index={1} name='home' width={'1.5rem'} height={'1.5rem'} to='/'/>
+        {/*<NavigationIcon index={2} name='reader' width={'1.5rem'} height={'1.5rem'} to='/timeline'/>*/}
+        <NavigationIcon index={3} name='person' width={'1.5rem'} height={'1.5rem'} to='/my-page'/>
+        <AddReviewIcon to='/review'/>
       </NavigationContent>
     </NavigationWrapper>
   );

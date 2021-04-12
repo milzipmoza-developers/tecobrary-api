@@ -10,7 +10,8 @@ import ScrollToTop from "./routes/ScrollToTop";
 import HomePage from "./pages/home/HomePage";
 import CategoriesPage from "./pages/CategoriesPage";
 import CategoryBookPage from "./pages/CategoryBookPage";
-import BookReviewPage from "./pages/review/BookReviewPage";
+import BookReviewPage from "./pages/bookReview/BookReviewPage";
+import ReviewAddPage from "./pages/review/ReviewAddPage";
 
 const Background = styled.div`
   width: 100vw;
@@ -34,18 +35,19 @@ const Wrapper = styled.div`
 
 function App(): ReactElement {
   return (
-    <Background className="background">
+    <Background className='background'>
       <Wrapper>
         {/*<Header/>*/}
         <ScrollToTop/>
         <Switch>
-          <Route exact path={"/"} component={HomePage}/>
-          <Route exact path={"/timeline"} component={TimelinePage}/>
-          <Route exact path={"/my-page"} component={MyPage}/>
-          <Route exact path={"/books/:bookId"} component={BookDetailPage}/>
-          <Route exact path={"/books/:bookId/reviews"} component={BookReviewPage}/>
-          <Route exact path={"/categories/:id"} component={CategoryBookPage}/>
-          <Route exact path={"/categories"} component={CategoriesPage}/>
+          <Route exact path={'/'} component={HomePage}/>
+          <Route exact path={'/timeline'} component={TimelinePage}/>
+          <Route exact path={'/my-page'} component={MyPage}/>
+          <Route exact path={'/review'} component={ReviewAddPage}/>
+          <Route exact path={'/books/:bookId'} component={BookDetailPage}/>
+          <Route exact path={'/books/:bookId/reviews'} component={BookReviewPage}/>
+          <Route exact path={'/categories/:id'} component={CategoryBookPage}/>
+          <Route exact path={'/categories'} component={CategoriesPage}/>
           <Route component={NotFoundPage}/>
         </Switch>
         <Navigation/>
