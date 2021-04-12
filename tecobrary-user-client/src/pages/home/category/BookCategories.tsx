@@ -2,7 +2,6 @@ import {ReactElement} from "react";
 import {Category} from "../../../interfaces";
 import styled from "styled-components";
 import "./book-categories.css";
-import {EllipsisHorizontal} from "react-ionicons";
 import {BookCategoryButton} from "./BookCategoryButton";
 import {useHistory} from "react-router-dom";
 
@@ -13,8 +12,8 @@ interface Props {
 function BookCategories({categories}: Props): ReactElement {
   const history = useHistory()
 
-  const onClick = (id: number) => () => {
-    history.push(`/categories/${id}`)
+  const onClick = (name: string) => () => {
+    history.push(`/books?category=${name}`)
   }
 
   const moreCategoriesOnClick = () => {
@@ -25,7 +24,7 @@ function BookCategories({categories}: Props): ReactElement {
     <Wrapper>
       <CategoryElements className='scroll-hidden'>
         {categories.map((category: Category, index: number) => (
-          <BookCategoryButton key={index} name={category.name} imgSrc={category.logoUrl} onClick={onClick(category.id)}/>
+          <BookCategoryButton key={index} name={category.displayName} imgSrc={category.logoUrl} onClick={onClick(category.name)}/>
         ))}
         <BookCategoryButton name='더보기'
                             imgSrc='https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/more.png'

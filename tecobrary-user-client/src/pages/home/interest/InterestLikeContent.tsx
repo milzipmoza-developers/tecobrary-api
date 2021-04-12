@@ -11,7 +11,7 @@ export const InterestLikeContent = (): ReactElement => {
 
   return (
     <Wrapper>
-      <CardBookList iconBadge={<LikedIcon/>} reviewBooks={reviewBooks}/>
+      <CardBookList iconBadge={[<LikedIcon/>]} books={reviewBooks}/>
     </Wrapper>
   )
 }

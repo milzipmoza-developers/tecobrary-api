@@ -2,10 +2,8 @@ import {ReactElement, useState} from "react";
 import styled from "styled-components";
 import {getInterestedBooks} from "../../../api/home";
 import {InterestedBook, InterestedBooks} from "../../../interfaces";
-import {CardBookListElement} from "../../../components/list/CardBookListElement";
 import {ReviewIcon} from "../../../components/icons/ReviewIcon";
 import {CardBookList} from "../../../components/list/CardBookList";
-import {LikedIcon} from "../../../components/icons/LikedIcon";
 
 export const InterestReviewContent = (): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -13,7 +11,7 @@ export const InterestReviewContent = (): ReactElement => {
 
   return (
     <Wrapper>
-      <CardBookList iconBadge={<ReviewIcon/>} reviewBooks={reviewBooks}/>
+      <CardBookList iconBadge={[<ReviewIcon/>]} books={reviewBooks}/>
     </Wrapper>
   )
 }

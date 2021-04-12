@@ -11,7 +11,7 @@ export const InterestBookmarkContent = (): ReactElement => {
 
   return (
     <Wrapper>
-      <CardBookList iconBadge={<BookmarkedIcon/>} reviewBooks={reviewBooks}/>
+      <CardBookList iconBadge={[<BookmarkedIcon/>]} books={reviewBooks}/>
     </Wrapper>
   )
 }

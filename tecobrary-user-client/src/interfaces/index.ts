@@ -6,6 +6,7 @@ export interface Tag {
 export interface Category {
   id: number
   name: string
+  displayName: string
   logoUrl: string
 }
 
@@ -21,13 +22,36 @@ export interface InterestedBooks {
   books: InterestedBook[]
 }
 
-export interface InterestedBook {
+export interface Book {
+  id: number
+  imageUrl: string
+  title: string
+  author: string
+  categories: Tag[]
+}
+
+export interface InterestedBook extends Book {
   id: number
   imageUrl: string
   title: string
   author: string
   categories: Tag[]
   counts: number
+}
+
+export interface ListBook extends Book {
+  id: number
+  imageUrl: string
+  title: string
+  author: string
+  categories: Tag[]
+  countDetail: BookInterestCount
+}
+
+export interface BookInterestCount {
+  like: number
+  review: number
+  bookMarked: number
 }
 
 export interface BookLike {

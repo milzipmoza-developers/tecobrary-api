@@ -9,7 +9,7 @@ import BookDetailPage from "./pages/bookDetail/BookDetailPage";
 import ScrollToTop from "./routes/ScrollToTop";
 import HomePage from "./pages/home/HomePage";
 import CategoriesPage from "./pages/CategoriesPage";
-import CategoryBookPage from "./pages/CategoryBookPage";
+import BookListPage from "./pages/bookList/BookListPage";
 import BookReviewPage from "./pages/bookReview/BookReviewPage";
 import ReviewAddPage from "./pages/review/ReviewAddPage";
 
@@ -46,7 +46,7 @@ function App(): ReactElement {
           <Route exact path={'/review'} component={ReviewAddPage}/>
           <Route exact path={'/books/:bookId'} component={BookDetailPage}/>
           <Route exact path={'/books/:bookId/reviews'} component={BookReviewPage}/>
-          <Route exact path={'/categories/:id'} component={CategoryBookPage}/>
+          <Route exact path={'/books'} component={BookListPage}/>
           <Route exact path={'/categories'} component={CategoriesPage}/>
           <Route component={NotFoundPage}/>
         </Switch>

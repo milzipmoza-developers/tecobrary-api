@@ -158,27 +158,32 @@ export const getInterestedBooks: InterestedBooks[] = [
 export const getBookCategories: Category[] = [
   {
     id: 1,
-    name: '리액트',
+    name: 'react',
+    displayName: '리액트',
     logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/react_logo.png'
   },
   {
     id: 2,
-    name: '스프링부트',
+    name: 'spring-boot',
+    displayName: '스프링부트',
     logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/springboot_logo.png'
   },
   {
     id: 3,
-    name: '코틀린',
+    name: 'kotlin',
+    displayName: '코틀린',
     logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/kotlin_logo.png'
   },
   {
     id: 4,
-    name: '자바',
+    name: 'java',
+    displayName: '자바',
     logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/java_logo.png'
   },
   {
     id: 5,
-    name: 'MySQL',
+    name: 'mysql',
+    displayName: 'MySQL',
     logoUrl: 'https://tecobrary-pivot.s3.ap-northeast-2.amazonaws.com/logos/mysql_logo.png'
   },
 ]

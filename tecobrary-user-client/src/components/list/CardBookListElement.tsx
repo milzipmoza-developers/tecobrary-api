@@ -1,7 +1,5 @@
 import {ReactElement} from "react";
 import {CategoryBadges} from "../badges/CategoryBadges";
-import {CountedIconBadge} from "../badges/CountedIconBadge";
-import {ReviewIcon} from "../icons/ReviewIcon";
 import styled from "styled-components";
 import {Tag} from "../../interfaces";
 import {useHistory} from "react-router-dom";
@@ -12,30 +10,34 @@ interface Props {
   title: string
   author: string
   categories: Tag[]
-  counts: number
-  iconBadge: ReactElement
+  iconBadge?: ReactElement
 }
 
-export const CardBookListElement = (props: Props): ReactElement => {
+export const CardBookListElement = ({
+                                      id,
+                                      imageUrl,
+                                      title,
+                                      author,
+                                      categories,
+                                      iconBadge
+                                    }: Props): ReactElement => {
   const history = useHistory()
 
   const onClick = () => {
-    history.push(`/books/${props.id}`)
+    history.push(`/books/${id}`)
   }
 
   return (
     <Element onClick={onClick}>
-      <ElementImage src={props.imageUrl}/>
+      <ElementImage src={imageUrl}/>
       <ElementContent>
-        <ElementTitle>{props.title}</ElementTitle>
+        <ElementTitle>{title}</ElementTitle>
         <ElementLine>
-          <CategoryBadges categories={props.categories} size='small' maxLength={3}/>
-          <ElementAuthor>{props.author}</ElementAuthor>
+          <CategoryBadges categories={categories} size='small' maxLength={3}/>
+          <ElementAuthor>{author}</ElementAuthor>
         </ElementLine>
         <ElementLastLine>
-          <CountedIconBadge counts={props.counts}>
-            {props.iconBadge}
-          </CountedIconBadge>
+          {iconBadge}
         </ElementLastLine>
       </ElementContent>
     </Element>
