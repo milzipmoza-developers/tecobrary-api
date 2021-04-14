@@ -5,12 +5,17 @@ import styled from "styled-components";
 import {CountedIconBadge} from "../badges/CountedIconBadge";
 
 interface Props {
+  whenEmpty?: ReactElement
   iconBadge?: ReactElement[]
+  itemOnClick?: (id: number) => void
   books: Book[]
 }
 
-export const CardBookList = ({iconBadge, books}: Props): ReactElement => {
+export const CardBookList = ({iconBadge, whenEmpty, itemOnClick, books}: Props): ReactElement => {
   if (books.length === 0) {
+    if (whenEmpty) {
+      return <>{whenEmpty}</>
+    }
     return <EmptyWrapper>텅 비어있어요</EmptyWrapper>
   }
 
@@ -48,10 +53,15 @@ export const CardBookList = ({iconBadge, books}: Props): ReactElement => {
   }
 
   return (<>
-    {books.map((book: Book, index: number) => (
-      <CardBookListElement {...book} key={index} iconBadge={conditionalCountedIconBadge(book)}/>))}
+    {books.map((book: Book, index: number) => {
+      if (!book) return null
+      return (<CardBookListElement {...book}
+                                   key={index}
+                                   iconBadge={conditionalCountedIconBadge(book)}
+                                   itemOnClick={itemOnClick}/>)
+    })}
   </>)
-};
+}
 
 const EmptyWrapper = styled.div`
   display: flex;

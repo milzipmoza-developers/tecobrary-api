@@ -22,12 +22,27 @@ export interface InterestedBooks {
   books: InterestedBook[]
 }
 
-export interface Book {
+export interface InternalSearchBook extends Book {
   id: number
   imageUrl: string
   title: string
   author: string
   categories: Tag[]
+}
+
+export interface NaverSearchBook {
+  imageUrl: string
+  title: string
+  author: string
+  isbn: string
+}
+
+export interface Book {
+  id: number
+  imageUrl: string
+  title: string
+  author: string
+  categories?: Tag[]
 }
 
 export interface InterestedBook extends Book {

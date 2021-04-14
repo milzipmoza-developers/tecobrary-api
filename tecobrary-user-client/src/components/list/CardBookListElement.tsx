@@ -9,8 +9,9 @@ interface Props {
   imageUrl: string
   title: string
   author: string
-  categories: Tag[]
+  categories?: Tag[]
   iconBadge?: ReactElement
+  itemOnClick?: (id: number) => void
 }
 
 export const CardBookListElement = ({
@@ -19,7 +20,8 @@ export const CardBookListElement = ({
                                       title,
                                       author,
                                       categories,
-                                      iconBadge
+                                      iconBadge,
+                                      itemOnClick
                                     }: Props): ReactElement => {
   const history = useHistory()
 
@@ -28,12 +30,14 @@ export const CardBookListElement = ({
   }
 
   return (
-    <Element onClick={onClick}>
+    <Element onClick={itemOnClick ? () => itemOnClick(id) : onClick}>
       <ElementImage src={imageUrl}/>
       <ElementContent>
         <ElementTitle>{title}</ElementTitle>
         <ElementLine>
-          <CategoryBadges categories={categories} size='small' maxLength={3}/>
+          {categories
+            ? <CategoryBadges categories={categories} size='small' maxLength={3}/>
+            : null}
           <ElementAuthor>{author}</ElementAuthor>
         </ElementLine>
         {iconBadge
