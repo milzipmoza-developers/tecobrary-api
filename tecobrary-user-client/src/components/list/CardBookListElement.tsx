@@ -36,9 +36,9 @@ export const CardBookListElement = ({
           <CategoryBadges categories={categories} size='small' maxLength={3}/>
           <ElementAuthor>{author}</ElementAuthor>
         </ElementLine>
-        <ElementLastLine>
-          {iconBadge}
-        </ElementLastLine>
+        {iconBadge
+          ? <ElementLastLine>{iconBadge}</ElementLastLine>
+          : null}
       </ElementContent>
     </Element>
   )
@@ -52,6 +52,7 @@ const Element = styled.div`
   flex-direction: row;
   margin-bottom: 1rem;
   cursor: pointer;
+  align-items: center;
 `
 
 const ElementImage = styled.img`
@@ -78,6 +79,7 @@ const ElementLine = styled.div`
   flex-direction: row;
   align-items: center;
   width: 100%;
+  margin-top: auto;
 `
 
 const ElementAuthor = styled.div`

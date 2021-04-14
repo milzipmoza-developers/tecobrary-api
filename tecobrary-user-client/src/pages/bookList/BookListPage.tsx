@@ -6,9 +6,7 @@ import Plain from "../../components/plain/Plain";
 import ExpandableCard from "../../components/card/ExpandableCard";
 import {CardBookList} from "../../components/list/CardBookList";
 import {getBooks} from "../../api/books";
-import {BookmarkedIcon} from "../../components/icons/BookmarkedIcon";
 import {ReviewIcon} from "../../components/icons/ReviewIcon";
-import {LikedIcon} from "../../components/icons/LikedIcon";
 
 interface QueryParam {
   category: string | null
@@ -48,14 +46,16 @@ function BookListPage(): ReactElement {
   return (
     <PageFrame top='8rem' header={true}>
       <PageContent>
-        <Plain title={generateTitle()}
-               margin='0 1rem 0 1rem'>
+        <Plain title='리뷰를 확인해보세요'
+               subTitle={generateTitle()}
+               subTitleMargin='0 1rem 6px 1rem'
+               margin='0 1rem 4rem 1rem'>
           <ExpandableCard backgroundColor='white'
                           boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
                           buttonText='더보기'
                           buttonOnClick={() => console.log('더보기')}>
             {/*review, like, bookmark 순*/}
-            <CardBookList iconBadge={[<ReviewIcon/>, <LikedIcon/>, <BookmarkedIcon/>]} books={books}/>
+            <CardBookList books={books} iconBadge={[<ReviewIcon/>]}/>
           </ExpandableCard>
         </Plain>
       </PageContent>

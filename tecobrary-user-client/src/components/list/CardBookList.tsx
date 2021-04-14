@@ -5,7 +5,7 @@ import styled from "styled-components";
 import {CountedIconBadge} from "../badges/CountedIconBadge";
 
 interface Props {
-  iconBadge: ReactElement[]
+  iconBadge?: ReactElement[]
   books: Book[]
 }
 
@@ -15,6 +15,9 @@ export const CardBookList = ({iconBadge, books}: Props): ReactElement => {
   }
 
   const conditionalCountedIconBadge = (book: Book): ReactElement => {
+    if (!iconBadge) {
+      return <></>
+    }
     if (book.hasOwnProperty('counts')) {
       return (
         <>
@@ -31,12 +34,13 @@ export const CardBookList = ({iconBadge, books}: Props): ReactElement => {
         <CountedIconBadge counts={aBook.countDetail.review}>
           {iconBadge[0]}
         </CountedIconBadge>
-        <CountedIconBadge counts={aBook.countDetail.like}>
-          {iconBadge[1]}
-        </CountedIconBadge>
-        <CountedIconBadge counts={aBook.countDetail.bookMarked}>
-          {iconBadge[2]}
-        </CountedIconBadge>
+        {/*todo: after gather some data*/}
+        {/*<CountedIconBadge counts={aBook.countDetail.like}>*/}
+        {/*  {iconBadge[1]}*/}
+        {/*</CountedIconBadge>*/}
+        {/*<CountedIconBadge counts={aBook.countDetail.bookMarked}>*/}
+        {/*  {iconBadge[2]}*/}
+        {/*</CountedIconBadge>*/}
       </IconWrapper>)
     }
 
