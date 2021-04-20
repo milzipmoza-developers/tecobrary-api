@@ -9,6 +9,7 @@ import {Book, InternalSearchBook} from "../../interfaces";
 import ExpandableCard from "../../components/card/ExpandableCard";
 import {CardBookListElement} from "../../components/list/CardBookListElement";
 import Card from "../../components/card/Card";
+import Selector from "../../components/selector/Selector";
 
 interface Search {
   keyword: string
@@ -17,6 +18,11 @@ interface Search {
 interface SelectedBook {
   selected: boolean
   book?: Book
+}
+
+interface SelectedAmount {
+  value: string
+  displayName: string
 }
 
 const initSelectedBook = (): SelectedBook => {
@@ -35,7 +41,8 @@ const selectBook = (book: Book): SelectedBook => {
 function ReviewAddPage(): ReactElement {
   const [search, setSearch] = useState<Search>({keyword: ''})
   const [searchBooks, setSearchBooks] = useState<InternalSearchBook[]>([])
-  const [selected, setSelected] = useState<SelectedBook>()
+  const [selectedBook, setSelectedBook] = useState<SelectedBook>()
+  const [selectedAmount, setSelectedAmount] = useState<SelectedAmount | null>()
 
   useEffect(() => {
     if (search.keyword.length < 2) {
@@ -59,13 +66,24 @@ function ReviewAddPage(): ReactElement {
     if (!searchBook) {
       throw Error('선택한 책이 존재하지 않습니다.')
     }
-    setSelected(selectBook(searchBook))
+    setSelectedBook(selectBook(searchBook))
   }
 
-  const onInitSelectedBook = () => {
+  const onInitSelectBook = () => {
     setSearchBooks([])
     search.keyword = ''
-    setSelected(initSelectedBook)
+    setSelectedBook(initSelectedBook)
+    setSelectedAmount(null)
+  }
+
+  const onInitSelectAmount = () => {
+    setSelectedAmount(null)
+  }
+
+  const onAmountChange = (it: SelectedAmount | null) => {
+    if (it) {
+      setSelectedAmount(it)
+    }
   }
 
   return (
@@ -74,8 +92,16 @@ function ReviewAddPage(): ReactElement {
              subTitle='다 읽지 않아도 리뷰를 남길 수 있어요'
              subTitleMargin='0 1rem 6px 1rem'
              margin='0 1rem 2rem 1rem'>
-        {!selected?.book
-          ? <ExpandableCard backgroundColor='white'
+        {selectedBook?.book
+          ? <Card backgroundColor='white'>
+            <CardBookListElement id={selectedBook.book.id}
+                                 imageUrl={selectedBook.book.imageUrl}
+                                 title={selectedBook.book.title}
+                                 author={selectedBook.book.author}
+                                 categories={selectedBook.book.categories}/>
+            <SelectInitButton onClick={onInitSelectBook}>다시 고르기</SelectInitButton>
+          </Card>
+          : <ExpandableCard backgroundColor='white'
                             boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
             <SearchWrapper>
               <SearchIconWrapper>
@@ -83,22 +109,37 @@ function ReviewAddPage(): ReactElement {
               </SearchIconWrapper>
               <SearchInput placeholder='검색어로 도서를 찾아보세요'
                            value={search.keyword}
-                           onChange={onChange}/>
+                           onChange={onChange}
+                           autoFocus={true}/>
             </SearchWrapper>
             <SearchDivider/>
             <CardBookList books={searchBooks}
                           whenEmpty={<EmptyList/>}
                           itemOnClick={onItemClick}/>
-          </ExpandableCard>
-          : <Card backgroundColor='white'>
-            <CardBookListElement id={selected.book.id}
-                                 imageUrl={selected.book.imageUrl}
-                                 title={selected.book.title}
-                                 author={selected.book.author}
-                                 categories={selected.book.categories} />
-            <SelectInitButton onClick={onInitSelectedBook}>다시 고르기</SelectInitButton>
-          </Card>}
+          </ExpandableCard>}
       </Plain>
+      {selectedBook?.selected
+        ? <Plain title='얼마나 읽으셨나요?'
+                 margin='0 1rem 2rem 1rem'>
+          <Card backgroundColor='white'
+                boxShadow={selectedAmount ? undefined : 'rgba(0, 0, 0, 0.24) 0px 3px 8px'}>
+            {selectedAmount ?
+              <ReadAmountWrapper>
+                <ReadAmountSelected>{selectedAmount.displayName}</ReadAmountSelected>
+                <SelectInitButton onClick={onInitSelectAmount}>다시 고르기</SelectInitButton>
+              </ReadAmountWrapper>
+              : <Selector placeholder='이만큼 읽었어요'
+                          items={[
+                            {value: 'ABSTRACT', displayName: '서론만 읽었어요'},
+                            {value: 'LITTLE', displayName: '조금 읽어봤어요'},
+                            {value: 'ONE_CHAPTER', displayName: '한 챕터 읽었어요'},
+                            {value: 'CHAPTERS', displayName: '여러 챕터 읽었어요'},
+                            {value: 'ALL', displayName: '전부 읽었어요'},
+                          ]}
+                          onChange={onAmountChange}/>}
+          </Card>
+        </Plain>
+        : null}
     </PageFrame>
   )
 }
@@ -145,4 +186,17 @@ const SelectInitButton = styled.div`
   padding: 4px;
   border-radius: 1rem;
   margin-left: auto;
+`
+
+const ReadAmountWrapper = styled.div`
+  width: auto;
+  height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const ReadAmountSelected = styled.div`
+  font-size: large;
 `

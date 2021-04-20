@@ -21,7 +21,7 @@ const Background = styled.div`
   position: relative;
   flex-direction: row;
   justify-content: center;
-  background-color: #ccc;
+  background-color: white;
   overflow: hidden;
 `
 
