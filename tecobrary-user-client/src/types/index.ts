@@ -1,0 +1,1 @@
+export type ReviewType = 'SHORT_REVIEW' | 'BLOG_IMPORT'

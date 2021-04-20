@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface Props {
   subTitle?: string
-  title: string
+  title?: string
   margin?: string
   subTitleMargin?: string
   titleMargin?: string

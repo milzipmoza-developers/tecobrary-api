@@ -22,7 +22,7 @@ export const PageFrame = ({top, header, children}: Props): ReactElement => {
 const Wrapper = styled.div`
   width: auto;
   height: fit-content;
-  min-height: 80vh;
+  min-height: 85vh;
   background-color: #ecf0f1;
   position: relative;
   padding-bottom: 10rem;
