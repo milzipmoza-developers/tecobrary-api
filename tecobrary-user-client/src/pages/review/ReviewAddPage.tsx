@@ -78,6 +78,13 @@ function ReviewAddPage(): ReactElement {
     })
   }
 
+  const onReviewContentChange = (e: any) => {
+    setSelectedReview({
+      type: selectedReview.type,
+      content: e.target.value
+    })
+  }
+
   const onItemClick = (id: number) => {
     const searchBook = getSearchBook(id);
     if (!searchBook) {
@@ -172,14 +179,17 @@ function ReviewAddPage(): ReactElement {
         ? <Plain title='어떤 책이었나요?'
                  subTitle='블로그에서 리뷰를 가져올 수 있어요'
                  subTitleMargin='0 1rem 6px 1rem'
-                 margin='0 1rem 3rem 1rem'>
+                 margin='0 1rem 2rem 1rem'>
           <Card backgroundColor='white'
                 boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
             <CustomRadioButton marginBottom='1rem'
                                onChange={onReviewTypeChange}/>
             {selectedReview.type === 'SHORT_REVIEW'
               ? <ReviewInputWrapper>
-                <ReviewContentInput placeholder='리뷰를 10자 이상 입력해주세요'/>
+                <ReviewContentInput placeholder='리뷰를 10자 이상 입력해주세요'
+                                    rows={8}
+                                    value={selectedReview.content}
+                                    onChange={onReviewContentChange}/>
               </ReviewInputWrapper>
               : <ReviewInputWrapper>
                 <ReviewUrlInput placeholder='블로그 주소를 입력해주세요'
@@ -189,20 +199,23 @@ function ReviewAddPage(): ReactElement {
           </Card>
         </Plain>
         : null}
-      {selectedReview.content || selectedReview.url
-        ? <Plain margin='0 2rem 2rem 2rem'>
+      <SubmitButtonWrapper style={{display: `${selectedReview.content || selectedReview.url}`}}>
+        <Plain>
           <DisableableButton name='리뷰를 다 작성했어요'
                              disabled={(selectedReview.content !== undefined && selectedReview.content.length < 10)
                              || (selectedReview.url !== undefined && selectedReview.url.length < 10)}
                              onClick={() => console.log('제출하기')}/>
         </Plain>
-        : null
-      }
+      </SubmitButtonWrapper>
     </PageFrame>
   )
 }
 
 export default ReviewAddPage
+
+const SubmitButtonWrapper = styled.div`
+  margin: 0 1rem 4rem 1rem;
+`
 
 const SearchWrapper = styled.div`
   display: flex;
@@ -277,12 +290,13 @@ const ReviewUrlInput = styled.input`
     outline: none;
   }
 `
-const ReviewContentInput = styled.input`
+const ReviewContentInput = styled.textarea`
   border: none;
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
   font-size: medium;
   width: 100%;
   resize: none;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', sans-serif;
 
   &:focus {
     outline: none;
