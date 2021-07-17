@@ -34,6 +34,26 @@ interface SelectedReview {
   content?: string
 }
 
+const FIRST_STEP: ReviewStage = {
+  stage: 1,
+  displayName: '첫 단계'
+}
+
+const SECOND_STEP: ReviewStage = {
+  stage: 2,
+  displayName: '두번째 단계'
+}
+
+const THIRD_STEP: ReviewStage = {
+  stage: 3,
+  displayName: '세번째 단계'
+}
+
+interface ReviewStage {
+  stage: number
+  displayName: string
+}
+
 const initSelectedBook = (): SelectedBook => ({
   selected: false
 })
@@ -50,6 +70,7 @@ const selectBook = (book: Book): SelectedBook => ({
 // todo: refactor this component to multiple components divided by rendering unit
 function ReviewAddPage(): ReactElement {
   const [search, setSearch] = useState<Search>({keyword: ''})
+  const [stage, setStage] = useState<ReviewStage>(FIRST_STEP)
   const [searchBooks, setSearchBooks] = useState<InternalSearchBook[]>([])
   const [selectedBook, setSelectedBook] = useState<SelectedBook>()
   const [selectedAmount, setSelectedAmount] = useState<SelectedAmount | null>()
@@ -91,6 +112,7 @@ function ReviewAddPage(): ReactElement {
       throw Error('선택한 책이 존재하지 않습니다.')
     }
     setSelectedBook(selectBook(searchBook))
+    setStage(SECOND_STEP)
   }
 
   const onInitSelectBook = () => {
@@ -99,16 +121,19 @@ function ReviewAddPage(): ReactElement {
     setSelectedReview(initSelectedReview)
     setSelectedAmount(null)
     setSelectedBook(initSelectedBook)
+    setStage(FIRST_STEP)
   }
 
   const onInitSelectAmount = () => {
     setSelectedReview(initSelectedReview)
     setSelectedAmount(null)
+    setStage(SECOND_STEP)
   }
 
   const onAmountChange = (it: SelectedAmount | null) => {
     if (it) {
       setSelectedAmount(it)
+      setStage(THIRD_STEP)
     }
   }
 
@@ -117,6 +142,34 @@ function ReviewAddPage(): ReactElement {
       ...selectedReview,
       type: it
     })
+  }
+
+  const confirmButtonName = () => {
+    if (stage === FIRST_STEP) {
+      return '리뷰 완료까지 두 단계 남았어요'
+    }
+    if (stage === SECOND_STEP) {
+      return '리뷰 완료까지 한 단계 남았어요'
+    }
+    if ((selectedReview.content !== undefined && selectedReview.content.length < 10)
+      || (selectedReview.url !== undefined && selectedReview.url.length < 10)) {
+      return '리뷰 등록하기'
+    }
+    if (stage === THIRD_STEP) {
+      return '마지막 단계예요'
+    }
+    return '리뷰 등록하기'
+  }
+
+  const isConfirmButtonDisabled = () => {
+    if (stage !== THIRD_STEP) {
+      if ((selectedReview.content !== undefined && selectedReview.content.length < 10)
+        || (selectedReview.url !== undefined && selectedReview.url.length < 10)) {
+         return false
+      }
+      return true
+    }
+    return false
   }
 
   return (
@@ -199,11 +252,10 @@ function ReviewAddPage(): ReactElement {
           </Card>
         </Plain>
         : null}
-      <SubmitButtonWrapper style={{display: `${selectedReview.content || selectedReview.url}`}}>
+      <SubmitButtonWrapper>
         <Plain>
-          <DisableableButton name='리뷰를 다 작성했어요'
-                             disabled={(selectedReview.content !== undefined && selectedReview.content.length < 10)
-                             || (selectedReview.url !== undefined && selectedReview.url.length < 10)}
+          <DisableableButton name={confirmButtonName()}
+                             disabled={isConfirmButtonDisabled()}
                              onClick={() => console.log('제출하기')}/>
         </Plain>
       </SubmitButtonWrapper>
